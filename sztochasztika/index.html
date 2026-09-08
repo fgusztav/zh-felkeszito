@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<title>Sztochasztika ZH-felkészítő</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<style>
+:root{
+  --bg:#f7f6f2; --card:#ffffff; --ink:#1d1d1f; --muted:#5f6368; --line:#e3e1da;
+  --acc:#b3472d; --acc-bg:#fbeee9;
+  --def:#0b7a6f; --def-bg:#e6f5f2;
+  --thm:#7a3fb5; --thm-bg:#f1eaf9;
+  --algo:#b5641b; --algo-bg:#fbf0e5;
+  --ex:#2e6b2e; --ex-bg:#ecf5ea;
+  --warn:#b3261e; --warn-bg:#fbe9e7;
+  --code:#f0efe9;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15161a; --card:#1f2126; --ink:#e8e8ea; --muted:#a0a3ab; --line:#33363d;
+    --acc:#ff9b7a; --acc-bg:#3a241c;
+    --def:#5fd3c4; --def-bg:#15302c;
+    --thm:#c9a3f5; --thm-bg:#2a2038;
+    --algo:#f0a35e; --algo-bg:#3a2a1c;
+    --ex:#8fd08f; --ex-bg:#1e2f1e;
+    --warn:#ff8a80; --warn-bg:#3a1f1d;
+    --code:#2a2c33;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15161a; --card:#1f2126; --ink:#e8e8ea; --muted:#a0a3ab; --line:#33363d;
+  --acc:#ff9b7a; --acc-bg:#3a241c;
+  --def:#5fd3c4; --def-bg:#15302c;
+  --thm:#c9a3f5; --thm-bg:#2a2038;
+  --algo:#f0a35e; --algo-bg:#3a2a1c;
+  --ex:#8fd08f; --ex-bg:#1e2f1e;
+  --warn:#ff8a80; --warn-bg:#3a1f1d;
+  --code:#2a2c33;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;margin:0}
+.top{position:sticky;top:0;z-index:20;background:var(--card);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:.6rem;padding:.55rem .9rem}
+.top h1{font-size:1rem;margin:0;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top button{background:var(--acc-bg);color:var(--acc);border:1px solid var(--line);border-radius:8px;padding:.35rem .7rem;font-size:.9rem;cursor:pointer}
+#toc{display:none;position:sticky;top:2.9rem;z-index:19;background:var(--card);border-bottom:1px solid var(--line);max-height:70vh;overflow:auto;padding:.5rem .9rem 1rem}
+#toc.open{display:block}
+#toc a{display:block;padding:.28rem 0;color:var(--acc);text-decoration:none;border-bottom:1px dashed var(--line)}
+#toc a.sub{padding-left:1.2rem;font-size:.92rem}
+main{max-width:780px;margin:0 auto;padding:1rem .9rem 5rem}
+h2{font-size:1.45rem;margin:2.2rem 0 .6rem;padding-top:.4rem;border-top:3px solid var(--acc)}
+h3{font-size:1.15rem;margin:1.6rem 0 .4rem;color:var(--acc)}
+h4{font-size:1rem;margin:1.1rem 0 .3rem}
+p{margin:.5rem 0}
+ul,ol{padding-left:1.3rem;margin:.4rem 0}
+li{margin:.2rem 0}
+table{border-collapse:collapse;width:100%;font-size:.93rem;margin:.6rem 0}
+th,td{border:1px solid var(--line);padding:.35rem .5rem;text-align:left;vertical-align:top}
+th{background:var(--acc-bg)}
+.scroll{overflow-x:auto;max-width:100%}
+code,kbd{overflow-wrap:anywhere;background:var(--code);padding:.1rem .3rem;border-radius:4px;font-size:.92em}
+.box{border-left:4px solid var(--acc);background:var(--acc-bg);border-radius:0 10px 10px 0;padding:.6rem .8rem;margin:.8rem 0}
+.box .t{font-weight:700;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.2rem;display:block}
+.def{border-color:var(--def);background:var(--def-bg)} .def .t{color:var(--def)}
+.thm{border-color:var(--thm);background:var(--thm-bg)} .thm .t{color:var(--thm)}
+.algo{border-color:var(--algo);background:var(--algo-bg)} .algo .t{color:var(--algo)}
+.ex{border-color:var(--ex);background:var(--ex-bg)} .ex .t{color:var(--ex)}
+.warn{border-color:var(--warn);background:var(--warn-bg)} .warn .t{color:var(--warn)}
+details{margin:.4rem 0}
+summary{cursor:pointer;font-weight:600;padding:.3rem 0}
+details.sol summary{color:var(--ex)}
+details.q{border:1px solid var(--line);border-radius:8px;padding:.3rem .7rem;background:var(--card)}
+details.q summary{font-weight:500}
+details.q p{margin:.3rem 0 .2rem}
+.i{color:var(--ex);font-weight:700}.h{color:var(--warn);font-weight:700}
+.tag{display:inline-block;font-size:.72rem;background:var(--code);border-radius:6px;padding:.05rem .4rem;margin-left:.3rem;color:var(--muted);vertical-align:middle}
+.src{font-size:.8rem;color:var(--muted)}
+.chk{float:right;font-size:.85rem;font-weight:400;color:var(--muted)}
+.chk input{transform:scale(1.2);margin-right:.3rem}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;padding:.2rem 0}
+mjx-container{font-size:105%}
+mjx-container:not([display]){display:inline-block;max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:middle}
+.box p,.box li,details p,summary{overflow-wrap:anywhere}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+@media (max-width:560px){.grid2{grid-template-columns:1fr}}
+.pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.1rem .6rem;font-size:.85rem;margin:.15rem .1rem;background:var(--card)}
+hr{border:0;border-top:1px solid var(--line);margin:1.4rem 0}
+.foot{color:var(--muted);font-size:.85rem}
+details.plan{border:1px solid var(--line);border-radius:10px;background:var(--card);padding:.4rem .8rem;margin:.8rem 0}
+details.plan summary{color:var(--acc)}
+
+.top a.home{color:var(--acc);text-decoration:none;font-size:.85rem;border:1px solid var(--line);border-radius:8px;padding:.3rem .55rem;white-space:nowrap}
+#anyagok li{margin:.3rem 0}
+</style>
+<script>
+window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']],packages:{'[+]':['ams']}},svg:{fontCache:'global'},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+
+</head>
+<body>
+<div class="top">
+  <a class="home" href="../">Főmenü</a>
+  <h1>Sztochasztika – ZH-felkészítő (Rónyai-féle „Véletlen és algoritmusok”)</h1>
+  <button onclick="document.getElementById('toc').classList.toggle('open')">Tartalom</button>
+</div>
+<nav id="toc"></nav>
+
+<main>
+
+<p class="src">BMETE90MX77 · A félévközi ZH az <b>első tárgyfél</b> (1–7. hét, Rónyai Lajos: randomizált algoritmusok) anyagából van. Forrás: Rónyai <i>Véletlen és algoritmusok</i> jegyzet (2015), a 2023. decemberi 21 tételes tételsor, és a 2009–2024 közötti ZH-sorok. <b>Csak a ZH anyagát</b> tartalmazza; a vizsgás Sztochasztika-tárgyfél (generátorfüggvény, elágazó folyamatok, Poisson-folyamat, koncentrációs tételek, folytonos Markov-láncok, statisztika) szándékosan kimaradt.</p>
+
+<details class="plan" id="terv">
+<summary>Alapozó terv a ZH előtt: mit olvass / oldj meg milyen sorrendben (koppints)</summary>
+<p>Ehhez a tárgyfélhez nincs videó; az egyetlen forrás a Rónyai-jegyzet (<code>anyagok/targyhonlap/ronyai/VeletlenEsAlgoritmusok2015.pdf</code>, 93 oldal, ~40 beépített „Feladat”). A ZH várhatóan a 7–8. héten van (2023: okt. 30., 2024: okt. 29.), ezért ez sürgősebb, mint az algebra. Olvasás közben oldd meg a fejezet „Feladat”-ait, ezek a ZH levezetős feladatainak forrásai.</p>
+<div class="scroll"><table>
+<tr><th>Hét</th><th>Jegyzet</th><th>Mire figyelj / gyakorlás</th></tr>
+<tr><td>1</td><td>1. fejezet (4 oldal) + 2.1–2.2 gyorsrendezés, alsó becslés, naiv keresőfa (8 oldal)</td><td>indikátormódszer, teljes várható érték; feladatok: \(H_n\le\ln n+1\), \(P(\xi&gt;4nH_n)\) becslése</td></tr>
+<tr><td>2</td><td>2.5 Schwartz–Zippel, 2.6 hashelés, 2.7 falom (14 oldal)</td><td>a leggyakrabban kérdezett három tétel; a falom-segédfeladat (a)–(d)</td></tr>
+<tr><td>3</td><td>2.3–2.4 prím, konvex burok; 2.8 autopartíció; 2.9 ujjlenyomat; 2.10 KKT (18 oldal)</td><td>visszafelé elemzés; Rabin–Karp; \(G(p)\) és a 18. tétel</td></tr>
+<tr><td>4</td><td>3. fejezet: Erdős-módszer, vágás, Max 2SAT, derandomizálás, LLL (17 oldal)</td><td>színezős/partíciós létezés-feladatok; a 3.6 mohó algoritmus feladat</td></tr>
+<tr><td>5</td><td>4. fejezet: RP, Las Vegas, BPP, IP, ZK (14 oldal)</td><td>definíciók szó szerint; tartalmazások; a 4.2 feladatok</td></tr>
+<tr><td>6</td><td>5. fejezet: Markov-láncok, séta, PageRank, Metropolis, ER/WS/AB/Kleinberg (19 oldal)</td><td>\(h_{uv}\) számolás \(U_n,C_n,K_n\)-re; küszöbfüggvény-példa</td></tr>
+<tr><td>7</td><td>ez az oldal, <code>ronyai/ElsoKviz.pdf</code>, <code>ronyai/2013tavasz_zh.pdf</code> időre, majd a 2021/2023/2024 sorok</td><td>a 21 tétel „ZH-válasz” dobozait fejből reprodukálni</td></tr>
+</table></div>
+</details>
+
+<div class="box ex" id="anyagok"><span class="t">Letölthető alapozó anyagok (PDF)</span><p>A tanulási tervben hivatkozott diák, jegyzetek és régi ZH-k összefűzve. Csak saját tanulásra; a szerzői jog az előadóké.</p><ul><li><a href="pdf/sztoch_Ronyai_Veletlen_es_algoritmusok_2015.pdf">sztoch_Ronyai_Veletlen_es_algoritmusok_2015.pdf</a> — Rónyai Lajos: Véletlen és algoritmusok (2015) – a teljes ZH-anyag jegyzete, 93 oldal <span class="tag">93 oldal · 1037 KB</span></li><li><a href="pdf/sztoch_ElsoKviz_es_2013_ZH.pdf">sztoch_ElsoKviz_es_2013_ZH.pdf</a> — Első kvíz (Rónyai) + 2013 tavaszi ZH – gyakorlásra <span class="tag">2 oldal · 153 KB</span></li><li><a href="pdf/sztoch_regi_ZH-k_2021-2024.pdf">sztoch_regi_ZH-k_2021-2024.pdf</a> — Régi Sztochasztika ZH-sorok 2021, 2023 (ZH+pót), 2024 <span class="tag">2 oldal · 323 KB</span></li></ul></div>
+
+<h2 id="s0">0. Mit kér a ZH és hogyan állj neki</h2>
+<div class="box">
+<span class="t">A ZH szerkezete (2011–2024 minden sora ugyanilyen)</span>
+<ul>
+<li><b>90 perc, semmilyen segédeszköz.</b> Összpontszám 80 (2024-ben 65, 2023-ban 75).</li>
+<li><b>5 elméleti kérdés, 10–10 pont:</b> „Ismertesse…”, „Definiálja…”, „Mondja ki a … tételt” – a 21 tételes tételsor egy-egy tételének <b>egy részét</b> kell leírni: definíció + algoritmus + a róla szóló tétel (bizonyítás általában nem kell, ahol igen, ott a feladat mondja).</li>
+<li><b>1–2 levezetős feladat, 15–15 pont:</b> „az eredmény mellé indoklás is szükséges”. Típusok: várható érték indikátorokkal (gyorsrendezés, keresőfa), valószínűség Schwartz–Zippellel, Erdős-módszeres létezés-bizonyítás (színezés, partíció), várható elérési idő gráfon (\(h_{uv}\)), küszöbfüggvény, ZPP/Las Vegas/BPP tartalmazások.</li>
+</ul>
+</div>
+<div class="box algo">
+<span class="t">Stratégia</span>
+<ol>
+<li>A 21 tétel mindegyikéhez van lent egy <b>„ZH-válasz” doboz</b>: ennyit kell tudni leírni fejből. Ezeket tanuld meg (definíció szóról szóra, tétel pontosan, algoritmus lépésekben).</li>
+<li>A gyakoriság-táblázat mutatja, mit kérdeztek eddig legtöbbször: gyorsrendezés (7×), falom (5×), Las Vegas/RP/BPP (8×), Kleinberg (4×), Schwartz–Zippel (4×), 2-univerzális hash (4×), Max 2SAT (3×), KKT G(p) (3×), LLL (3×), ER-küszöb (4×).</li>
+<li>A levezetős feladatokhoz a <a href="#s23">23. fejezet</a> minden régi feladatot megold – a módszer 80%-ban az <b>indikátormódszer</b>.</li>
+</ol>
+</div>
+<div class="scroll">
+<table>
+<tr><th>#</th><th>Tétel (2023. dec. tételsor)</th><th>Elméleti kérdésként</th><th>Fejezet</th></tr>
+<tr><td>1</td><td>Gyorsrendezés, várható futási idő</td><td>2011, 2013t, 2015, 2021, 2023p, 2024</td><td><a href="#t1">1</a></td></tr>
+<tr><td>2</td><td>Alsó becslés, naiv bináris keresőfa</td><td>2013t, 2015, 2024 („alsó korlát”); feladat 2013ő, 2023, 2023p</td><td><a href="#t2">2</a></td></tr>
+<tr><td>3</td><td>Nagy prímszám keresése, prímteszt</td><td>–</td><td><a href="#t3">3</a></td></tr>
+<tr><td>4</td><td>Konvex burok</td><td>2010t (feladat)</td><td><a href="#t4">4</a></td></tr>
+<tr><td>5</td><td>Schwartz–Zippel + alkalmazások</td><td>2011p, 2013ő, 2023; feladat 2009, 2010ő, 2023p, 2024</td><td><a href="#t5">5</a></td></tr>
+<tr><td>6</td><td>Univerzális hashelés</td><td>2009, 2010t, 2011p, 2021, 2023</td><td><a href="#t6">6</a></td></tr>
+<tr><td>7</td><td>Falom</td><td>2009, 2010ő, 2011, 2013t, 2013ő, 2024; feladat 2010t</td><td><a href="#t7">7</a></td></tr>
+<tr><td>8</td><td>Autopartíció, RA-algoritmus</td><td>2011p, 2012</td><td><a href="#t8">8</a></td></tr>
+<tr><td>9</td><td>Ujjlenyomat-módszer (+ Rabin–Karp)</td><td>2015; feladat 2010t</td><td><a href="#t9">9</a></td></tr>
+<tr><td>10</td><td>Karger–Klein–Tarjan</td><td>2012, 2013ő, 2024</td><td><a href="#t10">10</a></td></tr>
+<tr><td>11</td><td>Hipergráf 2-színezés, Ramsey</td><td>feladat 2011, 2013t (színezések)</td><td><a href="#t11">11</a></td></tr>
+<tr><td>12</td><td>Nagy vágás, Max 2SAT</td><td>2013t, 2021, 2023, 2023p; feladat 2012</td><td><a href="#t12">12</a></td></tr>
+<tr><td>13</td><td>Derandomizálás</td><td>2011, 2011p, 2012</td><td><a href="#t13">13</a></td></tr>
+<tr><td>14</td><td>Lovász lokális lemma</td><td>2010t, 2010ő (Moser–Tardos), 2012, 2013ő, 2015</td><td><a href="#t14">14</a></td></tr>
+<tr><td>15</td><td>RP, Las Vegas, BPP</td><td>2010t, 2012, 2013ő, 2015, 2021, 2023, 2023p, 2024; feladat ZPP 2009, 2010ő, 2011p</td><td><a href="#t15">15</a></td></tr>
+<tr><td>16</td><td>Interaktív bizonyítások</td><td>2010t (IP), 2013t (GNI)</td><td><a href="#t16">16</a></td></tr>
+<tr><td>17</td><td>Nulla ismeretű bizonyítás</td><td>2011</td><td><a href="#t17">17</a></td></tr>
+<tr><td>18</td><td>Markov-láncok alaptétele, véletlen séta</td><td>feladat 2011, 2013t, 2013ő, 2015, 2021</td><td><a href="#t18">18</a></td></tr>
+<tr><td>19</td><td>PageRank, Metropolis</td><td>2010ő, 2023, 2023p</td><td><a href="#t19">19</a></td></tr>
+<tr><td>20</td><td>Erdős–Rényi, Watts–Strogatz</td><td>2010ő, 2011, 2013t, 2023; feladat 2021, 2023</td><td><a href="#t20">20</a></td></tr>
+<tr><td>21</td><td>Albert–Barabási, algoritmikus kis világ</td><td>2009, 2010ő, 2011p, 2015, 2021, 2023p, 2024</td><td><a href="#t21">21</a></td></tr>
+</table>
+</div>
+<p class="src">t = tavaszi, ő = őszi, p = pót-ZH.</p>
+
+<h2 id="s1">A. Valószínűségszámítási eszköztár (amit minden feladat használ) <label class="chk"><input type="checkbox" data-k="s1">kész</label></h2>
+<div class="box def">
+<span class="t">Alapok</span>
+<ul>
+<li>Feltételes valószínűség \(P(A|B)=P(A\cap B)/P(B)\). <b>Teljes valószínűség / teljes várható érték tétele:</b> ha \(A_1,\dots,A_n\) teljes eseményrendszer, \(E(\xi)=\sum_i P(A_i)E(\xi|A_i)\).</li>
+<li><b>Indikátormódszer:</b> ha \(X\) 0–1 értékű, \(E(X)=P(X=1)\). A várható érték lineáris (függetlenség nélkül is!): \(E(\sum X_i)=\sum P(X_i=1)\). <b>Ez a jegyzet fő fegyvere.</b></li>
+<li><b>Létezési elv (Erdős-módszer):</b> ha \(E(\xi)\ge k\), akkor van olyan \(\omega\), amelyre \(\xi(\omega)\ge k\). Ha \(P(\text{rossz})&lt;1\), akkor létezik jó objektum.</li>
+<li><b>Unió-korlát:</b> \(P(\bigcup A_i)\le\sum P(A_i)\) (szigorú, ha az események nem kizáróak).</li>
+<li>Teljesen független / páronként független események, változók. Páronként független változókra \(D^2(\sum c_i\xi_i)=\sum c_i^2D^2(\xi_i)\).</li>
+</ul>
+</div>
+<div class="box thm">
+<span class="t">Egyenlőtlenségek</span>
+<ul>
+<li><b>Markov:</b> \(\xi\ge0\) ⇒ \(P(\xi&gt;\lambda E\xi)\le1/\lambda\). (Pl. „legfeljebb \(2E\xi\) lépésben legalább 1/2 eséllyel.”)</li>
+<li><b>Csebisev:</b> \(P(|\xi-E\xi|\ge\lambda D\xi)\le1/\lambda^2\).</li>
+<li><b>Chernoff:</b> \(X_1..X_n\) teljesen független \(p\)-Bernoulli, \(S_n=\sum X_i\), \(0\le\epsilon\le1\): \(P(S_n-np\ge\epsilon np)\le e^{-\epsilon^2np/3}\) és \(P(S_n-np\le-\epsilon np)\le e^{-\epsilon^2np/3}\).</li>
+</ul>
+</div>
+<div class="box def">
+<span class="t">Eloszlások, számok</span>
+<ul>
+<li>Binomiális \((n,p)\): \(E=np\), \(D^2=np(1-p)\). Poisson \(\lambda\): \(P(\eta=k)=\lambda^ke^{-\lambda}/k!\), \(E=D^2=\lambda\); ritka események törvénye: \(\mathrm{Bin}(n,\lambda/n)\to\) Poisson.</li>
+<li>Geometriai \(p\): \(P(X=k)=p(1-p)^{k-1}\), \(k\ge1\), \(E=1/p\). Negatív binomiális \((n,p)\): \(n\) geometriai összege, \(E=n/p\), \(P(Y=k)=\binom{k-1}{n-1}p^n(1-p)^{k-n}\).</li>
+<li>Harmonikus szám \(H_n=1+\tfrac12+\dots+\tfrac1n\le\ln n+1\) (\(\approx\ln n+0{,}58\)). \(\log_2n!\approx n(\log_2n-1{,}44)\). \((1-x)\le e^{-x}\). Prímszámtétel: \(\pi(x)\approx x/\ln x\), és \(x/\ln x&lt;\pi(x)&lt;1{,}26\,x/\ln x\) (\(x\ge17\)).</li>
+</ul>
+</div>
+
+<h2 id="tB">B. Randomizált algoritmusok (tételek 1–10)</h2>
+
+<h3 id="t1">1. tétel: Gyorsrendezés és várható futási ideje <label class="chk"><input type="checkbox" data-k="t1">kész</label></h3>
+<div class="box algo">
+<span class="t">Algoritmus</span>
+<p>Összehasonlítás alapú rendezés; költség = kulcs-összehasonlítások száma. GYORSREND(\(A[1..n]\)): ha \(n&gt;1\): PARTÍCIÓ(\(s\)) – <b>egyenletesen véletlen</b> \(s\) tömbelem, a tömböt \(&lt;s\) / \(=s\) / \(&gt;s\) részekre osztja \(n-1\) összehasonlítással (két mutató \(i,j\) kívülről befelé, cserék); majd rekurzívan GYORSREND az alsó és a felső részre. Legrosszabb eset \(O(n^2)\).</p>
+</div>
+<div class="box thm">
+<span class="t">Várható költség – 1. levezetés (rekurzió)</span>
+<p>\(C(n)\) a várható költség, \(C(n,i)\) ha \(e_i\) (a nagyság szerint \(i\)-edik) az első particionáló elem. Teljes várható érték: \(C(n)=\frac1n\sum_iC(n,i)\), \(C(n,i)=n-1+C(i-1)+C(n-i)\), \(C(0)=C(1)=0\). Innen \(C(n)=n-1+\frac2n\sum_{k&lt;n}C(k)\); \(n\)-nel szorozva és az \(n-1\)-es alakot kivonva \(nC(n)=2(n-1)+(n+1)C(n-1)\), azaz \(\frac{C(n)}{n+1}&lt;\frac2n+\frac{C(n-1)}n&lt;\dots&lt;2H_n\). Tehát
+\[C(n)&lt;2(n+1)H_n\le2(n+1)(\ln n+1)=2n\ln n+O(n)\approx1{,}39\,n\log_2n.\]</p>
+</div>
+<div class="box thm">
+<span class="t">2. levezetés (indikátorváltozók) – ezt kérdezték 2011-ben és 2021-ben</span>
+<p>\(X_{ij}=1\) (\(i&lt;j\)), ha a futás során \(e_i\)-t és \(e_j\)-t valamikor összehasonlítjuk. \(\xi=\sum_{i&lt;j}X_{ij}\). <b>Állítás:</b> \(X_{ij}=1\) ⇔ a \(H=\{e_i,\dots,e_j\}\) halmazból <b>\(e_i\) vagy \(e_j\) lesz a legelső particionáló elem</b> (amíg \(H\)-ból nem választunk pivotot, nincs köztük összehasonlítás; ha \(e_l\), \(i&lt;l&lt;j\) az első, szétválnak). Mivel \(H\) minden eleme egyforma eséllyel az első: \(P(X_{ij}=1)=\frac2{j-i+1}\). Így
+\[E\xi=\sum_{i&lt;j}\frac2{j-i+1}\le\sum_{i=1}^n\sum_{\ell=1}^{n-i+1}\frac2\ell\le2nH_n.\]</p>
+</div>
+<div class="box thm">
+<span class="t">Erősebb korlát</span>
+<p><b>Definíció:</b> az \(A\) algoritmus költsége <b>nagy valószínűséggel \(O(f(n))\)</b>, ha vannak \(c,d&gt;0\), hogy minden \(n\) hosszú bemeneten \(P(\text{költség}&gt;cf(n))\le1/n^d\). <b>6. Tétel:</b> a gyorsrendezés költsége nagy valószínűséggel \(O(n\log n)\). Bizonyítás-vázlat: a rekurziós fa egy csúcsa <i>szerencsés</i>, ha a pivot mindkét részt \([|S|/4,3|S|/4]\)-be osztja (\(P\ge1/2\)); egy gyökér–levél úton legfeljebb \(\log_{4/3}n\le4\log n\) szerencsés csúcs; Chernoffal \(P(\text{mélység}\ge24\log n)\le n^{-16/9}\), így \(P(\text{van ilyen mély csúcs})\le n^{-7/9}\).</p>
+</div>
+<div class="box ex">
+<span class="t">ZH-válasz (10 pont): „Mutassa be a gyorsrendezést, adja meg az időigényét és az erre tanult alsó korlátot”</span>
+<p>Algoritmus + PARTÍCIÓ vázlat (\(n-1\) összehasonlítás) · legrosszabb \(O(n^2)\) · várható \(C(n)&lt;2(n+1)H_n\approx1{,}39n\log_2n\) (rekurzió vagy indikátor) · nagy valószínűséggel \(O(n\log n)\) · alsó korlát: bármely (randomizált) összehasonlítás alapú rendezés átlagos költsége \(\ge\lfloor\log_2n!\rfloor\approx n\log_2n-1{,}44n\) ⇒ a gyorsrendezés konstans szorzó erejéig optimális.</p>
+</div>
+
+<h3 id="t2">2. tétel: Alsó becslés a rendezésre; naiv bináris keresőfa <label class="chk"><input type="checkbox" data-k="t2">kész</label></h3>
+<div class="box thm">
+<span class="t">7. és 8. Tétel</span>
+<p><b>7.</b> Determinisztikus összehasonlítás alapú rendező algoritmus az \(n!\) bemeneti sorrendre <b>átlagosan</b> legalább \(\lfloor\log_2n!\rfloor\) összehasonlítást végez. <i>Biz.:</i> döntési fa (csúcs = összehasonlítás, bal = igen, jobb = nem); minden levélhez különböző input tartozik ⇒ \(n!\) levél; adott levélszám mellett a gyökér–levél utak hosszösszege akkor minimális, ha a fa teljes és a levelek a \(\lfloor\log_2k\rfloor,\lceil\log_2k\rceil\) szinteken vannak ⇒ átlag \(\ge\lfloor\log_2n!\rfloor\).</p>
+<p><b>8.</b> Randomizált algoritmusra a várható lépésszám átlaga is \(\ge\lfloor\log_2n!\rfloor\). <i>Biz.:</i> a randomizált \(A\) = eloszlás determinisztikus \(A_w\) algoritmusokon (\(w\) a véletlen bitsorozat); \(\frac1{n!}\sum_\pi\sum_wP(w)\,\mathrm{cost}(A_w,\pi)=\sum_wP(w)\cdot\frac1{n!}\sum_\pi\mathrm{cost}\ge\sum_wP(w)\lfloor\log_2n!\rfloor\).</p>
+</div>
+<div class="box thm">
+<span class="t">Naiv beszúrásos bináris keresőfa</span>
+<p>Modell: \(b_1&lt;\dots&lt;b_n\) kulcsok <b>véletlen sorrendben</b> érkeznek, minden új kulcs levélbe kerül (a fa nem változik; \(a_1\) a gyökér). \(T(n)\) átlagos összköltség: \(T(n)=\frac1n\sum_jT(n,j)\), \(T(n,j)=n-1+T(j-1)+T(n-j)\) – <b>ugyanaz a rekurzió, mint a gyorsrendezésé</b> ⇒ \(T(n)\le1{,}39n\log_2n+O(n)\), egy beszúrás átlagosan \(O(\log n)\). (Egy \(l\) szintű bináris fában \(n\le2^l-1\) csúcs, tehát \(\log_2n\) a legjobb remélhető szintszám.)</p>
+</div>
+<div class="box algo">
+<span class="t">Feladat-kulcs a naiv keresőfához (2013ő, 2023, 2023p)</span>
+<p>Kulcsok \(1..n\) véletlen sorrendben. <b>\(j\) leszármazottja \(i\)-nek ⇔ az \(\{i,\dots,j\}\) (ill. \(\{j,\dots,i\}\)) intervallumból \(i\) érkezett legelőször</b> (ugyanaz a gondolat, mint a gyorsrendezésnél: az intervallum első beszúrt eleme szétválasztja a többit). Ebből: \(P(j\text{ leszárm. }i\text{-nek})=\frac1{|j-i|+1}\); \(i\)-nek van bal fia ⇔ \(i\) előbb jött, mint \(i-1\) (\(P=\tfrac12\)); \(i\) levél ⇔ \(i-1,i,i+1\) közül \(i\) jött utoljára (\(P=\tfrac13\) belső kulcsra, \(\tfrac12\) az \(1\) és \(n\) kulcsra). Kidolgozás a <a href="#s23">23. fejezetben</a>.</p>
+</div>
+
+<h3 id="t3">3. tétel: Nagy prímszám keresése, prímtesztelés <label class="chk"><input type="checkbox" data-k="t3">kész</label></h3>
+<div class="box thm">
+<span class="t">ZH-válasz</span>
+<p>Feladat: adott \(n\), keressünk \(n\) bites prímet (RSA-hoz, \(n\) több száz). Módszer: válasszunk egyenletesen véletlen \(m\in[2^{n-1},2^n-1]\), és vessük alá prímtesztnek (Rabin–Miller, ld. 15. tétel); ismételjük, amíg prímet nem találunk. <b>Prímszámtétel:</b> \(\lim\pi(x)/(x/\ln x)=1\). Az \(n\) bites prímek száma \(\pi(2^n)-\pi(2^{n-1})\approx\frac{2^{n-1}}{\ln2}\cdot\frac1n\), így a találat valószínűsége \(\approx\frac1{n\ln2}\); \(n=300\)-ra \(\approx1/208\), várhatóan kb. 208 próbálkozás (\(n\)-ben lineáris). Általában \([1,m]\)-ben \(\approx1/\ln m\) eséllyel találunk prímet. Biztos korlátok: \(\pi(x)&gt;x/\ln x\) (\(x\ge17\)), \(\pi(x)&lt;1{,}26x/\ln x\).</p>
+</div>
+
+<h3 id="t4">4. tétel: Konvex burok számítása <label class="chk"><input type="checkbox" data-k="t4">kész</label></h3>
+<div class="box def">
+<span class="t">Fogalmak</span>
+<p>\(H\subseteq\mathbb{R}^n\) konvex, ha \(P,Q\in H\Rightarrow[P,Q]\subseteq H\). Konvex halmazok metszete konvex. Konvex burok = a \(H\)-t tartalmazó konvex halmazok metszete; síkban korlátos zárt halmazra = a tartalmazó zárt félsíkok metszete. Feladat: általános helyzetű (nincs 3 egy egyenesen) \(P_1..P_n\) síkbeli pont burka = sokszög, a határán levő pontokat kell megadni körüljárási sorrendben. Naiv inkrementális: \(O(n^2)\); determinisztikus \(O(n\log n)\) is létezik.</p>
+</div>
+<div class="box algo">
+<span class="t">Randomizált inkrementális algoritmus, \(O(n\log n)\) várható idő</span>
+<ol>
+<li>Véletlen 3 pont: \(\Delta=P_1P_2P_3\) háromszög, plusz egy belső \(D\) pont. Karbantartott \(T\) leképezés: \(T(P_j)=\)„belső”, ha \(P_j\) a jelenlegi burokban van, különben az az él, amelyet a \([D,P_j]\) szakasz metsz; \(T^{-1}\) is (élhez a rá mutató pontok).</li>
+<li>Fő lépés: véletlen \(P\in H\setminus H'\). Ha \(T(P)=\)belső, csak hozzávesszük. Ha \(T(P)=e\) él: az \(e\)-től jobbra-balra a kerítés mentén megkeressük az utolsó \(P\)-ből látszó \(P',P''\) csúcsokat, a köztes kerítésszakaszt \(P'P\), \(PP''\)-re cseréljük, és a törölt szakaszokra mutató \(M\) pontokra újraszámoljuk \(T(M)\)-et.</li>
+</ol>
+<p><b>Elemzés (visszafelé elemzés):</b> keletkező kerítésélek száma \(\le3+2(n-3)\) ⇒ élek kezelése \(O(n)\); „belső”-vé válás pontonként egyszer ⇒ \(O(n)\). Marad: \(Z_{ij}=1\), ha \(T(P_i)\) a \(j\)-edik iteráció után <i>másik él</i> lett. A filmet visszafelé nézve a \(j\)-edik lépés után a \(j\) feldolgozott pont közül egyenletesen véletlen pontot törlünk; \(T(P_i)\) csak akkor változik, ha a törölt pont az \(e=T(P_i)\) él két végpontjának egyike ⇒ \(P(Z_{ij}=1)\le2/j\). \(E\sum Z_{ij}\le\sum_i\sum_j2/j\le2nH_n\) ⇒ összesen \(O(n\log n)\).</p>
+</div>
+
+<h3 id="t5">5. tétel: Schwartz–Zippel-tétel és alkalmazásai <label class="chk"><input type="checkbox" data-k="t5">kész</label></h3>
+<div class="box thm">
+<span class="t">10. Tétel (Schwartz–Zippel)</span>
+<p>Legyen \(f\in F[x_1..x_n]\) nem azonosan 0 polinom, foka \(d\) (fok = egy tagban a legnagyobb változószám); \(T\subseteq F\), \(|T|=N\); \(\alpha_1..\alpha_n\) egyenletesen, teljesen függetlenül \(T\)-ből. Ekkor
+\[P(f(\alpha_1,\dots,\alpha_n)=0)\le\frac dN.\]
+<i>Biz.:</i> \(n\) szerinti indukció. \(n=1\): egyváltozós \(d\)-fokú polinomnak \(\le d\) gyöke. \(n&gt;1\): \(f=h_0(y)+h_1(y)x_1+\dots+h_k(y)x_1^k\), \(y=(x_2..x_n)\), \(h_k\not\equiv0\), \(\deg h_k\le d-k\). \(A_1=\{h_k(\alpha_2..\alpha_n)=0\}\), \(B=\{f(\alpha)=0\}\): \(P(B)\le P(A_1)+P(B|\overline{A_1})\le\frac{d-k}N+\frac kN=\frac dN\). Következmény: \(N=2d\)-vel \(P\le1/2\); \(t\) független ismétléssel \(&lt;2^{-t}\).</p>
+</div>
+<div class="box algo">
+<span class="t">Alkalmazások (egyet tudni kell kifejteni)</span>
+<ol>
+<li><b>Teljes párosítás páros gráfban</b> \(G=(L,U;E)\), \(|L|=|U|=n\): \(M=(m_{ij})\), \(m_{ij}=x_{ij}\) ha \((l_i,u_j)\in E\), különben 0. <b>11. Tétel:</b> van teljes párosítás ⇔ \(\det M\not\equiv0\) (a determináns \(\pm x_{1i_1}\cdots x_{ni_n}\) tagjai pont a párosítások, nem ejthetik ki egymást). \(\det M\) foka \(\le n\); véletlen \(\alpha\in\{1..2n\}^{n^2}\) behelyettesítéssel \(P(\det M(\alpha)=0)\le n/2n=1/2\), ha van párosítás; egy teszt \(O(n^3)\) (Gauss-elimináció), jól párhuzamosítható.</li>
+<li><b>Mátrixszorzás ellenőrzése</b> \(AB\overset?=C\) \(O(n^2)\) idővel: \(|T|=n\), véletlen \(\alpha\in T^n\) oszlopvektor, teszt \(A(B\alpha)\overset?=C\alpha\) (3 mátrix–vektor szorzás). Ha \(AB=C\), mindig igen. Ha \(AB\ne C\), \(y=(AB-C)x\) valamely \(y_j\) koordinátája nem azonosan 0 <b>elsőfokú</b> polinom ⇒ \(P(y_j(\alpha)=0)\le1/n\).</li>
+<li>Polinomazonosság \(f\equiv g\)? – \(|T|=4d\)-vel \(f\ne g\) esetén \(\ge3/4\) eséllyel \(f(\alpha)\ne g(\alpha)\) (ujjlenyomat).</li>
+<li>Hiperfelületen kívüli pont keresése; az IP⊇coNP protokoll hibabecslése.</li>
+</ol>
+</div>
+
+<h3 id="t6">6. tétel: Univerzális hashelés <label class="chk"><input type="checkbox" data-k="t6">kész</label></h3>
+<div class="box def">
+<span class="t">Definíció</span>
+<p>\(X\) kulcshalmaz, \(|X|=r\); \([M]=\{0..M-1\}\) hash-címek; \(H\) egy \(X\to[M]\) függvényhalmaz. \(H\) <b>2-univerzális</b>, ha minden \(x\ne y\in X\)-re egyenletesen választott \(h\in H\)-ra \(P(h(x)=h(y))\le\frac1M\). Ekvivalens: \(\delta(x,y,H)=\sum_{h}\delta(x,y,h)\le|H|/M\), ahol \(\delta(x,y,h)=1\) ha \(x\ne y\), \(h(x)=h(y)\). Példa: az összes függvény (\(M^r\) darab) 2-univerzális, de túl nagy.</p>
+</div>
+<div class="box thm">
+<span class="t">Alkalmazás – 12. Tétel (ezt kérik: „az alkalmazásáról tanult tétel”)</span>
+<p><b>Állítás:</b> \(E(\delta(x,S,h))\le|S|/M\) (várható ütközésszám). Láncolt hash-szerkezet, \(x\)-et érintő művelet költsége \(\le1+\delta(x,S,h)\). <b>12. Tétel:</b> üres szerkezetből indulva \(t_1..t_n\) műveletsor (beszúr/keres/töröl/módosít), benne \(k\le M\) beszúrás, véletlen \(h\in H\) mellett várható összköltség \(O(n(1+k/M))=O(n)\); egy művelet várható költsége konstans. <b>Példa:</b> \(n\) egész koordinátájú síkbeli pont közt van-e \(P\ne Q\), \(d(P,Q)\le2\)? Naiv \(O(n^2)\), keresőfával \(O(n\log n)\) (minden ponthoz a 12 közeli rácspontot keressük); 2-univerzális hasheléssel \(M=n\): \(n\) beszúrás + \(12n\) keresés várhatóan \(O(n)\).</p>
+</div>
+<div class="box thm">
+<span class="t">Konstrukció – 13. Tétel (2011p: „a méretére vonatkozó korláttal együtt”)</span>
+<p>\(p\ge r\) prím, \(X=\mathbb{F}_p=\{0..p-1\}\). \(f_{a,b}(x)=ax+b\bmod p\), \(g(x)=x\bmod M\), \(h_{a,b}=g\circ f_{a,b}\). \(H^*=\{h_{a,b}:a\ne0\}\), \(|H^*|=p(p-1)\); Csebisev tétele szerint \((r,2r)\)-ben van prím, így \(p&lt;2r\) és \(|H^*|&lt;4r^2\) (egy \(h\) leírható \(\approx2\log_2r\) bittel, gyorsan számolható). <b>13. Tétel:</b> \(H^*\) 2-univerzális. <i>Biz.:</i> \(x\ne y\)-ra az \(ax+b\equiv u\), \(ay+b\equiv v\) rendszer determinánsa \(x-y\ne0\), így \((a,b)\leftrightarrow(u,v)\), \(u\ne v\) bijekció; ütközés ⇔ \(u\equiv v\pmod M\); ilyen \((u,v)\) pár \(\le p\cdot\frac{p-1}M\) van ⇒ \(\delta(x,y,H^*)\le p(p-1)/M=|H^*|/M\).</p>
+</div>
+
+<h3 id="t7">7. tétel: A falom (treap) <label class="chk"><input type="checkbox" data-k="t7">kész</label></h3>
+<div class="box def">
+<span class="t">Definíció</span>
+<p>Bináris fa, csúcsaiban \((k,p)\) párok: \(k\) kulcs, \(p\in[0,1]\) egyedi prioritás. A \(k\) kulcsok szerint <b>bináris keresőfa</b>, a \(p\) prioritások szerint <b>max-kupac</b> (minden csúcs prioritása nagyobb a részfájabeliekénél). A prioritásokat az algoritmus sorsolja: egyenletesen \([0,1]\)-ből, csúcsonként függetlenül. <b>Állítás:</b> a falom alakját a benne levő párok egyértelműen meghatározzák (gyökér = max prioritás, bal részfa = kisebb kulcsok, rekurzívan).</p>
+</div>
+<div class="box algo">
+<span class="t">Műveletek</span>
+<ul>
+<li><b>keres, min, max:</b> mint keresőfában.</li>
+<li><b>beszúr(k):</b> naiv beszúrással megkeressük \(k\) helyét (új levél), sorsolunk hozzá véletlen \(p\)-t, majd <b>forgatásokkal felfelé mozgatjuk</b>, amíg a kupac-tulajdonság helyre nem áll (a forgatás a keresőfa-tulajdonságot megőrzi).</li>
+<li><b>töröl(k):</b> forgatásokkal levisszük levélpozícióba (mindig a nagyobb prioritású gyerek felé forgatunk), ott töröljük.</li>
+<li>Gyakorlatban \(p\)-nek csak annyi bitjét sorsoljuk, hogy az apáéval összehasonlítható legyen.</li>
+</ul>
+</div>
+<div class="box thm">
+<span class="t">14–15. Tétel (ezt kell kimondani)</span>
+<p><b>14.:</b> \(n\) csúcsú falomban a gyökértől bármely \(x\) csúcsig az út hossza várhatóan \(\le2\log n+2\) ⇒ keresés várhatóan \(O(\log n)\). <i>Biz.:</i> \(X_{ij}=1\), ha a \([k_i,k_j]\) kulcsintervallumban \(k_j\)-é a legnagyobb prioritás; \(k_j\) őse \(k_i\)-nek ⇔ \(X_{ij}=1\) (inorder-érv); \(P(X_{ij}=1)=\frac1{|j-i|+1}\); \(E(\text{mélység})=\sum_jP(X_{ij}=1)\le2H_n\).</p>
+<p><b>15.:</b> \(k_i\) törlésekor a forgatások száma \(\le\sum_jY_{ij}\), várható értéke \(\le2\), ahol \(Y_{ij}=1\), ha \([k_i,k_j]\)-ben \(k_i\) prioritása a legnagyobb és \(k_j\)-é a második; \(P(Y_{ij}=1)=\frac1{(|j-i|+1)|j-i|}\), teleszkópos összeg \(\le2\). <b>Következmény:</b> beszúrás és törlés várható költsége is \(O(\log n)\) (beszúrás = törlés visszafelé). Megjegyzés: a fa magassága is várhatóan \(O(\log n)\). A falom alakja = a kulcsok prioritás szerint csökkenő sorrendben naivan beszúrt keresőfája ⇒ ugyanaz, mint egy véletlen sorrendű naiv keresőfa.</p>
+</div>
+<div class="box def">
+<span class="t">Segédfeladat (kell az elemzéshez és a ZH-feladatokhoz)</span>
+<p>\(p_1..p_d\) független egyenletes: (a) \(P(p_1&gt;p_2)=\tfrac12\); (b) adott sorrend \(1/d!\); (c) \(P(p_i=\max)=1/d\); (d) \(P(p_1\text{ a max és }p_d\text{ a második})=\frac1{d(d-1)}\).</p>
+</div>
+
+<h3 id="t8">8. tétel: Síkbeli autopartíció, RA-algoritmus <label class="chk"><input type="checkbox" data-k="t8">kész</label></h3>
+<div class="box def">
+<span class="t">Feladat és algoritmus</span>
+<p>Adott \(T\) téglalap, benne \(n\) egymást nem metsző \(s_1..s_n\) szakasz. Bontsuk fel \(T\)-t minél kevesebb konvex tartományra úgy, hogy a szakaszok csak tartományhatáron legyenek (grafika: Painter's algoritmus). <b>RA (randomised autopartitioning):</b> rekurzívan bináris fát épít, csúcs \((R,L)\): \(R\) tartomány, \(L\) a benne levő szakasz(darab)ok. Gyökér \((T,\{s_1..s_n\})\). Lépés: ha \(L=\emptyset\), kész; különben egyenletesen véletlen \(s\in L\), \(R\)-t az \(s\) egyenesével \(R_1,R_2\)-re vágjuk, a metszett szakaszokat kettévágjuk, \(L_1,L_2\) listák, rekurzió.</p>
+</div>
+<div class="box thm">
+<span class="t">Elemzés: várhatóan \(O(n\log n)\) tartomány</span>
+<p>Tartományok száma \(\le2\cdot\)szakaszdarabok száma \(=2(n+\)osztópontok\()\). \(Y_{ij}=1\), ha \(s_i\) egyenese vágja \(s_j\)-t. \(\mathrm{index}(i,j)\) = az \(s_i\) egyenese által \(s_j\) előtt metszett szakaszok száma. \(Y_{ij}=1\) csak akkor, ha az \(s_i,s_j,v_1..v_{\mathrm{index}}\) (\(\ge\mathrm{index}+2\) szakasz) közül \(s_i\)-t választjuk elsőnek ⇒ \(P(Y_{ij}=1)\le\frac1{\mathrm{index}(i,j)+2}\). Adott \(i,k\)-ra legfeljebb 2 olyan \(j\) van, amelyre \(\mathrm{index}(i,j)=k\) (két irány). Így \(E(Y)\le\sum_i\sum_k\frac2k=2nH_n\) ⇒ \(O(n\log n)\) tartomány; Markov: \(P(Y&gt;8nH_n)\le1/4\). Egyben létezés-bizonyítás ilyen kis autopartícióra.</p>
+</div>
+
+<h3 id="t9">9. tétel: Az ujjlenyomat-módszer <label class="chk"><input type="checkbox" data-k="t9">kész</label></h3>
+<div class="box def">
+<span class="t">Elv</span>
+<p>\(x\overset?=y\) nagy \(U\)-ban: \(f:U\to V\), \(|V|\ll|U|\); \(f(x)\ne f(y)\Rightarrow x\ne y\) biztosan; \(f(x)=f(y)\Rightarrow\) „valószínűleg \(x=y\)”, kis hibával. A hashelés és a Schwartz–Zippel-behelyettesítés is ujjlenyomat.</p>
+</div>
+<div class="box thm">
+<span class="t">Kommunikációs bonyolultság</span>
+<p>\(A\)-nál \(x\), \(B\)-nél \(y\in\{0,1\}^n\); determinisztikusan \(n+1\) bit kell. Véletlennel: \(A\) választ véletlen \(p\) prímet \([1,\tau]\)-ból, \(f_p(x)=x\bmod p\) (\(x\)-et binárisan egésznek tekintve), elküldi \(p\)-t és \(f_p(x)\)-et; \(B\) összehasonlítja \(f_p(y)\)-nal. <b>Hiba:</b> \(P(f_p(x)=f_p(y)\,|\,x\ne y)\le\frac n{\pi(\tau)}\), mert \(|x-y|\le2^n\)-nek legfeljebb \(n\) prímosztója van. \(\tau=(n\log n)^2\)-vel \(\frac n{\pi(\tau)}\le\frac{n\ln\tau}\tau=O(1/n)\), és \(\approx2\log_2\tau\le8\log_2n\) bit megy át.</p>
+</div>
+<div class="box algo">
+<span class="t">Rabin–Karp mintaillesztés (2015: „időigény és hibázási valószínűség”)</span>
+<p>\(s=s_1..s_n\) szöveg, \(m=m_1..m_d\) minta (bitek). \(\tau=d(n\log n)^2\), véletlen \(p\in[1,\tau]\) prím. \(j=1,2,\dots\): hasonlítsd \(f_p(m)\)-et \(f_p(s(j))\)-vel (\(s(j)=s_j..s_{j+d-1}\)); egyezésnél illeszkedést jelzünk. Gördülő számítás: \(f_p(s(j+1))=2f_p(s(j))-2^ds_j+s_{j+d}\bmod p\) ⇒ az összes ujjlenyomat \(O(n+d)\). Hiba egy helyen \(\le d/\pi(\tau)\), valahol \(\le nd/\pi(\tau)=O(1/n)\). <b>Monte Carlo</b> változat: egyezésnél megállunk (hibázhat, \(O(n+d)\)). <b>Las Vegas</b>: egyezésnél átváltunk a naiv algoritmusra (sosem hibázik); várható költség a teljes várható érték tételével \(\le c(n+d)+\frac1n\cdot cnd=O(n+d)\). Több (\(k\)) minta egyszerre: hash-szerkezet \(h=f_p\)-vel, \(O(n+kd)\).</p>
+</div>
+
+<h3 id="t10">10. tétel: Karger–Klein–Tarjan-algoritmus <label class="chk"><input type="checkbox" data-k="t10">kész</label></h3>
+<div class="box def">
+<span class="t">Fogalmak</span>
+<p>\(G=(V,E,c)\) súlyozott irányítatlan gráf (\(n=|V|\), \(e=|E|\)), feltesszük: nincs két azonos súly; nem feltétlen összefüggő ⇒ minimális költségű feszítőerdő (<b>mkf</b>). Kruskal/Prim \(O((n+e)\log n)\); nyitott, van-e lineáris determinisztikus. <b>Borůvka-menet:</b> minden csúcshoz a legkisebb súlyú élét kékre színezzük, kék élek \(\to F\), kék éleket összehúzzuk (hurok törlése, párhuzamosból a minimális marad); a csúcsszám legalább feleződik; egy menet \(O(n+e)\).</p>
+<p><b>\(F\)-nehéz / \(F\)-könnyű él:</b> \(F\) erdő, \(w_F(u,v)\) = a \(u\)–\(v\) \(F\)-beli út maximális élsúlya (\(\infty\), ha nincs út). \((u,v)\) \(F\)-nehéz, ha \(c(u,v)&gt;w_F(u,v)\), különben \(F\)-könnyű. <b>Állítás:</b> \(F\)-nehéz él nincs benne egyetlen mkf-ben sem. <b>16. Tétel:</b> \(F\) feszítőerdő mkf ⇔ \(F\) = az \(F\)-könnyű élek halmaza. <b>17. Tétel (King–Komlós):</b> az \(F\)-könnyű élek listája \(O(n+e)\) determinisztikus idővel megadható (mkf-verifikálás lineáris időben).</p>
+</div>
+<div class="box thm">
+<span class="t">A \(G(p)\) gráf és a 18. Tétel (2012, 2013ő, 2024 kérdése)</span>
+<p><b>\(G(p)\):</b> \(G\) véletlen részgráfja ugyanazon a \(V\)-n; minden \(f\in E\) élt a többitől függetlenül \(p\) valószínűséggel tartunk meg. Éleinek várható száma \(e\cdot p\). <b>18. Tétel:</b> ha \(F\) a \(G(p)\) mkf-je, \(\xi\) a \(G\) \(F\)-könnyű éleinek száma, akkor \(E(\xi)\le n/p\). <i>Biz.:</i> az éleket növekvő súly szerint sorsoljuk, közben Kruskallal építjük \(F\)-et; \(f_i\) pontosan akkor \(F\)-könnyű, ha végpontjai az eddigi \(F\) különböző komponenseiben vannak – ez a sorsolása előtt eldől; könnyű él fej esetén \(F\)-be kerül, ilyen fej \(\le n-1\); a könnyű éleken végzett „fontos” sorsolások száma \(\le\) az \(n\)-edik fejig tartó dobásszám, ami \((n,p)\) negatív binomiális, várható értéke \(n/p\).</p>
+</div>
+<div class="box algo">
+<span class="t">MKF-algoritmus és elemzése</span>
+<ol>
+<li>3 Borůvka-menet; kék élek \(C\), összehúzott gráf \(G_1\) (\(\le n/8\) csúcs). Ha üres, \(F:=C\).</li>
+<li>\(G_2:=G_1(\tfrac12)\) (mintavétel).</li>
+<li>Rekurzívan mkf \(G_2\)-re: \(F_2\).</li>
+<li>King–Komlóssal töröljük \(G_1\)-ből az \(F_2\)-nehéz éleket ⇒ \(G_3\) (várhatóan \(\le2\cdot n/8=n/4\) éle marad a 18. tétel szerint).</li>
+<li>Rekurzívan mkf \(G_3\)-ra: \(F_3\).</li>
+<li>\(F:=C\cup F_3\).</li>
+</ol>
+<p>Helyesség: a mkf \(=C\cup F^*\), \(F^*\) a \(G_1\) mkf-je, és nehéz élek eldobása nem változtat rajta. Idő: \(T(n,e)\le\sum_ip_iT(n/8,i)+\sum_jq_jT(n/8,j)+c(n+e)\), ahol \(\sum ip_i\le e/2\), \(\sum jq_j\le n/4\); indukcióval \(T(n,e)\le2c(n+e)\) ⇒ <b>lineáris várható idő</b> (sőt nagy valószínűséggel lineáris).</p>
+</div>
+
+<h2 id="tC">C. Véletlen és létezés (tételek 11–14)</h2>
+
+<h3 id="t11">11. tétel: Hipergráfok 2-színezése, Ramsey-számok (Erdős-módszer) <label class="chk"><input type="checkbox" data-k="t11">kész</label></h3>
+<div class="box thm">
+<span class="t">19. Tétel (Erdős)</span>
+<p>\(H_1..H_m\) az \(U\) halmaz \(r\) elemű részhalmazai, \(m\le2^{r-1}\). Ekkor \(U\) 2-színezhető (piros/fehér) úgy, hogy egyetlen \(H_i\) sem egyszínű. <i>Biz.:</i> minden pontot \(\tfrac12\)–\(\tfrac12\) eséllyel, függetlenül színezünk. \(R_i\)=„\(H_i\) egyszínű”, \(P(R_i)=2\cdot2^{-r}=2^{1-r}\). \(P(\text{van egyszínű})\le\sum P(R_i)=m/2^{r-1}\le1\), és szigorú \(&lt;\), mert az \(R_i\)-k nem kizáróak ⇒ \(P(\text{jó színezés})&gt;0\) ⇒ létezik. Ha \(m/2^{r-1}\) jóval kisebb 1-nél, a véletlen színezés jó randomizált algoritmus (pl. \(m=10^5,r=20\): hiba \(&lt;1/4\)). A 2-színezhetőség eldöntése általában NP-teljes.</p>
+</div>
+<div class="box thm">
+<span class="t">Ramsey-számok</span>
+<p><b>Def.:</b> \(R(s,t)\) a legkisebb \(n\), amelyre \(K_n\) éleinek bármely piros–fehér színezésében van piros \(K_s\) vagy fehér \(K_t\). \(R(3,3)=6\) (\(v\)-ből 3 azonos színű él; a 3 végpont közti élek), \(R(2,t)=R(s,2)=t\). <b>20. Tétel (Erdős–Szekeres):</b> \(R(s,t)\le R(s-1,t)+R(s,t-1)\), így \(R(s,t)\le\binom{s+t-2}{s-1}\); következmény \(R(t,t)&lt;4^t\). <b>21. Tétel (Erdős, 1947):</b> \(t\ge3\)-ra \(R(t,t)&gt;2^{t/2}\). <i>Biz.:</i> \(N=\lfloor2^{t/2}\rfloor\), \(K_N\) éleit véletlenül színezzük; egy rögzített \(t\)-elemű \(X\) csúcshalmaz egyszínű \(2^{1-\binom t2}\) valószínűséggel; \(p&lt;\binom Nt2^{1-\binom t2}\le\frac{N^t}{t!}2^{-t^2/2}2^{t/2+1}\le2^{t(\log_2N-t/2)}\le1\), mert \(\log_2N\le t/2\) és \(2^{t/2+1}/t!\le1\). Ha \(t=4\log_2N\), a rossz színezés esélye \(\le N^{-4}\) – algoritmikusan is jó.</p>
+</div>
+<div class="box thm">
+<span class="t">Kiegészítés: klikkszám és Turán-tétel (2010ő kérdezte)</span>
+<p><b>Állítás:</b> \(\omega(G)\ge\sum_{i=1}^n\frac1{n-d_i}\). <i>Biz.:</i> véletlen \(\pi\) permutáció; \(C_\pi\): \(w_i\) bekerül, ha minden korábbi \(w_j\) szomszédja – ez klikk; \(i\in C_\pi\) ⇔ \(i\) megelőzi mind az \(n-d_i\) nem-szomszédját, \(P=\frac1{n-d_i}\); \(E|C_\pi|=\sum\frac1{n-d_i}\). <b>22. Tétel (Turán):</b> ha \(G\) nem tartalmaz \(K_p\)-t, \(|E|\le(1-\frac1{p-1})\frac{n^2}2\). <i>Biz.:</i> Cauchy–Schwarz \(a_i=\sqrt{n-d_i}\), \(b_i=1/a_i\): \(n^2\le\sum(n-d_i)\cdot\sum\frac1{n-d_i}\le(n^2-2|E|)\omega(G)\le(n^2-2|E|)(p-1)\).</p>
+</div>
+
+<h3 id="t12">12. tétel: Nagy vágás, Max 2SAT <label class="chk"><input type="checkbox" data-k="t12">kész</label></h3>
+<div class="box thm">
+<span class="t">Nagy vágás – 23. Tétel + szórás (2023p: „\(k(S)\) várható értéke és szórása”)</span>
+<p>\(S\subseteq V\) vágás, \(k(S)\) = keresztező élek száma. <b>Tétel:</b> van \(S\), amelyre \(k(S)\ge e/2\). <i>Biz.:</i> minden csúcs \(\tfrac12\) eséllyel, függetlenül \(S\)-be; \(Y_f\) az \(f\) él keresztezésének indikátora, \(P(Y_f=1)=2/4=\tfrac12\); \(E(k(S))=\sum_fE(Y_f)=e/2\). <b>Szórás:</b> az \(Y_f\)-ek páronként függetlenek, \(D^2(Y_f)=\tfrac14\), így \(D^2(k(S))=e/4\), \(D(k(S))=\sqrt e/2\). Csebisev \(\lambda=2\): \(P(|k(S)-e/2|\ge\sqrt e)\le\tfrac14\). A max-vágás NP-nehéz.</p>
+</div>
+<div class="box thm">
+<span class="t">Max 2SAT – 25. Tétel</span>
+<p>2-CNF: \(\varphi=C_1\wedge\dots\wedge C_m\), \(C_i=l_{i1}\vee l_{i2}\) literálok; <b>élő</b>, ha minden tagban pontosan két különböző változó. 2SAT polinomiális, 3SAT NP-teljes, <b>Max 2SAT</b> (maximális számú igaz tag) NP-nehéz. Kapcsolat: \(G\) éleihez \(x_u\vee x_v\) és \(\bar x_u\vee\bar x_v\) tagok ⇒ igaz tagok száma \(|E|+k(S)\) (max-vágás speciális eset). <b>Tétel:</b> élő 2-CNF-nek van olyan kiértékelése, amely a tagok legalább \(\tfrac34\)-ét igazzá teszi. <i>Biz.:</i> véletlen független \(\tfrac12\)–\(\tfrac12\) kiértékelés; \(C_i\) hamis csak ha mindkét literál hamis: \(\tfrac14\); \(E(\#\text{igaz})=\tfrac34m\). <b>Algoritmus:</b> a véletlen kiértékelés (várhatóan \(\tfrac34m\)), derandomizálva a 13. tétel módszereivel.</p>
+</div>
+
+<h3 id="t13">13. tétel: Derandomizálás <label class="chk"><input type="checkbox" data-k="t13">kész</label></h3>
+<div class="box def">
+<span class="t">Cél</span>
+<p>A véletlen bit is erőforrás; derandomizálás = minél kevesebb véletlennel (vagy nélküle) megoldani a feladatot. Okok: elvi (kell-e egyáltalán a véletlen? BPP=P?), és kritikus alkalmazásokban a hibázás elfogadhatatlan.</p>
+</div>
+<div class="box algo">
+<span class="t">1. módszer: a mintatér csökkentése (2011p) – nagy vágásra</span>
+<p>Eredetileg \(2^n\) elemi esemény. \(k=\lceil\log_2(n+1)\rceil\); minden \(v\) csúcshoz különböző nemnulla \(\vec v\in\{0,1\}^k\); <b>egyetlen</b> véletlen \(\vec r\in\{0,1\}^k\); \(X_v=\vec v\cdot\vec r\bmod2\), \(v\in S\) ⇔ \(X_v=1\). <b>Állítás:</b> (1) \(P(X_v=1)=\tfrac12\) (az \(\vec r\) első koordinátáját megfordítva bijekció a két eset közt); (2) az \(X_v\)-k <b>páronként függetlenek</b>: \(P(X_v=\epsilon,X_w=\delta)=\tfrac14\) (kétismeretlenes lineáris rendszer \(\mathbb{F}_2\) fölött, determináns 1, \(2^{k-2}\) megoldás). Ebből \(P(Y_f=1)=\tfrac12\) továbbra is, \(E(k(S))\ge e/2\). A mintatér \(2^k\le2n\) elemű ⇒ <b>mind végignézhető polinom időben</b>, véletlen nélkül. Tanulság: elég volt a páronkénti függetlenség. Max 2SAT-ra ugyanígy megy.</p>
+</div>
+<div class="box algo">
+<span class="t">2. módszer: a feltételes várható érték módszere (2011, 2012 „példán keresztül”)</span>
+<p><b>Állítás:</b> \(A_1..A_m\) teljes eseményrendszer ⇒ van \(i\): \(E(\xi)\le E(\xi|A_i)\) (a teljes várható érték tétele: az átlag nem nagyobb a maximumnál). Ha \(\xi\) az \(s_1..s_n\) véletlen választások függvénye, akkor lépésenként választhatunk \(x_{j+1}\)-et úgy, hogy \(E(\xi|s_1=x_1..s_j=x_j)\le E(\xi|\dots,s_{j+1}=x_{j+1})\); a végén \(\xi(x_1..x_n)\ge E(\xi)\). Kell: a feltételes várható érték hatékonyan számolható legyen. <b>Példa (nagy vágás):</b> az első \(j\) csúcs sorsa eldőlt; \(E(k|\dots)=a+b/2\), \(a\) = a már eldöntött csúcsok közti keresztező élek, \(b\) = a még legalább egy eldöntetlen végpontú élek száma. \(v_{j+1}\)-et arra az oldalra tesszük, amelyik <b>több keresztező élt ad a már eldöntött \(v_1..v_j\) felé</b>. Ez egy mohó, determinisztikus, lineáris idejű algoritmus \(\ge e/2\) vágásra.</p>
+</div>
+
+<h3 id="t14">14. tétel: Lovász lokális lemma (LLL) <label class="chk"><input type="checkbox" data-k="t14">kész</label></h3>
+<div class="box def">
+<span class="t">Definíciók</span>
+<p>\(E_1..E_n\) rossz események; cél \(P(\bigcap\overline{E_i})&gt;0\). Teljes függetlenség esetén elég \(P(E_i)&lt;1\). Az \(F\) esemény <b>teljesen független</b> a \(\{B_i:i\in I\}\) eseményektől, ha \(P(F|\bigcap_{j\in J}B_j)=P(F)\) minden \(J\subseteq I\)-re. <b>Függetlenségi gráf:</b> \(G\) csúcsai \(1..n\), és minden \(i\)-re \(E_i\) teljesen független a \(\{E_j: j\ne i,(i,j)\notin E(G)\}\) eseményektől.</p>
+</div>
+<div class="box thm">
+<span class="t">27. Tétel (LLL, szimmetrikus alak)</span>
+<p>Ha \(G\) függetlenségi gráf, \(P(E_i)\le p\) minden \(i\)-re, \(G\)-ben minden fok \(\le d\), és \(4dp\le1\), akkor \(P(\overline{E_1}\cap\dots\cap\overline{E_n})&gt;0\). (Enyhébb feltétellel is igaz: \(edp\le1\).) <i>Biz.-vázlat:</i> indukcióval \(P(E_1|\overline{E_2}\cdots\overline{E_m})\le\frac1{2d}\): az 1 szomszédai \(2..h\); számláló \(\le P(E_1)\le\frac1{4d}\) (függetlenség a nem-szomszédoktól), nevező \(\ge1-\sum_{j=2}^hP(E_j|\dots)\ge1-\frac{h-1}{2d}\ge\tfrac12\). <b>A teljes függetlenség nem cserélhető páronkéntire</b> (Fano-sík példa).</p>
+</div>
+<div class="box thm">
+<span class="t">Alkalmazások (egyet tudni kell; 2013ő/2015: a \(k\)-CNF)</span>
+<ul>
+<li><b>Beck tétele (hipergráf):</b> \(H_1..H_m\) \(r\)-elemű halmazok, mindegyik legfeljebb \(2^{r-3}\) másikat metsz ⇒ van csupa tarka 2-színezés (nincs korlát \(m\)-re!). Véletlen színezés, \(p=2^{1-r}\), \(d\le2^{r-3}\), \(4dp=1\).</li>
+<li><b>Ritka \(k\)-SAT:</b> élő \(k\)-CNF, minden változó legfeljebb \(T=\frac{2^k}{4k}\) tagban ⇒ kielégíthető. \(E_i\)=„\(C_i\) hamis”, \(p=2^{-k}\); \(E_i\) csak közös változójú \(E_j\)-től függhet, \(d\le kT=2^{k-2}\), \(4pd=1\). (Pl. \(k=16\): egy változó legfeljebb 1024 tagban.)</li>
+</ul>
+</div>
+<div class="box algo">
+<span class="t">Algoritmikus LLL – Moser–Tardos (2010ő)</span>
+<p>Feltevés: \(E_i\) csak a \(P_i\subseteq P\) független változóktól függ, \((i,j)\) él ⇔ \(P_i\cap P_j\ne\emptyset\), és teljesülnek az LLL feltételei. (1) Értékeljük ki véletlenül az összes változót; ha egyik \(E_i\) sem következett be, kész. (2) Különben válasszunk egy bekövetkezett \(E_j\)-t, és <b>csak a \(P_j\)-beli változókat sorsoljuk újra</b>; ismételjük. Tétel: a 2. lépés várhatóan legfeljebb \(n/d\)-szer fut. Példa Beck tételére: egyszínű \(H_j\) pontjait újraszínezzük.</p>
+</div>
+
+<h2 id="tD">D. Véletlen és bonyolultsági osztályok (tételek 15–17)</h2>
+
+<h3 id="t15">15. tétel: RP, Las Vegas, BPP <label class="chk"><input type="checkbox" data-k="t15">kész</label></h3>
+<div class="box def">
+<span class="t">Előzmények</span>
+<p>Nyelvek \(L\subseteq I^*\), \(I=\{0,1\}\); eldöntési feladat: \(x\in L\)? <b>P:</b> polinom (\(cn^d\)) időben eldönthető. <b>NP:</b> van \(L_1\in P\) párokból és \(c\), hogy \(x\in L\Leftrightarrow\exists y,|y|\le|x|^c,(x,y)\in L_1\) (rövid, ellenőrizhető tanú; pl. 3SZÍN). <b>EXPTIME:</b> \(d2^{n^k}\) idő. <b>PSPACE:</b> polinom tár. \(P\subseteq NP\subseteq PSPACE\subseteq EXPTIME\).</p>
+</div>
+<div class="box def">
+<span class="t">RP – definíció, tartalmazások, RP-teszt (2013ő, 2023 pontosan ezt kérte)</span>
+<p>\(L\in RP\), ha van \(L_1\in P\) és \(c&gt;0\): (1) \(L=\{x:\exists y,|y|=|x|^c,(x,y)\in L_1\}\); (2) \(x\in L\) esetén az \(|x|^c\) hosszú \(y\)-ok <b>legalább fele</b> tanú. (A fele bármely \(0&lt;d&lt;1\)-re cserélhető.) <b>Tartalmazások:</b> \(P\subseteq RP\subseteq NP\) (\(P\subseteq RP\): \(L_1=\{(x,1)\}\), \(c=0\); \(RP\subseteq NP\) az 1. feltételből); \(RP\subseteq BPP\). <b>RP-teszt:</b> véletlen \(y\), \(|y|=|x|^c\); ha \((x,y)\in L_1\) ⇒ \(x\in L\) <b>biztosan</b>; ha nem ⇒ „valószínűleg \(x\notin L\)” – ez hibázhat, \(\le\tfrac12\) eséllyel; \(t\) független ismétléssel \(\le2^{-t}\). Polinom idejű.</p>
+</div>
+<div class="box thm">
+<span class="t">Példa: Rabin–Miller-prímteszt, 29. Tétel: Ö ∈ RP</span>
+<p>\(m-1=2^kn\), \(n\) páratlan. Az \(a\) (\(1\le a&lt;m\)) <b>Rabin–Miller-tanúja</b> \(m\) összetettségének, ha \(a^n-1,\ a^n+1,\ a^{2n}+1,\dots,a^{2^{k-1}n}+1\) egyike sem osztható \(m\)-mel. Ha \(m\) prím, nincs tanú (kis Fermat: \(m\mid a^{m-1}-1=(a^n-1)(a^n+1)(a^{2n}+1)\cdots\), és prím osztja valamelyik tényezőt). Ha \(m&gt;2\) páratlan összetett, az \(a\)-k legalább fele tanú (nem biz.). Ezekből \(L_1=\{(m,a): a\text{ tanú}\}\), \(c=1\) ⇒ Ö ∈ RP. Egy \((m,a)\) ellenőrzése gyors hatványozással \(O(\log^3m)\). „Összetett” válasz biztos, „valószínűleg prím” hibázhat. (AKS 2002: Ö ∈ P, de a gyakorlatban lassabb.)</p>
+</div>
+<div class="box def">
+<span class="t">Las Vegas – definíció, tartalmazások, teszt (2021, 2024)</span>
+<p>\(L\in\)<b>Las Vegas</b>, ha \(L\in RP\) és \(I^*\setminus L\in RP\) (\(=RP\cap coRP\)). Tartalmazások: \(P\subseteq\)Las Vegas\(\subseteq RP\subseteq NP\), Las Vegas \(\subseteq NP\cap coNP\). <b>Las Vegas-teszt:</b> két RP-teszt, egy \(x\overset?\in L\)-re, egy \(x\overset?\in I^*\setminus L\)-re. Amelyik igent ad, az biztosan helyes; ha egyik sem ad igent (\(P\le\tfrac12\)), „nem tudjuk”, ismétlünk. Jellemzők: polinom idejű, \(\ge\tfrac12\) eséllyel válaszol, <b>a válasza mindig helyes</b> („becsületes”). Példa: \(Q\): \((c,a,p)\), \(p\) prím – van-e \(b\in[1,c]\), \(p\mid b^2-a\)? \(Q\in\)Las Vegas, de nem ismert \(Q\in P\). (ZPP = várhatóan polinom idejű, mindig helyes algoritmusok osztálya; ZPP = Las Vegas, lásd 23. fejezet.)</p>
+</div>
+<div class="box def">
+<span class="t">BPP – definíció, tartalmazások, teszt (2012, 2015, 2023p)</span>
+<p>\(L\in BPP\), ha van \(L_1\in P\), \(c&gt;0\): (1) \(x\in L\) ⇒ az \(|x|^c\) hosszú \(y\)-ok legalább \(\tfrac23\)-ára \((x,y)\in L_1\); (2) \(x\notin L\) ⇒ legalább \(\tfrac23\)-ára \((x,y)\notin L_1\). (\(\tfrac23\) helyett bármely \(\tfrac12&lt;d&lt;1\).) A tanú fogalma lazább: \(x\notin L\)-hez is lehet tanú, de kisebbségben. <b>Tartalmazások:</b> \(P\subseteq RP\subseteq BPP\subseteq EXPTIME\) (utóbbi: az összes \(y\) végignézhető), \(coBPP=BPP\). Nem ismert, hogy \(BPP=P\) vagy \(BPP=EXPTIME\); a többség ma \(BPP=P\)-t sejti. Blum–Micali–Yao: ha van egyirányú permutáció, \(BPP\subseteq\bigcap_{\delta&gt;0}TIME(2^{n^\delta})\). <b>BPP-teszt:</b> \(k&gt;2\) független \(y_i\); többségi döntés. <b>Mindkét válasz hibázhat</b>; \(k=3\)-ra \(q=p^3+3p^2(1-p)=20/27\) (\(p=\tfrac23\)); Chernoffal \(\epsilon=\frac{2p-1}{2p}\): \(P(\text{hiba})=P(S_k\le k/2)\le e^{-\epsilon^2kp/3}=e^{-ck}\).</p>
+</div>
+
+<h3 id="t16">16. tétel: Interaktív bizonyítások <label class="chk"><input type="checkbox" data-k="t16">kész</label></h3>
+<div class="box def">
+<span class="t">Arthur–Merlin-protokoll</span>
+<p>Arthur: polinom idejű (\(|x|^c\)), Merlin: korlátlan számítási erő. Cél: Arthur meggyőződik \(x\in L\)-ről. Követelmények: <b>teljesség</b> (ha \(x\in L\), Merlin meg tudja győzni), <b>helyesség</b> (ha \(x\notin L\), Merlin csalva sem tudja). <b>31. Tétel:</b> \(L\in NP\) ⇒ van AM-protokoll (Merlin elküldi az \(y\) tanút, Arthur ellenőrzi \((x,y)\in L_1\)); és fordítva: ha van (véletlen nélküli) AM-protokoll, \(L\in NP\).</p>
+<p><b>Randomizált változat:</b> Arthur véletlent is használhat; teljesség: \(x\in L\) ⇒ \(P(\text{elfogad})=1\); helyesség: \(x\notin L\) ⇒ \(P(\text{elfogad})\le\tfrac12\). \(IP=\{L:\) van ilyen protokoll\(\}\). Ha a helyességben \(\tfrac12\) helyett 0 áll, újra NP-t kapjuk.</p>
+</div>
+<div class="box thm">
+<span class="t">32. Tétel: GNI ∈ IP (2013t: „a GNI-re bemutatott AM-protokoll és helyessége”)</span>
+<p>\(G_1\cong G_2\), ha van élt élbe vivő bijekció. \(GI=\{(G_1,G_2):G_1\cong G_2\}\in NP\) (nem tudni, NP-teljes-e vagy P-beli), \(GNI\) a komplementer, nem ismert, hogy NP-beli. <b>Protokoll:</b> \(V(G_1)=V(G_2)=\{1..n\}\). (1) Arthur titokban választ véletlen \(i\in\{1,2\}\)-t és véletlen \(f\) permutációt, elküldi \(H=f(G_i)\)-t, kérdezi \(i\)-t. (2) Merlin válasza \(j\). (3) Arthur elfogad, ha \(i=j\). <b>Helyesség:</b> ha \(G_1\not\cong G_2\), \(H\) pontosan az egyikkel izomorf, Merlin megmondja ⇒ elfogadás 1 valószínűséggel. Ha \(G_1\cong G_2\) (\(\sigma\) izomorfizmus), \(H\) ugyanannyi \((1,f)\) és \((2,f')\) sorsolásból származhat (\(f'\leftrightarrow f'\sigma\) bijekció), így \(P(i=1|H)=P(i=2|H)=\tfrac12\), Merlin legfeljebb tippel ⇒ téves elfogadás \(\le\tfrac12\); ismétléssel csökkenthető. Polinomiális.</p>
+</div>
+<div class="box thm">
+<span class="t">A két tétel IP-ről (2010t: „mondja ki azt a két tételt”)</span>
+<p><b>33. Tétel:</b> \(IP=PSPACE\) (nem biz.). <b>34. Tétel:</b> \(IP\supseteq coNP\). <i>Vázlat:</i> \(\#3SAT=\{(\varphi,k):\varphi\)-nek pontosan \(k\) kielégítő kiértékelése\(\}\) coNP-nehéz (\(k=0\)). <b>Aritmetizálás:</b> \(x_i^*=X_i\), \(\bar x_i^*=1-X_i\), \((\varphi\wedge\psi)^*=\varphi^*\psi^*\), \((\varphi\vee\psi)^*=\varphi^*+\psi^*-\varphi^*\psi^*\); \(\varphi^*\) foka \(\le3m\), a kielégítő kiértékelések száma \(=\sum_{X_1..X_n\in\{0,1\}}\varphi^*=(\varphi^*)^{(0)}\). Prím \(p\), \(2^k&lt;p&lt;2^{k+1}\), \(k=\max\{\deg f,n,7\}\). Protokoll az \((f,s)\), \(f^{(0)}=s\) állításra: Merlin elküldi \(g(X_1)\) (állítólag \(f^{(1)}\)); Arthur ellenőrzi \(g(0)+g(1)=s\); véletlen \(r\in\mathbb{F}_p\), \(s'=g(r)\), rekurzió \((f(r,X_2..X_n),s')\)-re; \(n=1\)-nél közvetlen ellenőrzés. Hiba: ha Merlin hazudik, Schwartz–Zippel szerint \(P(g(r)=f^{(1)}(r))\le k/2^k\); összesen \(\le kn/2^k&lt;\tfrac12\).</p>
+</div>
+
+<h3 id="t17">17. tétel: Nulla ismeretű bizonyítások <label class="chk"><input type="checkbox" data-k="t17">kész</label></h3>
+<div class="box def">
+<span class="t">Fogalom</span>
+<p>Motiváció: személyazonosítás úgy, hogy a bizonyítás másolásával ne lehessen később a nevünkben azonosítani. <b>Nulla ismeretű bizonyítás</b>: AM-protokoll \(L\)-hez, amelyben \(x\in L\) esetén Merlin az \(x\in L\) tényen kívül semmi információt nem ad át – Arthurnál a végén csak ismert eloszlású véletlen sorozatok maradnak, amiket maga is előállíthatott volna. Kell hozzá <b>egyirányú függvény</b> (\(f(x)\) könnyen számolható, inverze nem; pl. RSA-ról ezt véljük).</p>
+</div>
+<div class="box algo">
+<span class="t">Protokoll a 3SZÍN nyelvre (2011)</span>
+<ol>
+<li>Merlin minden \(v\) csúcshoz \(E_v,D_v\) kódoló–dekódoló párt választ; a színek \(S=\{\)piros, fehér, zöld\(\}\) egy véletlen \(\chi\) permutációját (mind \(1/6\)); \(sz\) egy 3-színezés; elküldi \(y_v=E_v(\chi(sz(v)))\)-t minden \(v\)-re.</li>
+<li>Arthur véletlen \((u,w)\in E\) élt választ, elküldi.</li>
+<li>Merlin elküldi \(D_u,D_w\)-t; Arthur dekódol: ha két különböző \(S\)-beli szín, továbblép, különben elutasít.</li>
+<li>Ezt \(|E|\)-szer ismétlik (mindig új kódolók, új \(\chi\), független él); Arthur elfogad, ha sosem utasított el.</li>
+</ol>
+<p><b>Teljesség:</b> jó színezéssel sosem utasít el. <b>Hatékony:</b> polinomiális. <b>Helyesség:</b> ha \(G\) nem 3-színezhető, minden \(sz\)-hez van rossz él, ezt Arthur egy menetben \(\ge1/|E|\) eséllyel eltalálja; \(P(\text{téves elfogadás})\le(1-1/|E|)^{|E|}\approx1/e\). <b>Nulla ismeret:</b> a kulcsok nélkül az \(y_v\)-k értelmezhetetlenek; a dekódolt pár egy véletlen \(s\ne s'\) színpár, amit Arthur maga is generálhat.</p>
+<p><b>35. Tétel (Goldreich–Micali–Wigderson):</b> egyirányú függvény létezése esetén minden \(L\in NP\)-hez van nulla ismeretű bizonyítás. <b>36. Tétel (Ben-Or–Goldwasser–Kilian–Wigderson):</b> minden \(L\in NP\)-hez van nulla ismeretű bizonyítás két, egymástól elkülönített Merlinnel (feltétel nélkül).</p>
+</div>
+
+<h2 id="tE">E. Gráfok és a véletlen (tételek 18–21)</h2>
+
+<h3 id="t18">18. tétel: Véges Markov-láncok alaptétele, véletlen séta gráfon <label class="chk"><input type="checkbox" data-k="t18">kész</label></h3>
+<div class="box def">
+<span class="t">Definíciók</span>
+<ul>
+<li><b>Markov-lánc:</b> \(G=(V,E,p)\) irányított gráf nemnegatív élsúlyokkal, minden \(i\)-re \(\sum_{(i,j)\in E}p_{ij}=1\). A következő lépés csak az aktuális csúcstól függ. Mátrixa \(P=(p_{ij})\) <b>sorsztochasztikus</b>. Ha \(p\) sorvektor a mostani eloszlás, \(t\) lépés után \(pP^t\). \(p^{(t)}_{ij}=[P^t]_{ij}\).</li>
+<li><b>Irreducibilis:</b> a (pozitív súlyú élek) gráfja erősen összefüggő. <b>Periodikus \(j\) állapot \(\Delta&gt;1\) periódussal:</b> \(j\)-ből \(j\)-be \(s\) lépésben csak akkor juthatunk pozitív eséllyel, ha \(\Delta\mid s\). <b>Aperiodikus:</b> nincs periodikus csúcsa.</li>
+<li><b>Stacionárius eloszlás:</b> \(\pi P=\pi\). Példa: \(P=\begin{bmatrix}\tfrac12&\tfrac12&0\\ \tfrac23&0&\tfrac13\\ \tfrac14&\tfrac14&\tfrac12\end{bmatrix}\), \(\pi=(\tfrac12,\tfrac3{10},\tfrac15)\).</li>
+</ul>
+</div>
+<div class="box thm">
+<span class="t">37. Tétel (Alaptétel)</span>
+<p>Véges, irreducibilis, aperiodikus Markov-láncra: (1) pontosan egy \(\pi\) stacionárius eloszlás van, minden \(\pi_j&gt;0\); (2) minden \(i,j\)-re létezik \(\lim_tp^{(t)}_{ij}\), és független \(i\)-től; (3) \(\pi_j=\lim_tp^{(t)}_{ij}\); (4) \(h_{ii}=1/\pi_i\) az \(i\)-ből \(i\)-be való első visszatérés várható lépésszáma. Az (1) és (4) csak irreducibilitás mellett is igaz (lustított lánc \(Q=\tfrac12(I+P)\) trükk), a (2)–(3) nem. Következmény: \(pP^t\to\pi\) bármely kezdőeloszlásból (a lánc „elfelejti” a kezdetet).</p>
+</div>
+<div class="box thm">
+<span class="t">Véletlen séta irányítatlan gráfon</span>
+<p>\(G=(V,E)\) összefüggő, hurokmentes; minden csúcsnál egyenletesen választunk illeszkedő élt: \(p_{ij}=1/d_i\). Irreducibilis; periódus csak 2 lehet, és az is csak páros gráfnál. <b>Állítás:</b> \(\pi_i=\frac{d_i}{2|E|}\) (ellenőrzés: \((\pi P)_i=\sum_{j\sim i}\frac{d_j}{2|E|}\cdot\frac1{d_j}=\frac{d_i}{2|E|}\)) ⇒ \(h_{ii}=\frac{2|E|}{d_i}\).</p>
+<p><b>Elérési idő:</b> \(h_{ij}=E(\xi_{ij})\), az \(i\)-ből induló séta első \(j\)-be érésének lépésszáma. <b>Állítás:</b> \((i,j)\in E\) ⇒ \(h_{ji}\le2|E|\). <i>Biz.:</i> teljes várható érték az első lépésre: \(h_{ii}=\frac1{d_i}\sum_{l}(1+h_{j_li})\), azaz \(2|E|=d_i+\sum_{j\sim i}h_{ji}\), és a tagok nemnegatívak. <b>38. Tétel:</b> bármely \(i,j\)-re \(h_{ji}\le|V|\cdot2|E|\) (út mentén \(k\le|V|\) él, mindegyik \(\le2|E|\)); így \(h_{ji}\le n^3\), és Markovval \(P(\xi_{ji}\ge2n^3)\le\tfrac12\).</p>
+<p><b>Konkrét gráfok:</b> \(U_n\) út: \(h_{ij}=(j-1)^2-(i-1)^2\) (\(i&lt;j\)), speciálisan \(h_{1n}=(n-1)^2\), \(h_{j-1,j}=2j-3\). \(C_n\) kör: \(h_{12}=n-1\), \(h_{13}=2(n-2)\), \(h_{11}=n\). \(K_n\): \(h_{ij}=n-1\), \(h_{ii}=n\). (Kidolgozás a 23. fejezetben.)</p>
+<p><b>Alkalmazás – elérhetőség \(O(\log n)\) tárral:</b> \(s\)-ből indított véletlen séta \(2n^3\) lépésig; ha elérjük \(t\)-t: igen (biztos), különben „nem” (hiba \(\le\tfrac12\)). Tár: lépésszámláló + aktuális csúcs. (Reingold 2005: determinisztikusan is \(O(\log n)\) tár; irányított gráfra nyitott.)</p>
+</div>
+
+<h3 id="t19">19. tétel: PageRank és Metropolis-algoritmus <label class="chk"><input type="checkbox" data-k="t19">kész</label></h3>
+<div class="box algo">
+<span class="t">PageRank (2010ő, 2023)</span>
+<p>\(H\) netlapok, \(|H|=n\); \(A\): \(a_{ij}=1/d_i\), ha \(i\)-ről mutató megy \(j\)-re (\(d_i\ge1\)), különben 0 – sorsztochasztikus, Markov-lánc („sztochasztikus szörfölő”). Első ötlet: fontosság \(=p=\lim_tjA^t\), \(j=(\tfrac1n..\tfrac1n)\) – ha létezik, stacionárius. Rekurzív elv: az a lap fontos, amelyre sok fontos lap mutat. Gond: a limesz nem mindig létezik (pl. 3 csúcsú zsákutcás példa: \((1,1,1)A^t\) oszcillál). <b>Korrekció:</b> \(B=0{,}8A+0{,}2N\), \(N\) minden eleme \(\tfrac1n\) – „szeszélyes szörfölő”: 0,8-dal az \(A\) szerint lép, 0,2-vel egyenletesen ugrik. \(B\) csupa pozitív ⇒ irreducibilis, aperiodikus ⇒ alaptétel: egyértelmű \(\pi\), \(\pi=\lim jB^t\); fontosság \(=\pi_i\). Iterációval számolható, gyorsan konvergál; elég a sorrend.</p>
+<p><b>39. Tétel:</b> \(0&lt;c&lt;1\)-re bármely \(\pi\) kezdőeloszlásból \(\pi((1-c)A+cN)^t\) konvergál egy csupa pozitív, \(\pi\)-től független \(p\) stacionárius eloszláshoz. <i>Biz.:</i> a hatvány kifejtésében \(AN=NN=N\) miatt \(\pi((1-c)A+cN)^t=(1-c)^t\pi A^t+\sum_{j&lt;t}c(1-c)^jjA^j\to\sum_{j\ge0}c(1-c)^jjA^j\) (geometriai sor, minden komponens \(\ge c/n\)); konvergencia \(1-c\) hányadosú. Értelmezés: egyenletes indulás, \(c\)-geometriai számú lépés az \(A\) szerint.</p>
+</div>
+<div class="box algo">
+<span class="t">Metropolis-algoritmus (2010ő, 2023p: „és mondja ki a róla szóló tételt”)</span>
+<p>Cél: adott, nem uniform \(\pi_i=\frac{g(i)}{g(1)+\dots+g(n)}\) eloszlás szerinti véletlen csúcs (\(g(v)=e^{f(v)/T}\): az \(f\) maximumhelyeire koncentrál). \(G\) irányítatlan, összefüggő, hurokmentes, minden fok \(d\); \(g:V\to\mathbb{R}^+\). <b>Séta:</b> \(i\)-ben egyenletesen választunk szomszédot \(j\)-t; ha \(g(j)\ge g(i)\), átlépünk; ha \(g(j)&lt;g(i)\), \(\frac{g(j)}{g(i)}\) valószínűséggel lépünk, különben maradunk. Ez Markov-lánc: \(p_{ij}=\tfrac1d\) ill. \(\tfrac1d\frac{g(j)}{g(i)}\), \(p_{ii}=\tfrac1d\sum_{j\in H}(1-\frac{g(j)}{g(i)})\), \(\sum_jp_{ij}=1\). <b>40. Tétel:</b> ha \(g\) nem konstans, a lánc irreducibilis és aperiodikus (hurokél van), egyetlen stacionárius eloszlása \(\pi_i=g(i)/\sum g\). <i>Biz.:</i> \(g(j)p_{ji}=g(i)p_{ij}\) (reverzibilitás) ⇒ \((gP)_i=\sum_jg(j)p_{ji}=g(i)\sum_jp_{ij}=g(i)\). Konvergál \(\pi\)-hez bármely kezdetből. Hátrány: lassú lehet – Hamming-kockán (\(2^n\) csúcs, fok \(n\)) egyetlen kiugró \(v\)-re \(h_{vv}=2^n\), szomszédból \(h_{wv}=2^n-1\): exponenciális.</p>
+</div>
+<div class="box thm">
+<span class="t">Algoritmus elemzése véletlen sétával: 2SAT (41. Tétel)</span>
+<p>Algoritmus: tetszőleges kiértékelés; amíg \(\varphi\) hamis: válassz hamis \(C_s\) tagot, benne \(\tfrac12\)–\(\tfrac12\) eséllyel egy literált, és negáld a változóját. <b>Tétel:</b> ha \(\varphi\) kielégíthető, várhatóan \(\le n^2\) iterációban talál kielégítő kiértékelést. <i>Biz.:</i> \(K^*\) rögzített jó kiértékelés; „közelség” \(i\) = hány változóban egyezik; \(C_s\) hamis ⇒ legalább egy változója eltér \(K^*\)-tól ⇒ \(\ge\tfrac12\) eséllyel közelebb lépünk. Csatolt \(U_{n+1}\)-beli szimmetrikus séta sosincs jobbra ⇒ \(E\le h_{0n}=n^2\). \(2n^2\) lépés után Markovval \(\le\tfrac12\) a tévedés.</p>
+</div>
+
+<h3 id="t20">20. tétel: Erdős–Rényi-gráfok, Watts–Strogatz-modell <label class="chk"><input type="checkbox" data-k="t20">kész</label></h3>
+<div class="box def">
+<span class="t">ER(n,p)</span>
+<p>Csúcsok \(1..n\); minden \((i,j)\) párra függetlenül \(p\) valószínűséggel él. Valószínűségi tér a gráfokon: az \(m\) élű gráf valószínűsége \(p^m(1-p)^{\binom n2-m}\). Élszám \(m=\sum\ell_{ij}\), \(E(m)=\binom n2p\), Chernoffal erősen koncentrált. Egy csúcs foka \(D\sim\mathrm{Bin}(n-1,p)\), \(E(D)=(n-1)p\), \(P(|D-(n-1)p|&gt;\epsilon(n-1)p)\le2e^{-\epsilon^2(n-1)p/3}\). \(ER(n+1,\lambda/n)\)-ben a fok \(\approx\) Poisson(\(\lambda\)) – exponenciálisan lecsengő, koncentrált fokeloszlás. Kapcsolatok: Ramsey-bizonyítás = \(ER(N,\tfrac12)\); \(K_n(p)\) mintavétel.</p>
+</div>
+<div class="box def">
+<span class="t">Küszöbfüggvény (2011, 2013t; feladat 2021)</span>
+<p>\(k(n)\) az \(A\) tulajdonság <b>küszöbfüggvénye</b>, ha (i) \(p(n)/k(n)\to0\) ⇒ \(P(ER(n,p(n))\text{-ben }A)\to0\), és (ii) \(q(n)/k(n)\to\infty\) ⇒ \(P(\dots)\to1\). <b>Példa (2013t kérte):</b> „van éle”: \(k(n)=1/n^2\). (i) \(E(m)=\binom n2p&lt;n^2p\to0\) ⇒ \(P(m&gt;0)\to0\). (ii) \(P(m=0)=(1-q)^{\binom n2}\le e^{-q\binom n2}\to0\). További küszöbök (biz. nélkül): legalább 2 fokú csúcs \(n^{-3/2}\); rögzített \(d\)-pontú részfa \(n^{-d/(d-1)}\); \(d\)-pontú kör \(1/n\); összefüggőség \(\frac{\log n}n\). \(p\ge\log n/n\) esetén az átmérő \(O(\log n)\) – <b>kis világ</b>. Az ER-gráfok „fejlődése” \(p\) növelésével: \(1/n^2\)-nél első él, \(n^{-3/2}\)-nél két csatlakozó él, nagy fa hamarabb, mint kis kör.</p>
+</div>
+<div class="box def">
+<span class="t">WS(n,k,p) Watts–Strogatz-gráf (2010ő, 2024)</span>
+<p>Motiváció: <b>csomósodás</b> (egy csúcs szomszédai közt több él, mint véletlenszerűen) – ER-ben nincs. Konstrukció: \(n\) csúcs körben \((1,2),\dots,(n,1)\); a kör mentén legfeljebb \(k\) távolságú csúcsokat összekötjük (fok \(2k\), \(kn\) él); minden élt \(1-p\) eséllyel meghagyunk, \(p\) eséllyel egyenletesen véletlen \((i,j)\) párra cserélünk; hurok- és többszörös éleket töröljük. A régi élek csomósodást, az újak kis világot adnak; kis \(p\): szabályos gráf, nagy \(p\): ER-szerű.</p>
+</div>
+
+<h3 id="t21">21. tétel: Albert–Barabási-gráfok, algoritmikus kis világ <label class="chk"><input type="checkbox" data-k="t21">kész</label></h3>
+<div class="box def">
+<span class="t">AB(m,t) (2009, 2010ő, 2024)</span>
+<p>Sok hálózatban a fokeloszlás <b>hatványeloszlás</b>: \(P(k)\sim k^{-\gamma}\), \(\gamma\) tipikusan 2–3 (színészek 2,3; matematikusok 2,1; telefonhívások 2,1; domainek 2,15–2,2). Konstrukció: \(AB(m,1)\) = egy \(v_1\) csúcs \(m\) hurokéllel. \(AB(m,t)\) az \(AB(m,t-1)\)-ből: új \(v_t\) csúcs, \(m\) új él, mindegyik végpontját függetlenül, <b>preferenciális kötődéssel</b> választjuk: \(v_j\)-hez \(\frac{d_j}{d_1+\dots+d_t}\) valószínűséggel. \(t\) lépés után \(t\) csúcs, \(mt\) él. A fokeloszlás hatványeloszlás \(\gamma=3\) kitevővel.</p>
+</div>
+<div class="box def">
+<span class="t">Kleinberg-gráf \(Kl_n\), rövidlátó algoritmus (2011p, 2015, 2021, 2023p)</span>
+<p>Milgram-kísérlet: levélküldés ismerősökön át, átlag \(&lt;6\) lépés – nemcsak rövid utak léteznek, hanem <b>lokális információval</b> is megtalálhatók (algoritmikus kis világ). <b>\(Kl_n\):</b> \(C_n\) kör (helyi ismerősök) + minden \(u\) csúcsnak pontosan egy <b>távoli ismerőse</b> (irányított él), \(v\)-t \(\propto\frac1{d(u,v)}\) eséllyel (\(d\) a körön mért távolság): \(P(v)=\frac{d(u,v)^{-1}}{\sum_{w\ne u}d(u,w)^{-1}}\). Nevező \(\le2H_{\lfloor n/2\rfloor}\le2\log_2n\) ⇒ \(P(v\text{ az }u\text{ távoli ismerőse})\ge\frac1{2d(u,v)\log_2n}\).</p>
+<p><b>Rövidlátó (mohó) algoritmus:</b> \(s\)-ből lépjünk ahhoz az ismerőshöz (helyi vagy távoli), amely a körön a legközelebb van \(t\)-hez; ismételjük. Csak a saját szomszédságot és a körön mért távolságokat kell ismerni. <b>42. Tétel:</b> véletlen \(s,t\)-re várhatóan \(\le3(\log_2n)^2\) lépésben ér \(t\)-be. <i>Biz.:</i> \(j\)-edik fázis: \(2^j\le d(u,t)&lt;2^{j+1}\); \(d=d(u,t)\); az \(I\) = \(t\)-től \(\le d/2\)-re levő csúcsok (\(\ge d\) darab, \(u\)-tól \(\le3d/2\)-re); \(P(u\text{ távoli ismerőse }I\text{-beli})\ge d\cdot\frac1{3d\log_2n}=\frac1{3\log_2n}\) – ekkor a fázis véget ér; \(EX_j\le3\log_2n\); \(\lfloor\log_2n\rfloor\) fázis ⇒ \(EX\le3(\log_2n)^2\).</p>
+</div>
+
+<h2 id="s23">23. A levezetős feladatok: minden régi ZH-feladat kidolgozva <label class="chk"><input type="checkbox" data-k="s23">kész</label></h2>
+<div class="box algo">
+<span class="t">Az általános recept</span>
+<ol>
+<li><b>Nevezd meg a véletlent</b> (pivotválasztás / érkezési sorrend / prioritások / színek / \(\alpha\) behelyettesítés / séta lépései).</li>
+<li><b>Indikátorváltozók:</b> a keresett mennyiség \(=\sum X_i\); \(E=\sum P(X_i=1)\). A \(P(X_i=1)\)-hez keress egy „ki az első / ki a legnagyobb egy halmazban” típusú eseményt – ezek egyenletesek: \(1/d\), \(2/d\).</li>
+<li><b>Létezés:</b> \(E(\xi)\ge k\) ⇒ van \(\omega\) \(\xi(\omega)\ge k\)-val (vagy \(\le\) irányban). Írd le explicit: „tehát létezik olyan színezés/partíció, amelyre…”.</li>
+<li><b>Valószínűség-korlát:</b> Schwartz–Zippel \(d/N\); Markov \(P(\xi\ge2E\xi)\le\tfrac12\); unió-korlát.</li>
+<li><b>Elérési idők:</b> \(h_{ii}=2|E|/d_i\), első lépésre bontás (teljes várható érték), szimmetria, kevés ismeretlenes egyenletrendszer.</li>
+</ol>
+</div>
+
+<h3>23.1 Gyorsrendezés</h3>
+<div class="box ex">
+<span class="t">2009 #1. \(P(e_1,e_3\)-at összehasonlítjuk, de \(e_1,e_4\)-et nem\()\)</span>
+<details class="sol"><summary>Megoldás: \(1/4\)</summary>
+<p>Csak az számít, hogy az \(\{e_1,e_2,e_3,e_4\}\) halmazból melyik lesz először particionáló elem (mindegyik \(\tfrac14\)). \(e_1\) vagy \(e_4\): \(e_1\)-et és \(e_4\)-et összehasonlítjuk – rossz. \(e_2\): \(e_1\) elválik \(e_3\)-tól – rossz. \(e_3\): \(e_1\)-et összehasonlítja \(e_3\), és elválasztja \(e_4\)-től – jó. \(p=\tfrac14\).</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">2010ő #7. Feles párok (\(|j-i|=n/2\)) összehasonlításainak várható száma \(O(1)\)</span>
+<details class="sol"><summary>Megoldás</summary>
+<p>Feles pár \(n/2\) darab van (\(i=1..n/2\)). \(P(X_{ij}=1)=\frac2{j-i+1}=\frac2{n/2+1}\). \(E=\frac n2\cdot\frac2{n/2+1}=\frac{n}{n/2+1}&lt;2\).</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">2010t #7. \(P(e_3,e_8\)-at az első particionáló fázis <i>után</i> hasonlítjuk össze\()\), \(n\ge8\)</span>
+<details class="sol"><summary>Megoldás: \(\tfrac13-\tfrac2n\)</summary>
+<p>Összehasonlítás valamikor: \(\{e_3..e_8\}\) 6 eleméből \(e_3\) vagy \(e_8\) az első pivot: \(\tfrac26=\tfrac13\). Ebből az első fázisban történik, ha a legelső (egész tömbre vett) pivot éppen \(e_3\) vagy \(e_8\): \(\tfrac2n\). Tehát \(P=\tfrac13-\tfrac2n\).</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">2012 #6, 2011p #6. \(X_i\) = az \(e_i\)-t érintő összehasonlítások száma; \(EX_i\)? \(EX_1\) vagy \(EX_3\) nagyobb?</span>
+<details class="sol"><summary>Megoldás</summary>
+<p>\(X_i=\sum_{j\ne i}X_{ij}\), \(P(X_{ij}=1)=\frac2{|j-i|+1}\):
+\[EX_i=\sum_{j&lt;i}\frac2{i-j+1}+\sum_{j&gt;i}\frac2{j-i+1}=2(H_i-1)+2(H_{n-i+1}-1).\]
+\(EX_1=2(H_n-1)\), \(EX_3=2(H_3-1)+2(H_{n-2}-1)=\tfrac53+2(H_{n-2}-1)\). Különbség: \(EX_3-EX_1=\tfrac53-2\big(\tfrac1{n-1}+\tfrac1n\big)\ge\tfrac53-\tfrac76&gt;0\) (\(n\ge4\)). <b>\(EX_3\) a nagyobb</b> – a belső elemnek több közeli szomszédja van, azokkal nagy eséllyel összehasonlítjuk.</p>
+</details>
+</div>
+
+<h3>23.2 Naiv bináris keresőfa</h3>
+<div class="box ex">
+<span class="t">2023 #7. Az 1 kulcs leszármazottainak várható száma</span>
+<details class="sol"><summary>Megoldás: \(H_n-1\)</summary>
+<p>\(j\) leszármazottja 1-nek ⇔ az \(\{1,..,j\}\) kulcsok közül az 1 érkezett elsőnek (ha egy \(1&lt;l&lt;j\) jön előbb, \(j\) az \(l\) jobb részfájába kerül, 1 a balba; ha \(j\) jön előbb, \(j\) az ős). \(P=\tfrac1j\). \(E=\sum_{j=2}^n\tfrac1j=H_n-1\approx\ln n\).</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">2013ő #7. A levelek várható száma</span>
+<details class="sol"><summary>Megoldás: \((n+1)/3\)</summary>
+<p>\(i\) (\(2\le i\le n-1\)) levél ⇔ nincs bal fia és nincs jobb fia ⇔ \(i-1\) és \(i+1\) is \(i\) előtt érkezett (az \(i-1\) az \(i\) részfájában van ⇔ \(i\) előbb jött, mint \(i-1\)) ⇔ az \(\{i-1,i,i+1\}\) hármasból \(i\) az utolsó: \(P=\tfrac13\). Az 1 levél ⇔ 2 előbb jött: \(\tfrac12\); ugyanígy \(n\). \(E=\frac{n-2}3+\tfrac12+\tfrac12=\frac{n+1}3\). (Ellenőrzés \(n=3\)-ra: a 6 sorrendből 2-nél 2 levél, 4-nél 1 ⇒ \(8/6=4/3\) ✓.)</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">2023p #7. \(p_i=P(\)az \(i\) kulcsnak pontosan 1 gyermeke van\()\); a pontosan 1 gyermekű csúcsok várható száma</span>
+<details class="sol"><summary>Megoldás</summary>
+<p>Belső \(i\): bal fia van ⇔ \(i\) előbb jött, mint \(i-1\); jobb fia van ⇔ \(i\) előbb jött, mint \(i+1\). Az \(\{i-1,i,i+1\}\) 6 sorrendjéből pontosan egy teljesül 2-nél (\(i\) középső) ⇒ \(p_i=\tfrac13\). \(p_1=P(1\text{ előbb, mint }2)=\tfrac12\), \(p_n=\tfrac12\). \(E=\frac{n-2}3+1=\frac{n+1}3\).</p>
+</details>
+</div>
+
+<h3>23.3 Falom</h3>
+<div class="box ex">
+<span class="t">2010t #8. \(A_{ij}\) = „\(k_i\) őse \(k_j\)-nek”. Független-e (a) \(A_{31}\) és \(A_{42}\); (b) \(A_{42}\) és \(A_{52}\)?</span>
+<details class="sol"><summary>Megoldás: (a) nem, (b) igen</summary>
+<p>\(A_{ij}\) ⇔ \(p_i\) a legnagyobb a \([k_i,k_j]\) intervallumban. (a) \(P(A_{31})=P(p_3=\max\{p_1,p_2,p_3\})=\tfrac13\), \(P(A_{42})=\tfrac13\). Együtt: \(p_4&gt;p_3&gt;p_1,p_2\), azaz \(p_4\) a maximum a négy közül (\(\tfrac14\)) és \(p_3\) a második (\(\tfrac13\)): \(\tfrac1{12}\ne\tfrac19\) ⇒ <b>nem függetlenek</b>. (b) \(A_{42}\): \(p_4=\max\{p_2,p_3,p_4\}\) (\(\tfrac13\)); \(A_{52}\): \(p_5=\max\{p_2..p_5\}\) (\(\tfrac14\)). Együtt: \(p_5\) a max, \(p_4\) a második a \(\{p_2..p_5\}\) közül: \(\tfrac1{4\cdot3}=\tfrac1{12}=\tfrac13\cdot\tfrac14\) ⇒ <b>függetlenek</b>.</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">2013ő #1. Falom rajzolása és beszúrás forgatásokkal</span>
+<details class="sol"><summary>Megoldás</summary>
+<p>Elemek \((A;0{,}1),(B;0{,}7),(D;0{,}4),(E;0{,}9),(G;0{,}5)\). Gyökér a max prioritás: \(E\). Bal részfa \(\{A,B,D\}\): gyökere \(B\) (0,7), \(B\) bal fia \(A\), jobb fia \(D\). \(E\) jobb fia \(G\). Beszúrás \((C;0{,}8)\): naiv hely: \(E\to B\to D\to\) \(D\) bal fia. Forgatás fel: \(0{,}8&gt;0{,}4\) ⇒ jobbra forgatás \(D\)-nél: \(C\) kerül \(D\) helyére, \(D\) a \(C\) jobb fia. \(0{,}8&gt;0{,}7\) ⇒ balra forgatás \(B\)-nél: \(C\) kerül \(B\) helyére, \(B\) a \(C\) bal fia (\(A\)-val). \(0{,}8&lt;0{,}9\): kész. Végső fa: \(E\); bal: \(C\) (bal: \(B\)–\(A\); jobb: \(D\)); jobb: \(G\). Ellenőrzés: inorder \(A,B,C,D,E,G\) ✓, kupac ✓.</p>
+</details>
+</div>
+
+<h3>23.4 Schwartz–Zippel</h3>
+<div class="box ex">
+<span class="t">2024 #6. \(3\times3\) mátrix elemei egy 300 elemű \(S\subset\mathbb{R}\)-ből: választható invertálhatóra? És ha \(|S|=2\)?</span>
+<details class="sol"><summary>Megoldás</summary>
+<p>\(\det A\) a 9 elem \(3\)-adfokú, nem azonosan 0 polinomja. Véletlen \(a_{ij}\in S\): \(P(\det=0)\le\frac3{300}=\frac1{100}&lt;1\) ⇒ pozitív valószínűséggel \(\det\ne0\) ⇒ <b>létezik invertálható</b> választás (sőt egy véletlen választás 99%-ban jó). \(|S|=2\): a tétel csak \(\le3/2\)-t ad, nem használható; de közvetlenül: \(S=\{a,b\}\), \(a\ne b\), legalább egyikük nem 0, mondjuk \(b\ne0\): \(\det\begin{bmatrix}a&b&b\\b&a&b\\b&b&b\end{bmatrix}=b(a-b)^2\ne0\) ⇒ <b>mindig van</b>.</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">2010ő #6, 2023p #6. \(AB\overset?=BC\) teszt \(O(n^2)\) művelettel, hiba \(\le1/n^3\)</span>
+<details class="sol"><summary>Megoldás</summary>
+<p>\(T\subset\mathbb{R}\), \(|T|=n^3\) (pl. \(\{1..n^3\}\)); véletlen \(\alpha\in T^n\) oszlopvektor. Számoljuk \(A(B\alpha)\)-t és \(B(C\alpha)\)-t: 4 mátrix–vektor szorzás, \(O(n^2)\). Ha egyenlők: „\(AB=BC\)”, különben „\(\ne\)”. \(AB=BC\) ⇒ mindig egyenlők. Ha \(AB\ne BC\): \((AB-BC)x\) valamely koordinátája nem azonosan 0 <b>elsőfokú</b> polinom ⇒ Schwartz–Zippel: \(P(\text{egyenlőség})\le\frac1{n^3}\).</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">2009 #9. \(f_1f_2=f_3\) polinomazonosság ellenőrzése, hiba \(\le2^{-n}\), polinom idő \(n,M,d\)-ben</span>
+<details class="sol"><summary>Megoldás</summary>
+<p>\(g=f_1f_2-f_3\) foka \(\le2d\). Véletlen \(\alpha\in T^n\), \(|T|=4d\): \(g(\alpha)\) 3 programfuttatás + 2 művelet \(\le3M+2\); \(P(g(\alpha)=0\,|\,g\not\equiv0)\le\tfrac12\). \(n\) független ismétlés: hiba \(\le2^{-n}\), költség \(O(nM)\). (Vagy egyetlen próba \(|T|=2d\cdot2^n\)-nel: \(2d/|T|=2^{-n}\), a \(T\) elemei \(O(n+\log d)\) bitesek.)</p>
+</details>
+</div>
+
+<h3>23.5 Erdős-módszer (színezés, partíció, létezés)</h3>
+<div class="box ex">
+<span class="t">2013t #6. \(K_n\) élei 3 színnel úgy, hogy az egyszínű 2 hosszú utak száma \(\le\binom n3\)</span>
+<details class="sol"><summary>Megoldás</summary>
+<p>Színezzünk minden élt függetlenül, egyenletesen 3 színnel. Egy 2 hosszú út egyszínű, ha a második éle ugyanolyan színű, mint az első: \(P=\tfrac13\). 2 hosszú utak száma: középső csúcs \(n\)-féle, két végpont \(\binom{n-1}2\): \(n\binom{n-1}2=3\binom n3\). \(E(\#\text{egyszínű})=3\binom n3\cdot\tfrac13=\binom n3\) ⇒ van színezés, ahol \(\le\binom n3\).</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">2011 #7. \(K_n\) élei 4 színnel, egyszínű háromszögek \(\le\binom n3\cdot4^{-2}\) (jegyzet-feladat: 3 szín, \(\binom n3\cdot3^{-2}\))</span>
+<details class="sol"><summary>Megoldás</summary>
+<p>Független egyenletes színezés. Egy háromszög egyszínű: \(4\cdot(\tfrac14)^3=\tfrac1{16}=4^{-2}\). \(E=\binom n3/16\) ⇒ létezik. Általában \(c\) színnel \(c^{-2}\). Randomizált algoritmus: véletlen színezés (Markovval \(P(&gt;2\cdot E)\le\tfrac12\), ismételhető); derandomizálás a feltételes várható érték módszerével: élenként azt a színt választjuk, amelyik a „már színezett élű egyszínű háromszögek + még nyitottak várható száma” mennyiséget nem növeli.</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">2012 #7. Van 3-partíció \(S_1,S_2,S_3\), amelynek értéke (a különböző részek közti élek száma) \(\ge\tfrac{2|E|}3\)</span>
+<details class="sol"><summary>Megoldás</summary>
+<p>Minden csúcsot függetlenül, \(\tfrac13\)–\(\tfrac13\)–\(\tfrac13\) eséllyel tegyük \(S_1,S_2,S_3\)-ba. Egy él két végpontja azonos részbe \(\tfrac13\) eséllyel kerül ⇒ \(P(\text{keresztez})=\tfrac23\). \(E(\text{érték})=\tfrac23|E|\) ⇒ létezik.</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">2015 #6. \(J,R\) ismeretlen \(n\)-elemű részhalmazok; \(K\) minden elemet \(\tfrac1n\) eséllyel tartalmaz. \(p=P(K\cap J\ne\emptyset,\ K\cap R=\emptyset)\ge c&gt;0\)?</span>
+<details class="sol"><summary>Megoldás</summary>
+<p>A két esemény független (diszjunkt elemhalmazok): \(p=\big(1-(1-\tfrac1n)^n\big)\cdot(1-\tfrac1n)^n\). Mivel \(\tfrac14\le(1-\tfrac1n)^n\le\tfrac1e\) (\(n\ge2\)): \(p\ge(1-\tfrac1e)\cdot\tfrac14\approx0{,}158=:c\).</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">2009 #8. Van \(n\) pontú tournament legalább \(n!/2^{n-1}\) irányított Hamilton-úttal</span>
+<details class="sol"><summary>Megoldás</summary>
+<p>Minden élt függetlenül \(\tfrac12\)–\(\tfrac12\) irányítunk. A csúcsok egy rögzített \(v_1..v_n\) sorrendje pontosan akkor irányított Hamilton-út, ha mind az \(n-1\) él \(v_i\to v_{i+1}\) irányú: \(2^{-(n-1)}\). \(n!\) sorrend ⇒ \(E=n!/2^{n-1}\) ⇒ létezik.</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">2009 #7. Élő 2-CNF, \(Y_i\) = „\(C_i\) igaz” véletlen kiértékelésnél</span>
+<details class="sol"><summary>Megoldás</summary>
+<p>(a) Nem páronként függetlenek: \(C_1=x_1\vee x_2\), \(C_2=x_2\vee x_3\): \(P(C_1|C_2)=\frac{5/8}{3/4}=\tfrac56\ne\tfrac34\). (b) Ha páronként függetlenek: \(EY_i=\tfrac34\), \(D^2(Y_i)=\tfrac34\cdot\tfrac14=\tfrac3{16}\), \(D^2(\sum Y_i)=\tfrac{3m}{16}\), \(D=\frac{\sqrt{3m}}4\).</p>
+</details>
+</div>
+
+<h3>23.6 Ujjlenyomat, konvex burok</h3>
+<div class="box ex">
+<span class="t">2010t #6. Ujjlenyomat véletlen \(p\in[1,n^3]\) prímmel: \(P(f_p(x)=f_p(y)|x\ne y)\le\)?</span>
+<details class="sol"><summary>Megoldás</summary>
+<p>\(|x_{val}-y_{val}|\le2^n\) ⇒ legfeljebb \(n\) prímosztó ⇒ \(P\le\frac n{\pi(n^3)}\). \(\pi(x)&gt;x/\ln x\) (\(x\ge17\)): \(P\le\frac{n\ln(n^3)}{n^3}=\frac{3\ln n}{n^2}\).</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">2010t #1. Van-e 3 vagy 4 pont a \(P_i\)-k közül, amelyek konvex burka tartalmazza \([Q,R]\)-t?</span>
+<details class="sol"><summary>Megoldás</summary>
+<p>Ilyen pontok pontosan akkor vannak, ha \(Q,R\in\mathrm{conv}(P_1..P_n)\): a \(QR\) egyenes a burok határát két pontban metszi, ezek egy-egy burokélen vannak (2–2 csúcs); a legfeljebb 4 csúcs burka tartalmazza a két metszéspont közti szakaszt, így \([Q,R]\)-t is. Algoritmus: konvex burok randomizált inkrementálisan \(O(n\log n)\) várható időben, majd \(Q\) és \(R\) belsőségének ellenőrzése az élek egyeneseinek előjeleivel \(O(n)\).</p>
+</details>
+</div>
+
+<h3>23.7 Véletlen séta, elérési idők</h3>
+<div class="box algo">
+<span class="t">Recept</span>
+<p>(1) \(h_{uu}=2|E|/d_u\). (2) Első lépésre bontás: \(h_{uv}=1+\frac1{d_u}\sum_{w\sim u}h_{wv}\) (\(h_{vv}\) helyett 0, ha \(w=v\)). (3) Szimmetria: az azonos „szerepű” csúcsok elérési ideje egyenlő ⇒ 1–3 ismeretlen. (4) Ellenőrzés: \(h_{vv}=1+\frac1{d_v}\sum_{w\sim v}h_{wv}\).</p>
+</div>
+<div class="box ex">
+<span class="t">2013t #7. \(K_{n,n}\): \(h_{uu}\), \(h_{uv}\) (\(u\in U,v\in V\))</span>
+<details class="sol"><summary>Megoldás: \(h_{uu}=2n\), \(h_{uv}=2n-1\)</summary>
+<p>\(|E|=n^2\), \(d=n\) ⇒ \(h_{uu}=2n^2/n=2n\). Legyen \(a=h_{uv}\) (bármely \(u\in U\)-ra ugyanaz), \(b=h_{v'v}\) (\(v'\in V\), \(v'\ne v\)). \(u\)-ból egy lépés: \(\tfrac1n\) eséllyel \(v\), különben egy \(v'\): \(a=1+\frac{n-1}nb\). \(v'\)-ből mindenképp \(U\)-ba lépünk: \(b=1+a\). \(a=1+\frac{n-1}n(1+a)\Rightarrow\frac an=\frac{2n-1}n\Rightarrow a=2n-1\). Ellenőrzés: \(h_{uu}=1+h_{vu}=1+(2n-1)=2n\) ✓.</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">2015 #7. Kocka élgráfja (\(Q_3\)): \(h_{uu}\), \(h_{uv}\), \(u=(0,0,0)\), \(v=(0,0,1)\)</span>
+<details class="sol"><summary>Megoldás: \(h_{uu}=8\), \(h_{uv}=7\)</summary>
+<p>\(|E|=12\), \(d=3\) ⇒ \(h_{uu}=24/3=8\). Csoportosítsunk a \(v\)-től mért távolság szerint: \(h_k\) = várható idő \(k\) távolságból \(v\)-be. \(h_1=1+\tfrac23h_2\) (\(\tfrac13\) eséllyel \(v\)-be), \(h_2=1+\tfrac23h_1+\tfrac13h_3\), \(h_3=1+h_2\). Behelyettesítve: \(h_2=2+h_1\), \(h_1=1+\tfrac23(2+h_1)\Rightarrow h_1=7\). \(h_{uv}=h_1=7\). Ellenőrzés: \(h_{vv}=1+h_1=8\) ✓.</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">2011 #6. \(C_n\) kör: \(h_{11}\), \(h_{21}\)</span>
+<details class="sol"><summary>Megoldás: \(h_{11}=n\), \(h_{21}=n-1\)</summary>
+<p>\(|E|=n\), \(d=2\) ⇒ \(h_{11}=2n/2=n\). Szimmetria: \(h_{21}=h_{n1}=:b\). \(h_{11}=1+\tfrac12(h_{21}+h_{n1})=1+b\) ⇒ \(b=n-1\). (Jegyzet: \(h_{13}=2(n-2)\), \(n\ge4\).)</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">2021 #6. \(\eta\) = lépésszám, amíg a \(v\)-ből induló séta minden csúcsot elér. \(E(\eta)\le4|E||V|\)</span>
+<details class="sol"><summary>Megoldás</summary>
+<p>Vegyünk egy \(F\) feszítőfát, és járjuk körbe (Euler-bejárás): \(2(|V|-1)\) él, \(v\)-ből \(v\)-be, minden csúcsot érint. A séta várható ideje, amíg ezt a csúcssorozatot ebben a sorrendben végigjárja, felső korlát \(E(\eta)\)-ra: \(\sum h_{x_ix_{i+1}}\), és minden \((x_i,x_{i+1})\) él ⇒ \(h_{x_ix_{i+1}}\le2|E|\). Így \(E(\eta)\le2(|V|-1)\cdot2|E|\le4|E||V|\).</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">2013ő #6. Lusta séta: \(w\)-ben maradunk \(1-\frac{d(w)}{2d}\), minden szomszédba \(\frac1{2d}\) (\(d\) a max fok). Markov-lánc? Stacionárius eloszlás?</span>
+<details class="sol"><summary>Megoldás</summary>
+<p>Markov-lánc: az átmenet csak az aktuális csúcstól függ, \(\sum_xp_{wx}=1-\frac{d(w)}{2d}+d(w)\cdot\frac1{2d}=1\). Irreducibilis (összefüggő), aperiodikus (hurok, ha \(d(w)&lt;2d\), ami mindig igaz). \(P\) <b>szimmetrikus</b> (\(p_{wx}=p_{xw}=\frac1{2d}\)) ⇒ duplán sztochasztikus ⇒ az egyenletes \(\pi=(\tfrac1n..\tfrac1n)\) stacionárius: \((\pi P)_x=\tfrac1n\sum_wp_{wx}=\tfrac1n\). Az alaptétel szerint ez az egyetlen.</p>
+</details>
+</div>
+
+<h3>23.8 Erdős–Rényi és AB-gráfok</h3>
+<div class="box ex">
+<span class="t">2021 #7. \(k(n)\) a „van háromszög” küszöbfüggvénye. Igaz-e \(\lim\frac1{k(n)n^{1{,}3}}=\infty\)?</span>
+<details class="sol"><summary>Megoldás: nem</summary>
+<p>A \(d\)-pontú kör (így a háromszög) küszöbfüggvénye \(k(n)=\tfrac1n\). Ekkor \(\frac1{k(n)n^{1{,}3}}=\frac n{n^{1{,}3}}=n^{-0{,}3}\to0\). (Indoklás \(1/n\)-re: háromszögek várható száma \(\binom n3p^3\approx(np)^3/6\): \(np\to0\) esetén \(\to0\) ⇒ nincs háromszög; \(np\to\infty\) esetén a várható szám \(\to\infty\), és a szórás elemzésével \(P\to1\).)</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">2023 #6. (a) \(E(D)\) \(ER(n,p)\)-ben; (b) mekkora \(p\)-re lesz a 4 hosszú körök várható száma \(\ge2\)?</span>
+<details class="sol"><summary>Megoldás</summary>
+<p>(a) \(D\sim\mathrm{Bin}(n-1,p)\), \(E(D)=(n-1)p\). (b) \(K_n\)-ben a 4-körök száma: 4 csúcs \(\binom n4\)-féleképp, rajtuk \(3\) különböző kör ⇒ \(3\binom n4=\frac{n(n-1)(n-2)(n-3)}8\). Egy adott 4-kör \(p^4\) eséllyel van benne (indikátor). \(E=\frac{n(n-1)(n-2)(n-3)}8p^4\ge2\) ⇔ \(p\ge\Big(\frac{16}{n(n-1)(n-2)(n-3)}\Big)^{1/4}\approx\frac2n\).</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">2009 #4. \(AB(m)\) \(t\) lépés után</span>
+<details class="sol"><summary>Megoldás</summary>
+<p>\(t\) csúcs és \(mt\) él (az első csúcs \(m\) hurokéllel, utána minden új csúcs \(m\) éllel).</p>
+</details>
+</div>
+
+<h3>23.9 ZPP, Las Vegas, BPP tartalmazások</h3>
+<div class="box def">
+<span class="t">ZPP definíciója (a feladatokban)</span>
+<p>\(L\in ZPP\), ha van véletlent használó algoritmus, amely <b>mindig megáll és pontosan válaszol</b>, és a lépésszám <b>várható értéke</b> \(\le n^c\).</p>
+</div>
+<div class="box ex">
+<span class="t">2010ő #8. Las Vegas ⊆ ZPP?</span>
+<details class="sol"><summary>Igen</summary>
+<p>\(L\in\)Las Vegas: Las Vegas-teszt (két RP-teszt) polinom idejű, \(\ge\tfrac12\) eséllyel biztos választ ad. Ismételjük, amíg választ nem kapunk: a menetek száma geometriai, \(p\ge\tfrac12\), várható értéke \(\le2\) ⇒ várható lépésszám \(\le2n^c\), a válasz mindig helyes ⇒ \(L\in ZPP\).</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">2009 #6. ZPP ⊆ Las Vegas?</span>
+<details class="sol"><summary>Igen (tehát ZPP = Las Vegas)</summary>
+<p>\(L\in ZPP\), \(A\) a várhatóan \(n^c\) lépéses algoritmus. RP-teszt \(L\)-re: futtassuk \(A\)-t \(2n^c\) lépésig; ha megállt és igent mondott: „igen”, különben „nem”. Az igen mindig helyes; ha \(x\in L\), Markov szerint \(P(\text{nem áll meg }2n^c\text{ alatt})\le\tfrac12\), így \(\ge\tfrac12\) eséllyel igent mondunk ⇒ \(L\in RP\). Ugyanez a komplementerre ⇒ \(L\in RP\cap coRP=\)Las Vegas.</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">2011p #7. ZPP ⊆ BPP?</span>
+<details class="sol"><summary>Igen</summary>
+<p>Futtassuk \(A\)-t \(3n^c\) lépésig; ha megállt, a (helyes) válaszát adjuk; ha nem, válaszoljunk tetszőlegesen (pl. „nem”). Markov: \(P(\text{nem áll meg})\le\tfrac13\) ⇒ mindkét irányban \(\ge\tfrac23\) eséllyel helyes ⇒ BPP.</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">2009 #5. \(O(\log n)\) tárigényű randomizált algoritmus \(s\)–\(t\) elérhetőségre, hiba \(\le\tfrac12\)</span>
+<details class="sol"><summary>Megoldás</summary>
+<p>Véletlen séta \(s\)-ből \(2n^3\) lépésig; ha elértük \(t\)-t: igen (biztos), különben nem. Ha van út, \(h_{st}\le2|V||E|\le n^3\), Markov: \(P(\xi_{st}\ge2n^3)\le\tfrac12\). Tár: lépésszámláló (\(O(\log n)\) bit) + aktuális csúcs (\(O(\log n)\) bit) + a következő szomszéd sorsolása.</p>
+</details>
+</div>
+
+<h2 id="s24">24. Gyors önellenőrzés <label class="chk"><input type="checkbox" data-k="s24">kész</label></h2>
+<h4>Nagyságrend-kvíz (Rónyai „Első kvíz” – a betűk ALAN TURING-ot adnak)</h4>
+<details class="q"><summary>\(n^2-2020n\): \(O(n^2)\)? \(\Omega(n^2)\)?</summary><p>Mindkettő (\(\Theta(n^2)\)). — A</p></details>
+<details class="q"><summary>\(2020n\): \(O(n^2)\)-ben? \(\Omega(n^2)\)-ben?</summary><p>\(O(n^2)\) igen, \(\Omega(n^2)\) nem. — L</p></details>
+<details class="q"><summary>\(f\in O(n^4)\Rightarrow f\in O(n^5)\)?</summary><p><span class="i">Igaz.</span> — A</p></details>
+<details class="q"><summary>\(2n^3\in\Theta(n^3)\)?</summary><p><span class="i">Igaz.</span> — N</p></details>
+<details class="q"><summary>Lehet \(f\in O(n)\) és \(f\in O(n^3)\) egyszerre?</summary><p><span class="i">Igaz</span> (pl. \(f=n\)). — T</p></details>
+<details class="q"><summary>\(f\in O(n^2)\), \(g\in\Theta(n^3)\) ⇒ \(f\in O(g)\)?</summary><p><span class="i">Igaz.</span> — U</p></details>
+<details class="q"><summary>\(f\in O(n^2)\), \(g\in O(n^3)\) ⇒ \(f\in O(g)\)?</summary><p><span class="h">Hamis</span> (\(f=n^2\), \(g=n\)). — R</p></details>
+<details class="q"><summary>Legkisebb \(k\), amire \(n^2\log n\in O(n^k)\)?</summary><p>3. — I</p></details>
+<details class="q"><summary>\(f\in\Omega(n)\) és \(f\in O(n)\) ⇒ \(f\in\Theta(n)\)?</summary><p><span class="i">Igaz.</span> — N</p></details>
+<details class="q"><summary>Melyik nincs \(O(\log n)\)-ben: \(2020^{2020}\log n\), \(\log\log n\), \(n/2020\)?</summary><p>\(n/2020\). — G</p></details>
+
+<h4>Elmélet igaz/hamis</h4>
+<details class="q"><summary>A gyorsrendezés várható költsége \(\le2(n+1)H_n\).</summary><p><span class="i">Igaz.</span></p></details>
+<details class="q"><summary>Randomizált összehasonlító rendezés átlagos várható lépésszáma lehet \(o(n\log n)\).</summary><p><span class="h">Hamis</span> – \(\ge\lfloor\log_2n!\rfloor\).</p></details>
+<details class="q"><summary>Schwartz–Zippel: \(P(f(\alpha)=0)\le d/N\) csak akkor, ha \(F\) végtelen test.</summary><p><span class="h">Hamis</span> – bármely test, \(T\subseteq F\), \(|T|=N\).</p></details>
+<details class="q"><summary>Az összes \(X\to[M]\) függvény halmaza 2-univerzális.</summary><p><span class="i">Igaz</span>, de \(M^r\) elemű; \(H^*\) \(&lt;4r^2\) elemű.</p></details>
+<details class="q"><summary>A falomban egy törlés várhatóan legfeljebb 2 forgatás.</summary><p><span class="i">Igaz</span> (15. tétel).</p></details>
+<details class="q"><summary>A falom várható magassága \(O(\log n)\), de egy adott csúcs várható mélysége \(\le2\log n+2\) – a kettő nem ugyanaz.</summary><p><span class="i">Igaz</span> (max vs. egy elem).</p></details>
+<details class="q"><summary>A Rabin–Karp Las Vegas-változata hibázhat.</summary><p><span class="h">Hamis</span> – a Monte Carlo-változat hibázhat \(O(1/n)\)-nel.</p></details>
+<details class="q"><summary>\(F\)-nehéz él lehet benne mkf-ben.</summary><p><span class="h">Hamis.</span></p></details>
+<details class="q"><summary>18. tétel: \(E(\#F\text{-könnyű él})\le n/p\), ahol \(F\) a \(G(p)\) mkf-je.</summary><p><span class="i">Igaz.</span></p></details>
+<details class="q"><summary>\(R(t,t)\) felső és alsó korlátja?</summary><p>\(2^{t/2}&lt;R(t,t)&lt;4^t\).</p></details>
+<details class="q"><summary>Az LLL-ben a teljes függetlenség páronkéntire cserélhető.</summary><p><span class="h">Hamis</span> (Fano-sík).</p></details>
+<details class="q"><summary>Az LLL feltétele?</summary><p>\(P(E_i)\le p\), fokok \(\le d\), \(4dp\le1\) (vagy \(edp\le1\)).</p></details>
+<details class="q"><summary>RP-tesztnél az „igen” válasz biztos, a „nem” hibázhat; BPP-tesztnél mindkettő hibázhat; Las Vegas-teszt sosem hibázik, de válasz nélkül maradhat.</summary><p><span class="i">Igaz.</span></p></details>
+<details class="q"><summary>Tartalmazási lánc?</summary><p>\(P\subseteq\)Las Vegas\(\subseteq RP\subseteq NP\); \(RP\subseteq BPP\subseteq EXPTIME\); \(coBPP=BPP\); \(IP=PSPACE\supseteq coNP\).</p></details>
+<details class="q"><summary>Ö (összetett számok) melyik osztályban van?</summary><p>RP (Rabin–Miller), sőt P (AKS).</p></details>
+<details class="q"><summary>Minden \(L\in NP\)-hez van nulla ismeretű bizonyítás – milyen feltétellel?</summary><p>Egyirányú függvény létezése (GMW), vagy két elkülönített Merlin (BGKW).</p></details>
+<details class="q"><summary>Véletlen séta \(G\)-n: stacionárius eloszlás és \(h_{ii}\)?</summary><p>\(\pi_i=d_i/2|E|\), \(h_{ii}=2|E|/d_i\); páros gráfon periodikus (\(\Delta=2\)).</p></details>
+<details class="q"><summary>Az alaptétel mely állításai maradnak igazak csak irreducibilis láncra?</summary><p>Az (1) és a (4); a limeszek nem.</p></details>
+<details class="q"><summary>PageRank: miért kell a \(0{,}2N\) tag?</summary><p>Hogy a lánc irreducibilis és aperiodikus legyen (a limesz létezzen, egyértelmű pozitív \(\pi\)).</p></details>
+<details class="q"><summary>Metropolis: \(g(j)&lt;g(i)\) esetén mekkora eséllyel lépünk?</summary><p>\(g(j)/g(i)\); stacionárius \(\pi_i\propto g(i)\).</p></details>
+<details class="q"><summary>Küszöbfüggvények: él / 2-fokú csúcs / \(d\)-kör / összefüggő?</summary><p>\(1/n^2\), \(n^{-3/2}\), \(1/n\), \(\log n/n\).</p></details>
+<details class="q"><summary>AB-gráf fokeloszlásának kitevője?</summary><p>\(\gamma=3\).</p></details>
+<details class="q"><summary>Kleinberg-gráfban a távoli ismerős választásának valószínűsége és a rövidlátó algoritmus lépésszáma?</summary><p>\(\propto1/d(u,v)\), \(\ge\frac1{2d(u,v)\log_2n}\); várhatóan \(\le3(\log_2n)^2\).</p></details>
+
+<h2 id="fin">Puska: számok és képletek, amiket fejből kell tudni</h2>
+<div class="grid2">
+<div class="box">
+<span class="t">Algoritmusok</span>
+<ul>
+<li>Gyorsrendezés \(C(n)&lt;2(n+1)H_n\approx1{,}39n\log_2n\); \(P(e_i,e_j)=\frac2{j-i+1}\); alsó korlát \(\lfloor\log_2n!\rfloor\)</li>
+<li>Prím \(n\) biten: \(\approx1/(n\ln2)\)</li>
+<li>Konvex burok: \(P(Z_{ij}=1)\le2/j\) ⇒ \(O(n\log n)\)</li>
+<li>SZ: \(d/N\); párosítás \(N=2n\), \(O(n^3)\); \(AB=C\): \(|T|=n\), \(1/n\), \(O(n^2)\)</li>
+<li>Hash: \(P\le1/M\); \(h_{a,b}=((ax+b)\bmod p)\bmod M\), \(|H^*|=p(p-1)&lt;4r^2\); \(n\) művelet \(O(n(1+k/M))\)</li>
+<li>Falom: mélység \(\le2\log n+2\); \(P(k_j\text{ ős})=\frac1{|j-i|+1}\); forgatás \(\le2\)</li>
+<li>RA: \(P(Y_{ij}=1)\le\frac1{\mathrm{index}+2}\), \(2nH_n\) osztópont</li>
+<li>Ujjlenyomat: hiba \(\le n/\pi(\tau)\), \(\tau=(n\log n)^2\), \(8\log_2n\) bit; Rabin–Karp \(\tau=d(n\log n)^2\), \(O(n+d)\)</li>
+<li>KKT: Borůvka felezi; \(E(\text{könnyű})\le n/p\); \(G_2=G_1(\tfrac12)\); \(T\le2c(n+e)\)</li>
+</ul>
+</div>
+<div class="box">
+<span class="t">Létezés, osztályok, gráfok</span>
+<ul>
+<li>Hipergráf: \(m\le2^{r-1}\); Beck: \(\le2^{r-3}\) metszés; \(R(t,t)&gt;2^{t/2}\), \(\le\binom{2t-2}{t-1}&lt;4^t\)</li>
+<li>Vágás \(e/2\), \(D=\sqrt e/2\); 2SAT \(\tfrac34m\); 3-partíció \(\tfrac23|E|\); \(c\)-színezés egyszínű háromszög \(c^{-2}\)</li>
+<li>Derandomizálás: \(X_v=\vec v\cdot\vec r\), \(2^k\le2n\) minta; feltételes várható érték \(a+b/2\)</li>
+<li>LLL \(4dp\le1\); \(k\)-SAT \(T=2^k/4k\); Moser–Tardos \(\le n/d\) újrasorsolás</li>
+<li>RP: fele tanú; BPP: \(\tfrac23\); LV = RP ∩ coRP = ZPP; Rabin–Miller \(O(\log^3m)\)</li>
+<li>GNI: \(P(\text{csal})\le\tfrac12\); 3SZÍN ZK: \(|E|\) menet, \(\approx1/e\)</li>
+<li>Séta: \(\pi_i=\frac{d_i}{2|E|}\), \(h_{ii}=\frac{2|E|}{d_i}\), \(h_{ji}\le2|E|\) (él), \(\le2|V||E|\le n^3\); \(U_n\): \((j-1)^2-(i-1)^2\); \(C_n\): \(h_{12}=n-1\); \(K_n\): \(n-1\)</li>
+<li>PageRank \(B=0{,}8A+0{,}2N\); Metropolis \(\pi_i\propto g(i)\); 2SAT séta \(n^2\)</li>
+<li>ER: \(E(m)=\binom n2p\), \(E(D)=(n-1)p\); küszöbök \(1/n^2\), \(n^{-3/2}\), \(n^{-d/(d-1)}\), \(1/n\), \(\log n/n\)</li>
+<li>WS(\(n,k,p\)): kör + \(k\)-szomszédok + \(p\) újrahuzalozás; AB(\(m,t\)): \(t\) csúcs, \(mt\) él, \(\gamma=3\); \(Kl_n\): \(\propto1/d\), \(3(\log_2n)^2\)</li>
+</ul>
+</div>
+</div>
+
+<hr>
+<p class="foot">Források: <code>anyagok/targyhonlap/ronyai/VeletlenEsAlgoritmusok2015.pdf</code> (a teljes jegyzet, a tételek számozása is innen), <code>VeletlenAlgoritmusokTetelsor.docx</code> (2023. dec.), <code>2013tavasz_zh.pdf</code>, <code>ElsoKviz.pdf</code>; <code>anyagok/vikwiki/Sztochasztika1 zh 2009osz…2015tavasz</code>, <code>Sztochasztika zh 2021.pdf</code>, <code>Sztochasztika 2024 ősz.pdf</code>; <code>anyagok/raktar/zh-s anyagrész/zh-k/sztoch-zh-23.jpg, sztoch-pzh-23.jpg</code>, <code>infok.docx</code>. A vikwiki „sztochasztika zh 2021 1zh / potzh” fájlok a villamosmérnöki Sztochasztika tárgy ZH-i (vizsgás anyagrész), nem ehhez a ZH-hoz tartoznak. Az idei ZH-időpont és az esetleges tematikaváltozás az első előadáson derül ki.</p>
+</main>
+
+<script>
+(function(){
+  var toc=document.getElementById('toc');
+  document.querySelectorAll('main h2[id], main h3[id]').forEach(function(h){
+    var a=document.createElement('a');a.href='#'+h.id;
+    a.textContent=h.childNodes[0].textContent.trim();
+    if(h.tagName==='H3')a.className='sub';
+    a.onclick=function(){toc.classList.remove('open')};
+    toc.appendChild(a);
+  });
+  var KEY='sztoch_zh_done';
+  var st={};try{st=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+  document.querySelectorAll('input[data-k]').forEach(function(cb){
+    cb.checked=!!st[cb.dataset.k];
+    cb.addEventListener('change',function(){st[cb.dataset.k]=cb.checked;try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}});
+  });
+})();
+</script>
+
+</body>
+</html>
