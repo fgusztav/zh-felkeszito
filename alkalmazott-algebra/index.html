@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<title>Alk. algebra ZH-felkészítő</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<style>
+:root{
+  --bg:#f7f6f2; --card:#ffffff; --ink:#1d1d1f; --muted:#5f6368; --line:#e3e1da;
+  --acc:#1f5fbf; --acc-bg:#e9f0fb;
+  --def:#0b7a6f; --def-bg:#e6f5f2;
+  --thm:#7a3fb5; --thm-bg:#f1eaf9;
+  --algo:#b5641b; --algo-bg:#fbf0e5;
+  --ex:#2e6b2e; --ex-bg:#ecf5ea;
+  --warn:#b3261e; --warn-bg:#fbe9e7;
+  --code:#f0efe9;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15161a; --card:#1f2126; --ink:#e8e8ea; --muted:#a0a3ab; --line:#33363d;
+    --acc:#7fb0ff; --acc-bg:#1d2a3f;
+    --def:#5fd3c4; --def-bg:#15302c;
+    --thm:#c9a3f5; --thm-bg:#2a2038;
+    --algo:#f0a35e; --algo-bg:#3a2a1c;
+    --ex:#8fd08f; --ex-bg:#1e2f1e;
+    --warn:#ff8a80; --warn-bg:#3a1f1d;
+    --code:#2a2c33;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15161a; --card:#1f2126; --ink:#e8e8ea; --muted:#a0a3ab; --line:#33363d;
+  --acc:#7fb0ff; --acc-bg:#1d2a3f;
+  --def:#5fd3c4; --def-bg:#15302c;
+  --thm:#c9a3f5; --thm-bg:#2a2038;
+  --algo:#f0a35e; --algo-bg:#3a2a1c;
+  --ex:#8fd08f; --ex-bg:#1e2f1e;
+  --warn:#ff8a80; --warn-bg:#3a1f1d;
+  --code:#2a2c33;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;margin:0}
+.top{position:sticky;top:0;z-index:20;background:var(--card);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:.6rem;padding:.55rem .9rem}
+.top h1{font-size:1rem;margin:0;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top button{background:var(--acc-bg);color:var(--acc);border:1px solid var(--line);border-radius:8px;padding:.35rem .7rem;font-size:.9rem;cursor:pointer}
+#toc{display:none;position:sticky;top:2.9rem;z-index:19;background:var(--card);border-bottom:1px solid var(--line);max-height:70vh;overflow:auto;padding:.5rem .9rem 1rem}
+#toc.open{display:block}
+#toc a{display:block;padding:.28rem 0;color:var(--acc);text-decoration:none;border-bottom:1px dashed var(--line)}
+#toc a.sub{padding-left:1.2rem;font-size:.92rem}
+main{max-width:780px;margin:0 auto;padding:1rem .9rem 5rem}
+h2{font-size:1.45rem;margin:2.2rem 0 .6rem;padding-top:.4rem;border-top:3px solid var(--acc)}
+h3{font-size:1.15rem;margin:1.6rem 0 .4rem;color:var(--acc)}
+h4{font-size:1rem;margin:1.1rem 0 .3rem}
+p{margin:.5rem 0}
+ul,ol{padding-left:1.3rem;margin:.4rem 0}
+li{margin:.2rem 0}
+table{border-collapse:collapse;width:100%;font-size:.93rem;margin:.6rem 0}
+th,td{border:1px solid var(--line);padding:.35rem .5rem;text-align:left;vertical-align:top}
+th{background:var(--acc-bg)}
+.scroll{overflow-x:auto;max-width:100%}
+code,kbd{overflow-wrap:anywhere;background:var(--code);padding:.1rem .3rem;border-radius:4px;font-size:.92em}
+.box{border-left:4px solid var(--acc);background:var(--acc-bg);border-radius:0 10px 10px 0;padding:.6rem .8rem;margin:.8rem 0}
+.box .t{font-weight:700;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.2rem;display:block}
+.def{border-color:var(--def);background:var(--def-bg)} .def .t{color:var(--def)}
+.thm{border-color:var(--thm);background:var(--thm-bg)} .thm .t{color:var(--thm)}
+.algo{border-color:var(--algo);background:var(--algo-bg)} .algo .t{color:var(--algo)}
+.ex{border-color:var(--ex);background:var(--ex-bg)} .ex .t{color:var(--ex)}
+.warn{border-color:var(--warn);background:var(--warn-bg)} .warn .t{color:var(--warn)}
+details{margin:.4rem 0}
+summary{cursor:pointer;font-weight:600;padding:.3rem 0}
+details.sol summary{color:var(--ex)}
+details.q{border:1px solid var(--line);border-radius:8px;padding:.3rem .7rem;background:var(--card)}
+details.q summary{font-weight:500}
+details.q p{margin:.3rem 0 .2rem}
+.i{color:var(--ex);font-weight:700}.h{color:var(--warn);font-weight:700}
+.tag{display:inline-block;font-size:.72rem;background:var(--code);border-radius:6px;padding:.05rem .4rem;margin-left:.3rem;color:var(--muted);vertical-align:middle}
+.src{font-size:.8rem;color:var(--muted)}
+.chk{float:right;font-size:.85rem;font-weight:400;color:var(--muted)}
+.chk input{transform:scale(1.2);margin-right:.3rem}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;padding:.2rem 0}
+mjx-container{font-size:105%}
+mjx-container:not([display]){display:inline-block;max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:middle}
+.box p,.box li,details p,summary{overflow-wrap:anywhere}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+@media (max-width:560px){.grid2{grid-template-columns:1fr}}
+.pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.1rem .6rem;font-size:.85rem;margin:.15rem .1rem;background:var(--card)}
+hr{border:0;border-top:1px solid var(--line);margin:1.4rem 0}
+.foot{color:var(--muted);font-size:.85rem}
+details.plan{border:1px solid var(--line);border-radius:10px;background:var(--card);padding:.4rem .8rem;margin:.8rem 0}
+details.plan summary{color:var(--acc)}
+
+.top a.home{color:var(--acc);text-decoration:none;font-size:.85rem;border:1px solid var(--line);border-radius:8px;padding:.3rem .55rem;white-space:nowrap}
+#anyagok li{margin:.3rem 0}
+</style>
+<script>
+window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']],packages:{'[+]':['ams']}},svg:{fontCache:'global'},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+
+</head>
+<body>
+<div class="top">
+  <a class="home" href="../">Főmenü</a>
+  <h1>Alkalmazott algebra és mat. logika – ZH-felkészítő</h1>
+  <button onclick="document.getElementById('toc').classList.toggle('open')">Tartalom</button>
+</div>
+<nav id="toc"></nav>
+
+<main>
+
+<p class="src">BMETE90MX75 · a 2021–2024-es ZH-sorok, Wettl Ferenc handoutjai (01–05), Simon András logikajegyzete és ZH-i, valamint hallgatói kidolgozások alapján. <b>Csak a ZH anyagát</b> tartalmazza; ami biztosan vizsgaanyag (SVD, normák, Jordan-alak, mátrixfüggvény, Perron–Frobenius, Markov-láncok, elsőrendű teljességi tétel, modális logika), az szándékosan kimaradt.</p>
+
+<details class="plan" id="terv">
+<summary>Alapozó terv a ZH előtt: melyik videót / handoutot / feladatot milyen sorrendben (koppints)</summary>
+<p>A ZH-anyag = Wettl handout 01–05 + videók 1-1 … 5-5 (kb. 9,7 óra) + a logika kijelentéslogikai része. A vizsgás rész (6-x SVD/norma, 7-x Jordan, 8-x nemnegatív mátrixok, kb. 8,5 óra) most kihagyható. A Sztochasztika ZH-ja korábban van (7–8. hét), ezért az első hetekben az algebra heti ~2 óra mellékszál. Fájlok: <code>anyagok/raktar/_nagy_lokalis/Videok/</code>, <code>anyagok/raktar/AlkAlgPrezentációk/handout_i0X</code>, <code>anyagok/raktar/Neptun_Gyakorlati_feladatok_final.pdf</code>.</p>
+<div class="scroll"><table>
+<tr><th>Hét</th><th>Videó</th><th>Handout</th><th>Gyakorlás (Neptun-feladatgyűjtemény)</th></tr>
+<tr><td>1</td><td>1-1 Vektortér (49 p), 1-2 Mátrix / lineáris leképezés (44 p)</td><td>i01</td><td>2–3. fejezet: egyenletrendszer, rang, altér bázisa, nulltér, kitüntetett alterek (3.1–3.16); 4.1, 4.2, 4.8 áttérés</td></tr>
+<tr><td>2</td><td>2-1 Elemi sorműveletek (95 p), 2-2 Mátrixfelbontások (23 p)</td><td>i02</td><td>3.13 min. absz. értékű megoldás; 4.4 bázisfelbontás, 4.5–4.6 LU, 4.9 PLU; 6.1 mátrix másik bázisban</td></tr>
+<tr><td>3</td><td>3 Euklideszi (52 p), 4-1 Merőlegesség (71 p), 4-2 Pszeudoinverz (22 p)</td><td>i03, i04 első fele</td><td>7.1–7.9: skalárszorzás, Gram-mátrix, vetítőmátrix, optimális megoldás</td></tr>
+<tr><td>4</td><td>4-3 Ortogonalizáció (29 p), 4-4 QR (42 p), 4-5 komplex mátrixok (11 p)</td><td>i04 második fele</td><td>7.10–7.20: Gram–Schmidt, QR, QR-ből optimális megoldás, pszeudoinverz, Givens, Householder</td></tr>
+<tr><td>5</td><td>5-1, 5-2 Diagonalizálás (36+43 p), 5-3 ortogonális/unitér (19 p)</td><td>i05 első fele</td><td>8.1–8.9: sajátérték, multiplicitás, diagonalizálhatóság, sajátfelbontás</td></tr>
+<tr><td>6</td><td>5-4 Bilineáris (31 p), 5-5 Kvadratikus alakok (25 p)</td><td>i05 második fele</td><td>9.1–9.8 főtengelytétel, definitség; 9.15 Cholesky (9.9–9.14, 9.16–17 SVD/Schur: vizsga)</td></tr>
+<tr><td>7+</td><td>—</td><td>—</td><td>ez az oldal + a 2021–2024-es ZH-k kézzel végigszámolva</td></tr>
+</table></div>
+<p><b>Logika:</b> először <code>matlog/loginfo.pdf</code> (Simon András, 23 oldal – a ZH-tananyag gerince, tipikus ZH-kérdésekkel), mellé az <code>mlhu1–mlhu4</code> videók (kijelentéslogika, normálformák, rezolúció, Hilbert-kalkulus; egyenként ~1 óra), majd <code>mlhu5–6</code> (elsőrendű logika) csak ha a Sági-féle formátum jönne. Gyakorlás: Sági gyakorlófeladatok 1–2, a 2019-es Zh1/Zh2 megoldások, a 2022-es logika-ZH. A videók témabeosztását az első percek címéből ellenőrizd. A hallgatói összefoglalók (Algebra kidolgozás kézzel, matlog peabe) az alapozás <i>után</i> jók gyors ismétlésre.</p>
+</details>
+
+<div class="box ex" id="anyagok"><span class="t">Letölthető alapozó anyagok (PDF)</span><p>A tanulási tervben hivatkozott diák, jegyzetek és régi ZH-k összefűzve. Csak saját tanulásra; a szerzői jog az előadóké.</p><ul><li><a href="pdf/alkalg_handout_01-05_Wettl.pdf">alkalg_handout_01-05_Wettl.pdf</a> — Wettl előadás-handoutok 01–05 (a ZH algebra-anyaga; 06–08 vizsgás, kihagyva) <span class="tag">315 oldal · 1460 KB</span></li><li><a href="pdf/alkalg_feladatgyujtemeny_Neptun.pdf">alkalg_feladatgyujtemeny_Neptun.pdf</a> — Gyakorlati feladatgyűjtemény (Neptun) – a terv 2–9. fejezeteire hivatkozik <span class="tag">127 oldal · 5397 KB</span></li><li><a href="pdf/alkalg_regi_ZH-k_2018-2024.pdf">alkalg_regi_ZH-k_2018-2024.pdf</a> — Régi algebra+logika ZH-k és megoldások 2018–2024 (vikwiki + hallgatói) <span class="tag">20 oldal · 3576 KB</span></li><li><a href="pdf/logika_kurzusinfo_Simon_2020.pdf">logika_kurzusinfo_Simon_2020.pdf</a> — Matematikai logika – Simon András jegyzete/kurzusinfója (a logika-ZH gerince) <span class="tag">23 oldal · 390 KB</span></li><li><a href="pdf/logika_gyakorlofeladatok_Sagi.pdf">logika_gyakorlofeladatok_Sagi.pdf</a> — Sági-féle logika gyakorlófeladatok 1–2, régi ZH 2008, minta-ZH-k <span class="tag">9 oldal · 205 KB</span></li><li><a href="pdf/logika_ZH-k_es_megoldasok.pdf">logika_ZH-k_es_megoldasok.pdf</a> — Logika ZH-k: 2019 Zh1/Zh2 megoldások, régi ZH, 2022 ZH, 2023 vizsga-ZH, próbavizsga, konzultációk <span class="tag">13 oldal · 594 KB</span></li></ul></div>
+
+<h2 id="s0">0. Mit kér a ZH és hogyan állj neki</h2>
+<div class="box warn">
+<span class="t">2026-os hivatalos tárgykövetelmény (Teams, 2026-09-06) – ez felülírja a lentebbi régi arányokat</span>
+<ul>
+<li><b>Előadók: Wettl Ferenc (algebra), Molnár Zoltán Gábor (logika).</b> <span class="h">A logika idén egészen más tárgy:</span> Molnár Zoltán kurzusa <b>Coq/Rocq-alapú konstruktív logika és típuselmélet</b> (ternáris kondicionális, Boole-típus, szintaxisfák, bizonyíthatóság és/vagy/ha-akkor/negáció/kvantorok, monadikus kvantorok, prenex; Curry–Howard), anyagai a <a href="https://github.com/mozow01/Matematikai-logika-VIK">tárgy GitHubján</a> és a Teamsen (kód t07g4m1). Logika-ZH: 45 perc, 20 pont, min. 8; plusz 10 Moodle-beadandó (20 pont). <b>Az alábbi L0–L6 logika-részek a régi (Simon/Sági-féle) klasszikus ZH-ra készültek – idén csak háttérként érvényesek</b>; az új, Coq-alapú logika-felkészítő az első 2026-os logika-előadások anyagából készül.</li>
+<li><b>Egy ZH, két rész: algebra max 20 pont + logika max 20 pont.</b> Aláíráshoz <b>mindkét részből külön ≥ 8 pont</b> (40%) kell, a ZH mindkét részből egyszer pótolható; sikertelen ZH-nak elég a sikertelen felét ismételni.</li>
+<li><b>Jegy (max 100 pont):</b> algebra = ZH 20 + vizsga 30 (vizsga min. 12); logika = <b>Moodle-házik 20 (nincs minimum)</b> + ZH 20 (min. 8) + vizsga 10 (min. 4). Összpont: 40 → 2, 50 → 3, 65 → 4, 80 → 5. Vagyis a ZH a jegy 40%-a, a logika-házik ingyen 20% – azokat hetente csináld a VIK Moodle-ön.</li>
+<li>Időpont: „a VIK ZH-ütemtervének megfelelően” – TBD (2024-ben nov. 12.). Moodle: VIK = logika, TTK = algebra (feladatsorok). Az oktató szerint a tárgy idén kicsit könnyebb lesz, és elképzelhető, hogy a ZH-t élőben, de Moodle-ön írjuk – ha így lesz, a kvíz-típusú (feleletválasztós, számot beíró) feladatokra készülj a számolós mellett; az előadásdiák előadás előtt a Teamsen.</li>
+</ul>
+</div>
+
+<div class="box">
+<span class="t">A ZH szerkezete (2021–2024 alapján)</span>
+<ul>
+<li><b>Algebra rész (Wettl):</b> 5 feladat × 4 pont = 20 pont, 1 oldalas lap. Az 1. feladat mindig egy <b>4 részes kvíz</b> (állításokat kell X-elni; hibátlan rész 1 pont, 1 hiba 0,5, több hiba 0). A 2–5. feladat <b>számolós</b>, az eredményt keretbe kell írni, de <b>mellékszámítás nélkül nem jár pont</b>. Segédeszköz nincs.</li>
+<li><b>Logika rész (2021–22: Simon András):</b> 4 feladat, mindegyikben 4 igaz/hamis jellegű választás. <b>Jó válasz +5/4, rossz −5/8, üres 0.</b> Régebbi (Sági-féle, 2019) formátum: formalizálás, következmény ellenőrzése, klóz-alak, prenex/Skolem, rezolúció – ezt is lefedjük, mert az előadó változhat.</li>
+<li>A két részt <b>külön lapon</b> kell beadni. Legalább elégséges ZH kell az aláíráshoz, és a ZH a vizsgajegy 50%-a.</li>
+</ul>
+</div>
+
+<div class="box algo">
+<span class="t">Stratégia</span>
+<ol>
+<li><b>A számolós feladatok 5-6 típusból jönnek</b> (lásd a táblázatot). Mindegyikhez tanuld meg a lenti „algoritmust”, és számolj végig 2–3 régi példát kézzel.</li>
+<li>A kvízhez a <a href="#s10">10. fejezet</a> gyűjteménye a régi sorok összes állítását tartalmazza indoklással: ezeket menj át többször.</li>
+<li>Logika: a negatív pontozás miatt <b>amit nem tudsz, hagyd üresen</b>. A négy feladattípus mindegyike egy közös trükkre épül: keresd meg a formulahalmaz <b>összes modelljét</b>.</li>
+</ol>
+</div>
+
+<div class="scroll">
+<table>
+<tr><th>Algebra feladattípus</th><th>Előfordulás</th><th>Fejezet</th></tr>
+<tr><td>Kvíz: struktúrák, vektorterek, kitüntetett alterek, optimális megoldás, pszeudoinverz, diagonalizálhatóság, hasonló/kongruens</td><td>minden ZH 1. feladata</td><td><a href="#s1">1</a>, <a href="#s10">10</a></td></tr>
+<tr><td>Egyenletrendszer összes megoldása a <b>sortérbe eső / minimális abszolút értékű</b> megoldással</td><td>2018, 2021, 2022, 2023</td><td><a href="#s2">2</a></td></tr>
+<tr><td>Inkonzisztens rendszer <b>összes optimális megoldása</b> + a minimális abszolút értékű</td><td>2018, 2022 PZH, 2024 ZH/PZH/PPZH</td><td><a href="#s2">2</a></td></tr>
+<tr><td><b>PLU-felbontás</b> (+ egyenletrendszer megoldása vele), LU, <b>Cholesky</b></td><td>2021, 2022, 2023, 2024 PPZH</td><td><a href="#s3">3</a></td></tr>
+<tr><td><b>Merőleges vetület</b> altérre (Gram-mátrix / vetítőmátrix), polinomtérben integrál-skalárszorzattal</td><td>2018, 2021, 2022, 2024 ×3</td><td><a href="#s4">4</a></td></tr>
+<tr><td><b>QR-felbontás</b> Gram–Schmidt-tel (redukált és teljes), optimális megoldás QR-rel</td><td>2018, 2021, 2022, 2023, 2024</td><td><a href="#s5">5</a></td></tr>
+<tr><td><b>Pszeudoinverz</b> kiszámítása, optimális megoldás vele</td><td>2018, 2021, 2023</td><td><a href="#s5">5</a></td></tr>
+<tr><td>Sajátérték, sajátaltér, <b>algebrai/geometriai multiplicitás</b>, diagonalizálható-e; sajátfelbontás, PSD négyzetgyök</td><td>2021, 2024</td><td><a href="#s7">7</a></td></tr>
+<tr><td><b>Kvadratikus alak</b> főtengely-transzformációja (ONB + kanonikus alak)</td><td>2024 PZH</td><td><a href="#s8">8</a></td></tr>
+<tr><td>Lineáris leképezés (vetítés) mátrixa, mátrix más bázisban, Givens-forgatás, Householder-tükrözés</td><td>2018, 2024 PPZH</td><td><a href="#s9">9</a>, <a href="#s6">6</a></td></tr>
+</table>
+</div>
+
+<h2 id="s1">1. Alapfogalmak, amiket a kvíz kérdez <label class="chk"><input type="checkbox" data-k="s1">kész</label></h2>
+
+<h3 id="s1a">1.1 Algebrai struktúrák: test vagy gyűrű?</h3>
+<div class="box def">
+<span class="t">Definíciók (röviden)</span>
+<ul>
+<li><b>Gyűrű:</b> halmaz két művelettel (+, ·), ahol (+) kommutatív csoport, (·) asszociatív és disztributív a (+)-ra. <b>Egységelemes</b>, ha van 1; <b>kommutatív</b>, ha a szorzás az; <b>nullosztómentes</b>, ha \(ab=0\Rightarrow a=0\) vagy \(b=0\).</li>
+<li><b>Test:</b> kommutatív, egységelemes gyűrű, amelyben minden nemnulla elemnek van multiplikatív inverze (lehet osztani). Minden test nullosztómentes.</li>
+<li><b>Vektortér</b> egy \(F\) test fölött: az elemek összeadhatók és \(F\)-beli skalárral szorozhatók a szokásos szabályokkal.</li>
+</ul>
+</div>
+<div class="box algo">
+<span class="t">Döntési szabály (ezt kérdezik)</span>
+<ul>
+<li><b>Testek:</b> \(\mathbb{Q},\ \mathbb{R},\ \mathbb{C}\), \(\mathbb{Z}_p\) ha \(p\) <b>prím</b>, \(\mathbb{F}_q=GF(q)\) ha \(q\) prímhatvány (pl. \(\mathbb{F}_8\) test, pedig \(\mathbb{Z}_8\) nem!).</li>
+<li><b>Gyűrűk (nem testek):</b> \(\mathbb{Z}\) (nullosztómentes, egységelemes, kommutatív), \(\mathbb{Z}_m\) összetett \(m\)-re (egységelemes, kommutatív, <b>nem</b> nullosztómentes: \(2\cdot4=0\) mod 8), polinomgyűrűk \(F[x]\), \(\mathbb{Z}_m[x]\), négyzetes mátrixok \(F^{n\times n}\) (nem kommutatív, nem nullosztómentes).</li>
+<li>\(\mathbb{Z}_7[x]\) és \(\mathbb{Z}_8[x]\): egységelemes, kommutatív gyűrű mindkettő; \(\mathbb{Z}_7[x]\) nullosztómentes (test fölötti polinomgyűrű), \(\mathbb{Z}_8[x]\) nem.</li>
+<li>\(\mathbb{N}\) <b>nem gyűrű</b> (nincs additív inverz).</li>
+</ul>
+</div>
+
+<h3 id="s1b">1.2 Vektortér, lineáris kombináció, függetlenség, bázis</h3>
+<div class="box def">
+<span class="t">Definíciók</span>
+<ul>
+<li>Lineáris kombináció: \(\sum c_i v_i\). <b>Az üres vektorhalmaz lineáris kombinációja a zérusvektor.</b></li>
+<li>\(\{v_1,\dots,v_k\}\) lineárisan <b>független</b>, ha \(\sum c_iv_i=0\) csak \(c_i=0\) esetén. Egyetlen vektor: \(\{v\}\) független ⇔ \(v\ne0\).</li>
+<li>Végtelen halmaz független, ha <b>minden véges részhalmaza</b> független.</li>
+<li>Generátorrendszer: minden vektor előáll <b>véges sok</b> elemének lineáris kombinációjaként. Bázis = független generátorrendszer. Minden vektortérnek van bázisa; <b>a zérustér bázisa az üreshalmaz</b> (a nullvektor nem lehet bázis eleme).</li>
+<li>Altér: nemüres, zárt összeadásra és skalárszorzásra. Affin altér: altér eltoltja (pl. konzisztens \(Ax=b\) megoldáshalmaza, \(b\neq0\) esetén <b>nem</b> altér).</li>
+</ul>
+</div>
+<div class="box warn">
+<span class="t">Buktatók a kvízből</span>
+<ul>
+<li>\(F[x]\) (polinomok) vektortér \(F\) fölött, bázisa \(\{1,x,x^2,\dots\}\) – <span class="i">igaz</span>, mert minden polinom véges sok hatvány kombinációja.</li>
+<li>A valós <b>sorozatok</b> terének az \(e_i=(0,\dots,0,1,0,\dots)\) sorozatok <b>nem</b> bázisa, és a hatványsorok terének sem bázisa \(\{1,x,x^2,\dots\}\): pl. az \((1,1,1,\dots)\) sorozat nem áll elő véges sok \(e_i\) kombinációjaként.</li>
+<li>\(\mathbb{R}\) vektortér \(\mathbb{Q}\) fölött, de végtelen dimenziós.</li>
+<li>Vektorteret alkotnak: homogén \(Ax=0\) megoldásai; azok a \(b\)-k, amelyekre \(Ax=b\) konzisztens (ez \(O(A)\)); egy sajátértékhez tartozó sajátvektorok a 0-val; \(V\to W\) lineáris leképezések. <b>Nem</b> alkot vektorteret: konzisztens inhomogén \(Ax=b\) megoldásai; a sík eltolása nem lineáris leképezés.</li>
+<li>Két altér metszetének dimenziója: \(\dim(U\cap W)\ge \dim U+\dim W-\dim V\). Pl. \(F^6\)-ban két 4-dimenziós altér metszete legalább \(4+4-6=2\) dimenziós.</li>
+<li>\(\mathbb{R}^n\) és a legföljebb \(n-1\)-edfokú polinomok tere izomorf; bármely két \(n\)-dimenziós valós euklideszi tér izomorf.</li>
+</ul>
+</div>
+
+<h3 id="s1c">1.3 A négy kitüntetett altér és a lineáris algebra alaptétele</h3>
+<div class="box def">
+<span class="t">Jelölések (\(A\in\mathbb{R}^{m\times n}\))</span>
+<ul>
+<li>\(S(A)\) sortér (\(\le\mathbb{R}^n\)), \(O(A)\) oszloptér (\(\le\mathbb{R}^m\)), \(N(A)\) nulltér = \(Ax=0\) megoldásai (\(\le\mathbb{R}^n\)), \(N(A^T)\) bal nulltér (\(\le\mathbb{R}^m\)). \(S(A)=O(A^T)\), \(O(A)=S(A^T)\).</li>
+<li>Rang: \(r(A)=\dim S(A)=\dim O(A)\). <b>Rang–nullitás:</b> \(\dim S(A)+\dim N(A)=n\), \(\dim O(A)+\dim N(A^T)=m\).</li>
+</ul>
+</div>
+<div class="box thm">
+<span class="t">A lineáris algebra alaptétele</span>
+<p>Valós mátrix sortere és nulltere egymás <b>merőleges kiegészítő alterei</b>: \(S(A)\perp N(A)\), \(S(A)\oplus N(A)=\mathbb{R}^n\); ugyanígy \(O(A)\perp N(A^T)\), \(O(A)\oplus N(A^T)=\mathbb{R}^m\). Következmény: \(S(A)^\perp=N(A)\), \(O(A)^\perp=N(A^T)\); minden \(x\) egyértelműen egy sortérbeli és egy nulltérbeli vektor összege.</p>
+<p><b>Komplex mátrixra</b> (\(X\in\mathbb{C}^{m\times n}\)) a transzponált helyett az adjungált \(X^H=\overline{X}^T\) kell: \(O(X^H)\perp N(X)\), \(O(X)\perp N(X^H)\), \(\mathbb{C}^n=O(X^H)\oplus N(X)\), \(\mathbb{C}^m=O(X)\oplus N(X^H)\). <b>\(S(X)\perp N(X)\) általában hamis</b> komplex esetben (\(S(\overline{X})=O(X^H)\) kellene).</p>
+<p>Hasznos: \(N(A^TA)=N(A)\), \(O(A^TA)=O(A^T)\) (komplexben \(N(X^HX)=N(X)\)).</p>
+</div>
+<div class="box algo">
+<span class="t">Konzisztencia-feltételek (\(Ax=b\) megoldható ⇔)</span>
+<ul>
+<li>\(b\in O(A)\) (b az oszlopok lineáris kombinációja) ⇔ \(r(A)=r(A|b)\) ⇔ \(b\perp N(A^T)\).</li>
+<li>Konzisztens rendszer összes megoldása = egy partikuláris megoldás + \(N(A)\) (a homogén rész összes megoldása).</li>
+</ul>
+</div>
+<div class="box ex">
+<span class="t">Kvízminta (2024 PPZH)</span>
+<p>\(A\in\mathbb{R}^{s\times r}\), \(\dim S(A)=d\). Ekkor \(\dim O(A)=d\) <span class="i">(igaz)</span>; \(r(A)=r\) <span class="h">(hamis, r(A)=d)</span>; \(\dim N(A)=s-d\) <span class="h">(hamis: \(r-d\))</span>; \(\dim N(A^T)=s-d\) <span class="i">(igaz)</span>.</p>
+</div>
+
+<h3 id="s1d">1.4 Euklideszi tér, skaláris szorzás, norma</h3>
+<div class="box def">
+<span class="t">Definíciók</span>
+<ul>
+<li>Valós euklideszi tér: vektortér egy \(\langle u,v\rangle\) skaláris szorzással (szimmetrikus, mindkét változóban lineáris, pozitív definit: \(\langle v,v\rangle&gt;0\) ha \(v\ne0\)). Komplex esetben az első változóban konjugált-lineáris: \(x\cdot y=x^Hy\).</li>
+<li>Norma: \(\|v\|=\sqrt{\langle v,v\rangle}\); szög: \(\cos\alpha=\dfrac{\langle u,v\rangle}{\|u\|\|v\|}\); merőlegesség: \(\langle u,v\rangle=0\).</li>
+<li>Példa polinomtérre: \(\langle p,q\rangle=\int_0^1 p(x)q(x)\,dx\). Ezt <b>fejből kell tudni integrálni:</b> \(\langle x^a,x^b\rangle=\int_0^1x^{a+b}dx=\dfrac1{a+b+1}\).</li>
+<li>A normából a skaláris szorzás visszakapható (polarizáció): \(\langle u,v\rangle=\tfrac14(\|u+v\|^2-\|u-v\|^2)\) – ezért „a normával kifejezhető a skaláris szorzás” <span class="i">igaz</span>.</li>
+</ul>
+</div>
+
+<h2 id="s2">2. Egyenletrendszerek: összes megoldás, sortérbe eső és optimális megoldás <label class="chk"><input type="checkbox" data-k="s2">kész</label></h2>
+
+<h3>2.1 Gauss–Jordan és a megoldáshalmaz</h3>
+<div class="box algo">
+<span class="t">Algoritmus: redukált lépcsős alak (rref)</span>
+<ol>
+<li>Bővített mátrix \([A|b]\). Oszloponként haladva válassz főelemet, alatta nullázz ki mindent (Gauss).</li>
+<li>Visszafelé haladva a főelemek fölött is nullázz, a főelemeket oszd 1-re (Gauss–Jordan).</li>
+<li>Főoszlopok változói = <b>kötött</b>, a többi <b>szabad</b> (\(s,t,\dots\) paraméter). Ha egy sor \([0\ \dots\ 0\,|\,c\ne0]\): inkonzisztens.</li>
+<li>Írd fel: \(x=x_0+s\,v_1+t\,v_2+\dots\), ahol \(v_i\) a nulltér bázisa.</li>
+</ol>
+</div>
+
+<h3>2.2 A sortérbe eső (= minimális abszolút értékű) megoldás</h3>
+<div class="box thm">
+<span class="t">Tétel</span>
+<p>Konzisztens valós egyenletrendszernek <b>pontosan egy</b> megoldása esik \(S(A)\)-ba; ez az összes közül a <b>legkisebb abszolút értékű</b>; az összes megoldás = ez + \(N(A)\).</p>
+</div>
+<div class="box algo">
+<span class="t">Algoritmus (3 út, válaszd a gyorsabbat)</span>
+<ol>
+<li><b>Egyenlet-hozzávétel:</b> oldd meg, olvasd le \(N(A)\) bázisát \(v_1,\dots,v_k\). A sortérbe eső megoldás merőleges ezekre: vedd hozzá az egyenletekhez a \(v_i^T x=0\) egyenleteket, és oldd meg az így már egyértelmű rendszert.</li>
+<li><b>Sortér-paraméterezés:</b> a keresett \(\hat x\) a sorvektorok kombinációja, \(\hat x=A^Tc\). Helyettesítsd be: \(AA^Tc=b\), oldd meg \(c\)-re, \(\hat x=A^Tc\). (Ha 1–2 egyenlet van, ez a leggyorsabb.)</li>
+<li><b>Pszeudoinverz:</b> \(\hat x=A^+b\); teljes sorrangú \(A\)-ra \(A^+=A^T(AA^T)^{-1}\) (ugyanaz, mint a 2. út).</li>
+</ol>
+</div>
+<div class="box ex">
+<span class="t">Példa (2023 ZH 2.)</span>
+<p>\(x+z=2,\quad y+w=4\). Adjuk meg az összes megoldást a sortérbe eső megoldással!</p>
+<details class="sol"><summary>Megoldás</summary>
+<p>Már rref alakú. Szabad: \(z=s, w=t\): \(x=(2,4,0,0)+s(-1,0,1,0)+t(0,-1,0,1)\), így \(N(A)=\mathrm{span}((-1,0,1,0),(0,-1,0,1))\).</p>
+<p><b>2. út:</b> \(A=\begin{bmatrix}1&0&1&0\\0&1&0&1\end{bmatrix}\), \(AA^T=2I\), \(c=\tfrac12(2,4)=(1,2)\), \(\hat x=A^Tc=(1,2,1,2)\).</p>
+<p><b>1. út ellenőrzés:</b> \(-x+z=0,\ -y+w=0\) hozzávéve: \(x=z=1,\ y=w=2\). Válasz: \(x=(1,2,1,2)+s(-1,0,1,0)+t(0,-1,0,1)\).</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">Példa (2022 ZH 4., B csoport)</span>
+<p>\(x+3y-z=2,\quad 2x+4y=2\). Sortérbe eső megoldás?</p>
+<details class="sol"><summary>Megoldás</summary>
+<p>rref: \(\begin{bmatrix}1&0&2&|&-1\\0&1&-1&|&1\end{bmatrix}\) ⇒ \(x=(-1,1,0)+t(-2,1,1)\). A sortérbe eső megoldás merőleges \((-2,1,1)\)-re: a \(-2x+y+z=0\) egyenletet hozzávéve és megoldva \(\hat x=(0,\tfrac12,-\tfrac12)\). Ellenőrzés: \(t=-\tfrac12\)-re \((-1,1,0)-\tfrac12(-2,1,1)=(0,\tfrac12,-\tfrac12)\) ✓, és \((0,\tfrac12,-\tfrac12)\cdot(-2,1,1)=0\) ✓.</p>
+</details>
+</div>
+
+<h3>2.3 Inkonzisztens rendszer: optimális megoldások</h3>
+<div class="box def">
+<span class="t">Definíció</span>
+<p>Az \(Ax=b\) <b>optimális (legkisebb négyzetes) megoldásai</b>: az \(Ax=\mathrm{proj}_{O(A)}b\) megoldásai, azaz azok az \(x\)-ek, amelyekre \(\|Ax-b\|\) minimális.</p>
+</div>
+<div class="box thm">
+<span class="t">Tétel</span>
+<p>Az optimális megoldások pontosan a <b>normálegyenlet</b> \(A^TA\,x=A^Tb\) megoldásai. Közülük egyetlen esik \(S(A)\)-ba, ez a minimális abszolút értékű, és ez \(=A^+b\). (Ha \(A\) teljes oszloprangú, az optimális megoldás egyértelmű: \(x=(A^TA)^{-1}A^Tb\).)</p>
+<p><b>Kvíz-figyelmeztetés:</b> az összes optimális megoldás megkapható a normálegyenletből vagy az \(Ax=\mathrm{proj}_{O(A)}b\)-ből; az \(A^+b\) <b>csak egyet</b> ad (ha \(A\) teljes oszloprangú, akkor persze az összeset, mert csak egy van); „a normálegyenlet megoldásával, feltéve hogy \(Ax=b\) konzisztens” értelmetlen kikötés (hamis).</p>
+</div>
+<div class="box algo">
+<span class="t">Algoritmus</span>
+<ol>
+<li>Számold ki \(A^TA\) és \(A^Tb\), oldd meg a normálegyenletet Gauss–Jordannal ⇒ összes optimális megoldás \(x_0+N(A)\).</li>
+<li>A minimális abszolút értékű: a 2.2 bármelyik útja (leggyorsabb: \(\hat x=A^Tc\) alakban keresve).</li>
+</ol>
+</div>
+<div class="box ex">
+<span class="t">Példa (2024 ZH 2.)</span>
+<p>\(x+2y=4,\quad x+2y=6\). Összes optimális megoldás a minimális abszolút értékűvel!</p>
+<details class="sol"><summary>Megoldás</summary>
+<p>\(A=\begin{bmatrix}1&2\\1&2\end{bmatrix}\), \(A^TA=\begin{bmatrix}2&4\\4&8\end{bmatrix}\), \(A^Tb=(10,20)\). Normálegyenlet: \(2x+4y=10\) ⇔ \(x+2y=5\) (szemléletesen: \(b=(4,6)\) vetülete az \(O(A)=\mathrm{span}(1,1)\)-re \((5,5)\)). Összes: \((5,0)+t(-2,1)\). Sortér: \(c(1,2)\), \(c\cdot5=5\) ⇒ \(c=1\) ⇒ \(\hat x=(1,2)\). Válasz: \(\begin{bmatrix}1\\2\end{bmatrix}+\begin{bmatrix}-2\\1\end{bmatrix}t\).</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">Példa (2024 PPZH 2.)</span>
+<p>\(x+y+z=1,\ x+y+z=3\).</p>
+<details class="sol"><summary>Megoldás</summary>
+<p>Vetület: jobb oldal \((1,3)\to(2,2)\), normálegyenlet \(x+y+z=2\). Összes: \((2,0,0)+s(-1,1,0)+t(-1,0,1)\). Sortér: \(c(1,1,1)\), \(3c=2\) ⇒ \(\hat x=(\tfrac23,\tfrac23,\tfrac23)\).</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">Gyakorló (2024 PZH 2., két csoport)</span>
+<p>(a) \(x-y=2,\ 3x-3y=-4\) → \((-1,0)+t(1,1)=(-\tfrac12,\tfrac12)+t(1,1)\). (b) \(x-y=-1,\ 3x-3y=2\) → \((\tfrac12,0)+t(1,1)=(\tfrac14,-\tfrac14)+t(1,1)\). (2022 PZH: \(x+2y=3,\ x+2y=5\) → min. absz. értékű optimális \((\tfrac45,\tfrac85)\).)</p>
+</div>
+
+<h2 id="s3">3. LU-, PLU- és Cholesky-felbontás <label class="chk"><input type="checkbox" data-k="s3">kész</label></h2>
+
+<div class="box def">
+<span class="t">Definíciók</span>
+<ul>
+<li><b>LU:</b> \(A=LU\), \(L\) alsó <b>egység</b>háromszög (főátló csupa 1), \(U\) felső háromszög. Nem mindig létezik (pl. \(\begin{bmatrix}0&1\\1&0\end{bmatrix}\)); invertálható mátrixra egyértelmű, ha létezik.</li>
+<li><b>PLU:</b> \(PA=LU\), azaz \(A=P^TLU\), \(P\) permutáló mátrix (minden sorban/oszlopban egy 1-es). Mindig létezik, nem csak négyzetes mátrixra. (A megoldókulcsok \(A=PLU\) alakban írják: ott \(P\) az a permutáló mátrix, amely \(LU\) sorait \(A\) sorrendjébe rakja; egy sorcserénél \(P=P^T\).)</li>
+<li><b>Cholesky:</b> pozitív definit szimmetrikus \(A=R^TR\), \(R\) felső háromszög pozitív főátlóval. Egyértelmű.</li>
+</ul>
+</div>
+<div class="box algo">
+<span class="t">Algoritmus: LU/PLU Gauss-eliminációval</span>
+<ol>
+<li>Eliminálj oszloponként lefelé <b>csak „hozzáadás” sorművelettel</b> (\(S_i-l_{ij}S_j\)). Az \(l_{ij}=a_{ij}/a_{jj}\) szorzókat írd be \(L\) megfelelő helyére. A végeredmény \(U\).</li>
+<li>Ha egy főelem 0 (vagy Matlab-módra mindig a legnagyobb abszolút értékűvel akarsz eliminálni): <b>cserélj sort</b>, és a cserét végezd el az \(L\)-ben már beírt szorzókon is; jegyezd fel a permutációt.</li>
+<li>\(P\): az egységmátrix sorai ugyanabban a sorrendben cserélve. Ellenőrzés: \(PA=LU\).</li>
+<li>Egyenletrendszer PLU-val: \(Ax=b\) ⇔ \(LUx=Pb\): előbb \(Ly=Pb\) (előre-helyettesítés), majd \(Ux=y\) (vissza-helyettesítés).</li>
+</ol>
+</div>
+<div class="box ex">
+<span class="t">Példa (2022 ZH 2.)</span>
+<p>\(A=\begin{bmatrix}1&4&5\\1&4&3\\1&1&3\end{bmatrix}\) PLU-felbontása.</p>
+<details class="sol"><summary>Megoldás</summary>
+<p>\(S_2-S_1\): \((0,0,-2)\), \(S_3-S_1\): \((0,-3,-2)\); \(l_{21}=l_{31}=1\). A 2. oszlopban a főelem helyén 0 áll ⇒ 2. és 3. sor cseréje (az \(L\)-beli szorzók is cserélődnek, de itt mindkettő 1). \(U=\begin{bmatrix}1&4&5\\0&-3&-2\\0&0&-2\end{bmatrix}\), \(L=\begin{bmatrix}1&0&0\\1&1&0\\1&0&1\end{bmatrix}\), \(P=\begin{bmatrix}1&0&0\\0&0&1\\0&1&0\end{bmatrix}\). Ellenőrzés: \(LU\) 2. sora \((1,1,3)\), 3. sora \((1,4,3)\); \(P\) ezeket cseréli ⇒ \(A=PLU\) ✓.</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">Példa (2023 ZH 4.) – kétféle pivotálás</span>
+<p>\(A=\begin{bmatrix}2&1&3\\4&2&2\\-2&0&-2\end{bmatrix}\).</p>
+<details class="sol"><summary>Megoldás</summary>
+<p><b>Pontos aritmetika</b> (első nemnulla elemmel): \(l_{21}=2\): \((0,0,-4)\); \(l_{31}=-1\): \((0,1,1)\). 2. oszlop főeleme 0 ⇒ 2↔3 sorcsere: \(U=\begin{bmatrix}2&1&3\\0&1&1\\0&0&-4\end{bmatrix}\), \(L=\begin{bmatrix}1&0&0\\-1&1&0\\2&0&1\end{bmatrix}\), \(P=\begin{bmatrix}1&0&0\\0&0&1\\0&1&0\end{bmatrix}\).</p>
+<p><b>Részleges főelem-kiválasztás</b> (mindig a legnagyobb abszolút értékű): 1. oszlopban a 4 a legnagyobb ⇒ 1↔2 csere: \(\begin{bmatrix}4&2&2\\2&1&3\\-2&0&-2\end{bmatrix}\); \(l_{21}=\tfrac12\): \((0,0,2)\); \(l_{31}=-\tfrac12\): \((0,1,-1)\); 2. oszlop: 0 és 1 ⇒ csere: \(U=\begin{bmatrix}4&2&2\\0&1&-1\\0&0&2\end{bmatrix}\), \(L=\begin{bmatrix}1&0&0\\-\tfrac12&1&0\\\tfrac12&0&1\end{bmatrix}\), \(P=\begin{bmatrix}0&0&1\\1&0&0\\0&1&0\end{bmatrix}\) (az \(LU\) sorai az \(A\) 2., 3., 1. sora).</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">Példa (2024 PPZH 5.): egyenletrendszer megoldása PLU-val</span>
+<p>\(y+z=3,\ x+z=2,\ x+2z=3\).</p>
+<details class="sol"><summary>Megoldás</summary>
+<p>\(A=\begin{bmatrix}0&1&1\\1&0&1\\1&0&2\end{bmatrix}\): 1↔2 csere, majd \(l_{31}=1\): \(U=\begin{bmatrix}1&0&1\\0&1&1\\0&0&1\end{bmatrix}\), \(L=\begin{bmatrix}1&0&0\\0&1&0\\1&0&1\end{bmatrix}\), \(P=\begin{bmatrix}0&1&0\\1&0&0\\0&0&1\end{bmatrix}\). \(Pb=(2,3,3)\). \(Ly=Pb\): \(y=(2,3,1)\). \(Ux=y\): \(z=1,\ y=2,\ x=1\). Megoldás \((1,2,1)\).</p>
+</details>
+</div>
+<div class="box algo">
+<span class="t">Algoritmus: Cholesky az LU-ból</span>
+<ol>
+<li>Készítsd el \(A=LU\)-t (szimmetrikus pozitív definit \(A\)-ra sorcsere nélkül megy, és \(U\) főátlója pozitív).</li>
+<li>\(D=\mathrm{diag}(u_{11},\dots,u_{nn})\). Ekkor \(U=D\,L^T\) (ellenőrizhető), így \(A=LDL^T\).</li>
+<li>\(R=D^{1/2}L^T\): az \(L^T\) \(i\)-edik sorát szorozd \(\sqrt{u_{ii}}\)-vel. \(A=R^TR\).</li>
+</ol>
+<p>Pozitív definit ⇔ az LU-ban \(U\) minden főátlóbeli eleme pozitív ⇔ létezik ilyen \(R\) ⇔ \(A=C^TC\) invertálható \(C\)-vel.</p>
+</div>
+<div class="box ex">
+<span class="t">Példa (2021 ZH 3.)</span>
+<p>\(A=\begin{bmatrix}1&1&0\\1&5&4\\0&4&13\end{bmatrix}\): LU, majd Cholesky.</p>
+<details class="sol"><summary>Megoldás</summary>
+<p>\(S_2-S_1\): \((0,4,4)\); \(S_3-S_2\): \((0,0,9)\). \(L=\begin{bmatrix}1&0&0\\1&1&0\\0&1&1\end{bmatrix}\), \(U=\begin{bmatrix}1&1&0\\0&4&4\\0&0&9\end{bmatrix}\). \(D^{1/2}=\mathrm{diag}(1,2,3)\), \(R=D^{1/2}L^T=\begin{bmatrix}1&1&0\\0&2&2\\0&0&3\end{bmatrix}\). Ellenőrzés: \(R^TR=A\) ✓.</p>
+<p>Gyakorló (2021 PZH 5.): \(\begin{bmatrix}1&0&1\\0&9&0\\1&0&5\end{bmatrix}\) → \(R=\begin{bmatrix}1&0&1\\0&3&0\\0&0&2\end{bmatrix}\).</p>
+</details>
+</div>
+
+<h2 id="s4">4. Merőleges vetítés, legjobb közelítés <label class="chk"><input type="checkbox" data-k="s4">kész</label></h2>
+
+<div class="box thm">
+<span class="t">Legjobb közelítés tétele</span>
+<p>Ha \(W\) altér, akkor az \(x\)-hez legközelebbi \(W\)-beli vektor egyértelmű: \(\hat x=\mathrm{proj}_W x\), és \(x-\hat x\perp W\). \(\mathbb{R}^n=W\oplus W^\perp\).</p>
+</div>
+<div class="box algo">
+<span class="t">Vetület kiszámítása – 3 módszer</span>
+<ol>
+<li><b>Gram-mátrixszal</b> (bármilyen euklideszi térben, tetszőleges \(v_1,\dots,v_k\) bázissal): \(\mathrm{proj}_W v=c_1v_1+\dots+c_kv_k\), ahol \(Gc=b\), \(G=[\langle v_i,v_j\rangle]\), \(b_i=\langle v_i,v\rangle\).</li>
+<li><b>Vetítőmátrixszal</b> (\(\mathbb{R}^n\)-ben): ha \(A\) oszlopai \(W\) bázisa, \(P=A(A^TA)^{-1}A^T\), vetület \(Pv\). Egyenesre: \(P=\dfrac{bb^T}{b^Tb}\) (=\(ee^T\) egységvektorral); hipersíkra \(n\) egységnormálissal: \(P=I-nn^T\); tükrözés a hipersíkra: \(I-2nn^T\).</li>
+<li><b>Ortonormált bázissal:</b> \(\mathrm{proj}_W v=\sum\langle e_i,v\rangle e_i\) (Fourier-együtthatók); ortogonális (nem normált) bázissal \(\sum\dfrac{\langle a_i,v\rangle}{\|a_i\|^2}a_i\).</li>
+</ol>
+<p><b>Felismerés:</b> \(P\) vetítés mátrixa ⇔ \(P^2=P\); <b>merőleges</b> vetítésé ⇔ \(P^2=P=P^T\). \(r(P)=\mathrm{trace}(P)\). \(I-P\) is vetítés (a kiegészítő altérre).</p>
+</div>
+<div class="box ex">
+<span class="t">Példa (2022 ZH 3.)</span>
+<p>\(v=(5,2,0,0)\) vetülete a \(\mathrm{span}((0,1,0,1),(1,0,2,0))\) altérre.</p>
+<details class="sol"><summary>Megoldás</summary>
+<p>Gram: \(G=\begin{bmatrix}2&0\\0&5\end{bmatrix}\), \(b=(v\cdot v_1,v\cdot v_2)=(2,5)\) ⇒ \(c=(1,1)\) ⇒ \(\mathrm{proj}\,v=v_1+v_2=(1,1,2,1)\). (Ha \(G\) diagonális, a bázis ortogonális – ilyenkor a 3. módszer is egy sor.)</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">Példa (2024 PZH 4.): vetítőmátrix nem teljes rangú mátrix oszlopterére</span>
+<p>\(B=\begin{bmatrix}1&0&1\\0&1&1\\1&1&2\end{bmatrix}\) (rang 2). Merőleges vetítés mátrixa \(O(B)\)-re, és \((1,2,6)\) vetülete.</p>
+<details class="sol"><summary>Megoldás</summary>
+<p>A 3. oszlop az első kettő összege ⇒ \(O(B)=O(A)\), \(A=\begin{bmatrix}1&0\\0&1\\1&1\end{bmatrix}\) (teljes oszloprangú, csak így invertálható \(A^TA\)!). \(A^TA=\begin{bmatrix}2&1\\1&2\end{bmatrix}\), \((A^TA)^{-1}=\tfrac13\begin{bmatrix}2&-1\\-1&2\end{bmatrix}\), \(P=A(A^TA)^{-1}A^T=\tfrac13\begin{bmatrix}2&-1&1\\-1&2&1\\1&1&2\end{bmatrix}\). \(P(1,2,6)=\tfrac13(6,9,15)=(2,3,5)\).</p>
+<p>Ellenőrzés-trükk: \(P\) szimmetrikus, \(\mathrm{trace}\,P=2=\) rang ✓.</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">Példa (2024 ZH 3.): polinomtér, integrál-skalárszorzat</span>
+<p>Melyik legfeljebb elsőfokú polinom van legközelebb \(x^4\)-hez, ha \(\langle p,q\rangle=\int_0^1pq\)?</p>
+<details class="sol"><summary>Megoldás</summary>
+<p>Bázis \(\{1,x\}\). \(\langle1,1\rangle=1\), \(\langle1,x\rangle=\tfrac12\), \(\langle x,x\rangle=\tfrac13\), \(\langle1,x^4\rangle=\tfrac15\), \(\langle x,x^4\rangle=\tfrac16\).
+\[\begin{bmatrix}1&\tfrac12\\ \tfrac12&\tfrac13\end{bmatrix}\begin{bmatrix}c_1\\c_2\end{bmatrix}=\begin{bmatrix}\tfrac15\\ \tfrac16\end{bmatrix}\ \Rightarrow\ c_1=-\tfrac15,\ c_2=\tfrac45.\]
+A keresett polinom \(-\tfrac15+\tfrac45x\). (2×2-es inverz: \(\det=\tfrac13-\tfrac14=\tfrac1{12}\).)</p>
+<p>Gyakorló: \(x^2\) vetülete \(\mathrm{span}(1,x)\)-re: \(x-\tfrac16\) (2021 PZH). \(16\) vetülete \(\mathrm{span}(3x,5x^3)\)-re: \(G=\begin{bmatrix}3&3\\3&\tfrac{25}7\end{bmatrix}\), \(b=(24,20)\) ⇒ \(c=(15,-7)\) ⇒ \(45x-35x^3\) (2024 PZH). \(\tfrac43x\) vetülete \(\mathrm{span}(1,x^2)\)-re: \(\tfrac14+\tfrac54x^2\) (2024 PPZH).</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">Példa (2018 PZH 5.): ortogonalizálás + vetület polinomtérben</span>
+<p>Ortogonalizáljuk \(\{1,x\}\)-et \(\langle f,g\rangle=\int_0^1fg\) mellett, majd \(x^2\) vetülete.</p>
+<details class="sol"><summary>Megoldás</summary>
+<p>\(e_1=1\). \(b_2=x-\dfrac{\langle x,1\rangle}{\langle1,1\rangle}1=x-\tfrac12\); \(\|x-\tfrac12\|^2=\int_0^1(x-\tfrac12)^2=\tfrac1{12}\) ⇒ \(e_2=\sqrt3(2x-1)\). Vetület: \(\langle x^2,e_1\rangle e_1+\langle x^2,e_2\rangle e_2\) \(=\tfrac13+\tfrac{\sqrt3}6\cdot\sqrt3(2x-1)\) \(=x-\tfrac16\).</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">Példa: nem merőleges (altér menti) vetítés mátrixa</span>
+<p>Ha \(\mathbb{R}^n=V\oplus W\) és \(P\) a \(V\)-re \(W\) mentén vetít: \(U=[V|W]\) (bázisok oszlopokban), \(PU=[V|O]\) ⇒ \(P=[V|O]\,U^{-1}\). Ezt kéri a 2024 PPZH 3. feladata (lásd <a href="#s9">9. fejezet</a>).</p>
+</div>
+
+<h2 id="s5">5. Gram–Schmidt, QR-felbontás, pszeudoinverz <label class="chk"><input type="checkbox" data-k="s5">kész</label></h2>
+
+<h3>5.1 Gram–Schmidt-ortogonalizáció</h3>
+<div class="box algo">
+<span class="t">Algoritmus</span>
+<p>Független \(a_1,\dots,a_k\) ⇒ ortogonális \(b_1,\dots,b_k\), ahol \(\mathrm{span}(a_1..a_i)=\mathrm{span}(b_1..b_i)\):</p>
+\[b_1=a_1,\qquad b_2=a_2-\frac{\langle b_1,a_2\rangle}{\|b_1\|^2}b_1,\qquad b_3=a_3-\frac{\langle b_1,a_3\rangle}{\|b_1\|^2}b_1-\frac{\langle b_2,a_3\rangle}{\|b_2\|^2}b_2,\ \dots\]
+<p>Ortonormált rendszer: \(q_i=b_i/\|b_i\|\). (Ha \(b_i=0\) jön ki, \(a_i\) függött az előzőektől.) Ha egy \(b_i\)-nek törtes koordinátái vannak, nyugodtan skálázd egésszé – az irány számít, a normálás úgyis a végén jön.</p>
+</div>
+<div class="box ex">
+<span class="t">Példa (2022 PZH 5.)</span>
+<p>ONB \((1,2,2),(3,0,3),(1,1,0)\)-ból.</p>
+<details class="sol"><summary>Megoldás</summary>
+<p>\(b_1=(1,2,2)\), \(\|b_1\|^2=9\). \(\langle b_1,a_2\rangle=9\) ⇒ \(b_2=(3,0,3)-(1,2,2)=(2,-2,1)\), \(\|b_2\|^2=9\). \(\langle b_1,a_3\rangle=3\), \(\langle b_2,a_3\rangle=0\) ⇒ \(b_3=(1,1,0)-\tfrac13(1,2,2)=\tfrac13(2,1,-2)\). ONB: \(\tfrac13(1,2,2),\ \tfrac13(2,-2,1),\ \tfrac13(2,1,-2)\).</p>
+</details>
+</div>
+
+<h3>5.2 QR-felbontás</h3>
+<div class="box def">
+<span class="t">Definíció és tétel</span>
+<ul>
+<li><b>Redukált QR:</b> teljes oszloprangú \(A\in\mathbb{R}^{m\times n}\) esetén \(A=QR\), \(Q\in\mathbb{R}^{m\times n}\) <b>szemiortogonális</b> (\(Q^TQ=I_n\), oszlopai ONR), \(R\in\mathbb{R}^{n\times n}\) felső háromszög, <b>pozitív főátlóval</b>. Létezik és egyértelmű.</li>
+<li><b>Teljes QR:</b> \(Q\) kiegészítve \(m\times m\)-es ortogonális mátrixszá (új ONB-vektorok az \(O(A)^\perp\)-ből), \(R\) alá zérussorok: \(A=[Q\ \hat Q]\begin{bmatrix}R\\O\end{bmatrix}\).</li>
+<li>Ortogonális mátrix: négyzetes, \(Q^TQ=QQ^T=I\), \(Q^{-1}=Q^T\); hossz-, szög-, skalárszorzattartó; \(\det Q=\pm1\). Szemiortogonális: nem négyzetes, csak az egyik irány (\(Q^TQ=I\) ha magas; \(QQ^T=I\) ha széles).</li>
+</ul>
+</div>
+<div class="box algo">
+<span class="t">Algoritmus: QR Gram–Schmidt-tel</span>
+<ol>
+<li>Az oszlopokra Gram–Schmidt ⇒ \(q_1,\dots,q_n\); \(Q=[q_1\,\dots\,q_n]\).</li>
+<li>\(R=Q^TA\) (elemei: \(r_{ij}=q_i\cdot a_j\), \(r_{ii}=\|b_i\|\)). Fejben: \(R\) \(j\)-edik oszlopa az \(a_j\) koordinátái a \(q\)-bázisban.</li>
+<li>Teljes QR-hez: keress \(O(A)^\perp\)-ből ONB-t (3D-ben vektoriális szorzat: \(q_1\times q_2\); általában \(N(A^T)\) bázisa normálva), \(R\)-hez zérussor(ok).</li>
+<li>Ha egy \(r_{ii}\) negatívra jönne ki, a \(Q\) \(i\)-edik oszlopát és \(R\) \(i\)-edik sorát \(-1\)-gyel szorozd.</li>
+</ol>
+</div>
+<div class="box ex">
+<span class="t">Példa (2024 ZH 4.): redukált és teljes QR</span>
+<p>\(A=\begin{bmatrix}2&3\\2&0\\1&3\end{bmatrix}\).</p>
+<details class="sol"><summary>Megoldás</summary>
+<p>\(b_1=(2,2,1)\), \(\|b_1\|=3\). \(\langle b_1,a_2\rangle=9\) ⇒ \(b_2=(3,0,3)-(2,2,1)=(1,-2,2)\), \(\|b_2\|=3\). \(Q=\tfrac13\begin{bmatrix}2&1\\2&-2\\1&2\end{bmatrix}\), \(R=Q^TA=\begin{bmatrix}3&3\\0&3\end{bmatrix}\) (\(r_{12}=q_1\cdot a_2=\tfrac{6+3}3=3\), \(r_{22}=q_2\cdot a_2=\tfrac{3+6}3=3\)).</p>
+<p>Teljes: \(q_3=q_1\times q_2=\tfrac19(6,-3,-6)\to\tfrac13(2,-1,-2)\). \(A=\tfrac13\begin{bmatrix}2&1&2\\2&-2&-1\\1&2&-2\end{bmatrix}\begin{bmatrix}3&3\\0&3\\0&0\end{bmatrix}\).</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">Példa (2023 ZH 5.)</span>
+<p>\(A=\begin{bmatrix}3&2\\4&1\\0&0\end{bmatrix}\).</p>
+<details class="sol"><summary>Megoldás</summary>
+<p>\(b_1=(3,4,0)\), \(\|b_1\|=5\); \(\langle b_1,a_2\rangle=10\) ⇒ \(b_2=(2,1,0)-\tfrac{10}{25}(3,4,0)=(0.8,-0.6,0)\) ⇒ \(q_2=(\tfrac45,-\tfrac35,0)\). \(Q=\begin{bmatrix}\tfrac35&\tfrac45\\ \tfrac45&-\tfrac35\\0&0\end{bmatrix}\), \(R=\begin{bmatrix}5&2\\0&1\end{bmatrix}\). Teljes: \(q_3=(0,0,1)\), \(R\)-hez zérussor.</p>
+<p>Gyakorló: \(\begin{bmatrix}1&0\\1&4\\1&4\\1&0\end{bmatrix}=\tfrac12\begin{bmatrix}1&-1\\1&1\\1&1\\1&-1\end{bmatrix}\begin{bmatrix}2&4\\0&4\end{bmatrix}\); \(\begin{bmatrix}2&0\\2&2\\2&0\\2&2\end{bmatrix}=\tfrac12\begin{bmatrix}1&-1\\1&1\\1&-1\\1&1\end{bmatrix}\begin{bmatrix}4&2\\0&2\end{bmatrix}\) (2022).</p>
+</details>
+</div>
+<div class="box thm">
+<span class="t">Optimális megoldás QR-rel</span>
+<p>Ha \(A=QR\) (teljes oszloprangú), az \(Ax=b\) egyetlen optimális megoldása \(R\hat x=Q^Tb\)-ből visszahelyettesítéssel jön (a normálegyenlet \(R^TR\hat x=R^TQ^Tb\) egyszerűsítése). Ekkor \(A^+=R^{-1}Q^T\).</p>
+</div>
+<div class="box ex">
+<span class="t">Példa (2018 ZH 4.)</span>
+<p>\(A=\begin{bmatrix}1&-3\\4&9\\4&-2\\4&6\end{bmatrix}\), \(b=(4,-5,6,-2)\), optimális megoldás QR-rel.</p>
+<details class="sol"><summary>Megoldás</summary>
+<p>\(b_1=(1,4,4,4)\), \(\|b_1\|=7\); \(\langle b_1,a_2\rangle=-3+36-8+24=49\) ⇒ \(b_2=a_2-b_1=(-4,5,-6,2)\), \(\|b_2\|=9\). \(R=\begin{bmatrix}7&7\\0&9\end{bmatrix}\). \(Q^Tb=(\tfrac{4-20+24-8}7,\ \tfrac{-16-25-36-4}9)=(0,-9)\). \(9x_2=-9\Rightarrow x_2=-1\); \(7x_1-7=0\Rightarrow x_1=1\). \(\hat x=(1,-1)\).</p>
+</details>
+</div>
+
+<h3>5.3 Pszeudoinverz</h3>
+<div class="box def">
+<span class="t">Definíció (Moore–Penrose)</span>
+<p>\(A^+\) az a mátrix, amelyre minden \(b\)-re \(A^+b\) az \(Ax=b\) <b>minimális abszolút értékű optimális megoldása</b>. \(A^+\) létezik, egyértelmű, \(n\times m\)-es.</p>
+</div>
+<div class="box thm">
+<span class="t">Tulajdonságok (kvízanyag)</span>
+<ul>
+<li><b>Moore–Penrose-feltételek:</b> \(X=A^+\) ⇔ \(AXA=A,\ XAX=X,\ (AX)^H=AX,\ (XA)^H=XA\) (valósban: \(AX\) és \(XA\) szimmetrikus).</li>
+<li>\(AA^+=\mathrm{proj}_{O(A)}\), \(A^+A=\mathrm{proj}_{O(A^H)}=\mathrm{proj}_{S(A)}\) (valós). \(A^+\) (és \(A^H\)) az \(N(A^H)\) minden vektorát 0-ba viszi. Az \(y\mapsto A^+y\) az \(x\mapsto Ax\) inverze \(O(A^H)\) és \(O(A)\) között.</li>
+<li>\(A^+=A^{-1}\) ha invertálható; \((A^+)^+=A\); \(O^+=O^T\); diagonális: a nemnulla elemek reciproka, transzponálva.</li>
+</ul>
+</div>
+<div class="box algo">
+<span class="t">Kiszámítás (válaszd a mátrix alakja szerint)</span>
+<ol>
+<li><b>Teljes oszloprangú</b> (oszlopai függetlenek, „magas”): \(A^+=(A^TA)^{-1}A^T\). QR-ből: \(A^+=R^{-1}Q^T\).</li>
+<li><b>Teljes sorrangú</b> („széles”): \(A^+=A^T(AA^T)^{-1}\).</li>
+<li><b>Egyik sem:</b> bázisfelbontás \(A=BC\) (\(B\): az \(A\) főoszlopai, \(C\): az rref nemzérus sorai) ⇒ \(A^+=C^+B^+=C^T(CC^T)^{-1}(B^TB)^{-1}B^T=C^T(B^TAC^T)^{-1}B^T\).</li>
+</ol>
+<p>2×2-es inverz: \(\begin{bmatrix}a&b\\c&d\end{bmatrix}^{-1}=\frac1{ad-bc}\begin{bmatrix}d&-b\\-c&a\end{bmatrix}\).</p>
+</div>
+<div class="box ex">
+<span class="t">Példa (2023 ZH 3.)</span>
+<p>\(A=\begin{bmatrix}1&1\\2&1\\0&1\end{bmatrix}\), \(b=(3,2,1)\). Pszeudoinverz és optimális megoldás.</p>
+<details class="sol"><summary>Megoldás</summary>
+<p>Teljes oszloprangú. \(A^TA=\begin{bmatrix}5&3\\3&3\end{bmatrix}\), \((A^TA)^{-1}=\tfrac16\begin{bmatrix}3&-3\\-3&5\end{bmatrix}\). \(A^+=\tfrac16\begin{bmatrix}3&-3\\-3&5\end{bmatrix}\begin{bmatrix}1&2&0\\1&1&1\end{bmatrix}=\begin{bmatrix}0&\tfrac12&-\tfrac12\\ \tfrac13&-\tfrac16&\tfrac56\end{bmatrix}\). \(\hat x=A^+b=(\tfrac12,\tfrac32)\).</p>
+<p>B csoport: \(A=\begin{bmatrix}1&1\\1&0\\1&2\end{bmatrix}\), \(b=(1,2,3)\) ⇒ \(A^+=\begin{bmatrix}\tfrac13&\tfrac56&-\tfrac16\\0&-\tfrac12&\tfrac12\end{bmatrix}\), \(\hat x=(\tfrac32,\tfrac12)\).</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">Példa (2018): széles mátrix és bázisfelbontás</span>
+<p>(a) \(\begin{bmatrix}2&2&1\\1&1&0\end{bmatrix}^+\); (b) \(M=\begin{bmatrix}1&0&2\\1&0&2\\1&0&2\end{bmatrix}^+\).</p>
+<details class="sol"><summary>Megoldás</summary>
+<p>(a) teljes sorrangú: \(AA^T=\begin{bmatrix}9&4\\4&2\end{bmatrix}\), inverze \(\tfrac12\begin{bmatrix}2&-4\\-4&9\end{bmatrix}\), \(A^+=A^T(AA^T)^{-1}=\begin{bmatrix}0&1\\0&1\\1&-2\end{bmatrix}\).</p>
+<p>(b) rang 1: \(M=BC\), \(B=(1,1,1)^T\), \(C=(1,0,2)\). \(B^+=\tfrac13(1,1,1)\), \(C^+=\tfrac15(1,0,2)^T\) ⇒ \(M^+=C^+B^+=\tfrac1{15}\begin{bmatrix}1&1&1\\0&0&0\\2&2&2\end{bmatrix}\).</p>
+<p>2021 ZH: \(A=\begin{bmatrix}1&1\\1&0\\1&0\\1&1\end{bmatrix}\): \(Q=\tfrac12\begin{bmatrix}1&1\\1&-1\\1&-1\\1&1\end{bmatrix}\), \(R=\begin{bmatrix}2&1\\0&1\end{bmatrix}\), \(A^+=R^{-1}Q^T=\tfrac12\begin{bmatrix}0&1&1&0\\1&-1&-1&1\end{bmatrix}\).</p>
+</details>
+</div>
+
+<h2 id="s6">6. Speciális mátrixok: ortogonális, unitér, önadjungált, normális; Givens, Householder <label class="chk"><input type="checkbox" data-k="s6">kész</label></h2>
+<div class="scroll">
+<table>
+<tr><th>Mátrix</th><th>Definíció</th><th>Sajátértékei</th><th>Diagonalizálhatóság</th></tr>
+<tr><td>szimmetrikus (valós)</td><td>\(A^T=A\)</td><td>valósak</td><td><b>ortogonálisan</b> diagonalizálható (⇔!)</td></tr>
+<tr><td>ferdén szimmetrikus</td><td>\(A^T=-A\)</td><td>tiszta imagináriusak (0 is)</td><td>unitéren diag. (normális)</td></tr>
+<tr><td>ortogonális</td><td>\(Q^TQ=I\)</td><td>\(|\lambda|=1\)</td><td>unitéren diag. (normális); \(\det=\pm1\)</td></tr>
+<tr><td>önadjungált (Hermite)</td><td>\(A^H=A\)</td><td>valósak</td><td>unitéren diag. valós diagonálishoz</td></tr>
+<tr><td>ferdén önadjungált</td><td>\(A^H=-A\)</td><td>imagináriusak</td><td>unitéren diag.</td></tr>
+<tr><td>unitér</td><td>\(U^HU=I\)</td><td>\(|\lambda|=1\)</td><td>unitéren diag.</td></tr>
+<tr><td>normális</td><td>\(A^HA=AA^H\)</td><td>–</td><td><b>unitéren</b> diagonalizálható (⇔!)</td></tr>
+<tr><td>nilpotens</td><td>\(A^k=O\)</td><td>mind 0, \(\chi=\lambda^n\)</td><td>csak \(A=O\) esetén</td></tr>
+<tr><td>vetítés</td><td>\(P^2=P\)</td><td>0 és 1</td><td>diagonalizálható (mg = ma)</td></tr>
+</table>
+</div>
+<div class="box warn">
+<span class="t">Kvízbuktatók</span>
+<ul>
+<li>„Minden ortogonális mátrix ortogonálisan diagonalizálható” – <span class="h">hamis</span> (a forgatás nem szimmetrikus; csak unitéren, komplex sajátértékekkel).</li>
+<li>Önadjungált \(C\) „ortogonálisan hasonló valós diagonálishoz” – <span class="h">hamis</span> (unitéren igen; ortogonális = valós mátrix).</li>
+<li>Szimmetrikus valós \(A\) „unitéren hasonló valós diagonálishoz” – <span class="i">igaz</span> (ortogonális mátrix unitér is).</li>
+<li>„Unitér mátrix nem biztos, hogy unitéren diagonalizálható” – <span class="h">hamis</span> (unitér ⇒ normális).</li>
+<li>Ortogonálisan hasonló: \(A=Q^{-1}BQ=Q^TBQ\) ortogonális \(Q\)-val – mindkét megfogalmazás <span class="i">igaz</span>.</li>
+<li>Ha minden \(x\)-re \(|Qx|=|x|\), akkor \(\det Q=\pm1\) (igaz). Ha egy négyzetes mátrix sorai páronként merőleges egységvektorok, akkor az oszlopai is (igaz). Unitér \(A,B\): \(|\det(AB)|=1\) igaz, \(|\det(A+B)|\le2\) hamis.</li>
+<li>Normális-e? Számold ki \(M^HM\) és \(MM^H\) – ha egyenlők, igen. Pl. \(\begin{bmatrix}0&1\\i&0\end{bmatrix}\) unitér ⇒ normális.</li>
+</ul>
+</div>
+<div class="box algo">
+<span class="t">Givens-forgatás és Householder-tükrözés (2018-as feladattípus)</span>
+<ul>
+<li><b>Givens:</b> az \((a,b)\) párt \((r,0)\)-ba vivő síkbeli forgatás \(r=\sqrt{a^2+b^2}\), \(\begin{bmatrix}a/r&b/r\\-b/r&a/r\end{bmatrix}\); ezt kell beültetni az \(I\) megfelelő két sorába/oszlopába. Pl. \((1,5,12,2)\to(1,13,0,2)\): 2–3. koordináták, \(r=13\), blokk \(\begin{bmatrix}5/13&12/13\\-12/13&5/13\end{bmatrix}\).</li>
+<li><b>Householder:</b> \(a\ne b\), \(\|a\|=\|b\|\) esetén \(n=a-b\), \(H=I-\dfrac{2}{n^Tn}nn^T\) tükrözi \(a\)-t \(b\)-be. Pl. \((0,1,2,2)\to(3,0,0,0)\): \(n=(-3,1,2,2)\), \(n^Tn=18\), \(H=I-\tfrac19nn^T\).</li>
+</ul>
+</div>
+
+<h2 id="s7">7. Sajátérték, sajátaltér, diagonalizálhatóság <label class="chk"><input type="checkbox" data-k="s7">kész</label></h2>
+<div class="box def">
+<span class="t">Definíciók</span>
+<ul>
+<li>\((\lambda,x)\) sajátpár: \(Ax=\lambda x\), \(x\ne0\). Sajátaltér: \(N(A-\lambda I)\). Bal sajátvektor: \(y^TA=\lambda y^T\) (az \(A^T\) sajátvektora).</li>
+<li>Karakterisztikus polinom \(\chi(\lambda)=\det(A-\lambda I)\); gyökei a sajátértékek. 2×2: \(\lambda^2-\mathrm{trace}(A)\lambda+\det A\). \(\det A=\prod\lambda_i\), \(\mathrm{trace}A=\sum\lambda_i\). Háromszögmátrix sajátértékei a főátló elemei.</li>
+<li><b>Algebrai multiplicitás</b> \(m_a\): hányszoros gyök; <b>geometriai</b> \(m_g=\dim N(A-\lambda I)\). Mindig \(1\le m_g\le m_a\).</li>
+<li><b>Hasonlóság:</b> \(A\sim B\) ⇔ \(A=C^{-1}BC\). Invariáns: rang, nullitás, det, nyom, karakterisztikus és minimálpolinom, sajátértékek, \(m_a\), \(m_g\). (Sortér dimenziója és nulltér dimenziója tehát invariáns – kvíz.)</li>
+<li><b>Diagonalizálható:</b> \(A=C\Lambda C^{-1}\) (\(C\) oszlopai a sajátvektorok, \(C^{-1}\) sorai a bal sajátvektorok). Diadikus alak: \(A=\sum\lambda_ix_iy_i^T\). <b>Spektrálfelbontás:</b> \(A=\sum\lambda_iP_i\), \(P_i\) vetítés a sajátaltérre, \(\sum P_i=I\), \(P_iP_j=O\).</li>
+</ul>
+</div>
+<div class="box thm">
+<span class="t">Diagonalizálhatóság feltételei (kvízanyag)</span>
+<ul>
+<li>\(A\) diagonalizálható ⇔ van \(n\) független sajátvektora ⇔ \(\sum m_g=n\) ⇔ minden \(\lambda\)-ra \(m_g=m_a\) ⇔ a tér a sajátalterek direkt összege ⇔ minden vektor előáll sajátvektorok összegeként.</li>
+<li><b>Elégséges, nem szükséges:</b> \(n\) különböző sajátérték. Különböző sajátértékek sajátvektorai függetlenek.</li>
+<li>„\(L\) pontosan akkor diagonalizálható, ha <i>bármely</i> bázisban diagonális a mátrixa” – <span class="h">hamis</span> (van <i>olyan</i> bázis).</li>
+<li>Valós \(A\) <b>ortogonálisan</b> diagonalizálható ⇔ szimmetrikus. Komplex \(A\) <b>unitéren</b> diagonalizálható ⇔ normális. Szimmetrikus mátrix különböző sajátalterei merőlegesek.</li>
+<li>Vetítések, tükrözések diagonalizálhatók (sajátértékek 0/1, ill. ±1, \(m_g=m_a\)); térbeli forgatás (\(\alpha\ne k\pi\)) valósan nem.</li>
+<li>Ha \(A=C\Lambda C^{-1}\): \(A^k=C\Lambda^kC^{-1}\), \(p(A)=Cp(\Lambda)C^{-1}\); \(A\) sajátpárja \((\lambda,x)\) ⇒ \(A^k\)-é \((\lambda^k,x)\). <b>Cayley–Hamilton:</b> \(\chi_A(A)=O\). \(A\) invertálható ⇔ 0 nem sajátérték.</li>
+</ul>
+</div>
+<div class="box algo">
+<span class="t">Algoritmus: sajátértékek, sajátalterek, multiplicitások, diagonalizálható-e</span>
+<ol>
+<li>\(\chi(\lambda)=\det(A-\lambda I)\) kifejtve (3×3-nál Sarrus vagy kifejtés a legtöbb 0-t tartalmazó sor szerint; ha van egy sor/oszlop egyetlen nemnulla elemmel, az \((a-\lambda)\) kiemelhető). Gyökök: racionálisgyök-tétel (a konstans tag osztói).</li>
+<li>Minden \(\lambda\)-ra: \(A-\lambda I\) rref ⇒ \(N(A-\lambda I)\) bázisa (a szabad paraméterek vektorai). \(m_g=\) szabad változók száma.</li>
+<li>Diagonalizálható ⇔ minden \(\lambda\)-ra \(m_g=m_a\). Ha igen: \(C=[x_1\dots x_n]\), \(\Lambda=\mathrm{diag}(\lambda_i)\).</li>
+<li>Szimmetrikus \(A\): normáld a sajátvektorokat (különböző sajátértékűek automatikusan merőlegesek; azonos sajátértéken belül Gram–Schmidt) ⇒ \(Q\), \(A=Q\Lambda Q^T\).</li>
+</ol>
+</div>
+<div class="box ex">
+<span class="t">Példa (2024 ZH 5.)</span>
+<p>\(A=\begin{bmatrix}0&-1&0\\1&2&0\\0&0&1\end{bmatrix}\): sajátértékek multiplicitásokkal, sajátalterek, diagonalizálható-e?</p>
+<details class="sol"><summary>Megoldás</summary>
+<p>3. sor szerint kifejtve: \(\chi=(1-\lambda)\big[(-\lambda)(2-\lambda)+1\big]=(1-\lambda)(\lambda^2-2\lambda+1)=(1-\lambda)^3\). Egyetlen sajátérték \(\lambda=1\), \(m_a=3\). \(A-I=\begin{bmatrix}-1&-1&0\\1&1&0\\0&0&0\end{bmatrix}\to x+y=0\), két szabad változó ⇒ \(V_1=\mathrm{span}((-1,1,0),(0,0,1))\), \(m_g=2\). Mivel \(2\ne3\), <b>nem diagonalizálható</b>.</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">Példa (2021 ZH 5.): sajátfelbontás és pozitív szemidefinit négyzetgyök</span>
+<p>\(A=\begin{bmatrix}16&12\\12&9\end{bmatrix}\), sajátpárok \((25,(4,3))\), \((0,(-3,4))\). Ortogonális sajátfelbontás és az egyetlen PSD \(B\), amelyre \(B^2=A\).</p>
+<details class="sol"><summary>Megoldás</summary>
+<p>Normálva \(Q=\tfrac15\begin{bmatrix}4&-3\\3&4\end{bmatrix}\), \(A=Q\,\mathrm{diag}(25,0)\,Q^T\). Négyzetgyök: \(B=Q\,\mathrm{diag}(5,0)\,Q^T=5\cdot\tfrac1{25}\begin{bmatrix}16&12\\12&9\end{bmatrix}=\tfrac15\begin{bmatrix}16&12\\12&9\end{bmatrix}\). (Rang-1 trükk: \(A=25\,q_1q_1^T\) ⇒ \(\sqrt A=5\,q_1q_1^T\).)</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">Példa (Wettl-handout): ismétlődő sajátérték</span>
+<p>\(A=\begin{bmatrix}1&2&2\\2&1&2\\3&3&2\end{bmatrix}\): \(\chi=-(\lambda^3-4\lambda^2-11\lambda-6)\), gyökök \(-1,-1,6\). \(A+I\) rref: \(x_1+x_2+x_3=0\) ⇒ \(V_{-1}=\mathrm{span}((-1,1,0),(-1,0,1))\), \(m_g=2=m_a\); \(V_6=\mathrm{span}((2,2,3))\). Diagonalizálható.</p>
+</div>
+
+<h2 id="s8">8. Kvadratikus alakok, definitség, kongruencia <label class="chk"><input type="checkbox" data-k="s8">kész</label></h2>
+<div class="box def">
+<span class="t">Definíciók</span>
+<ul>
+<li>Bilineáris függvény mátrixa (Gram-mátrixa) a \(C\) bázisban: \([B]_{ij}=b(c_i,c_j)\), \(b(x,y)=x_C^TBy_C\). Báziscserénél (\(M\) az áttérés mátrixa) \(B\mapsto M^TBM\): ez a <b>kongruencia</b> (\(A\cong B\) ⇔ \(A=M^TBM\) invertálható \(M\)-mel). Lineáris leképezés mátrixa ezzel szemben <b>hasonlóra</b> változik (\(M^{-1}BM\)).</li>
+<li><b>Kvadratikus alak:</b> \(q(x)=x^TAx\), \(A\) szimmetrikus. Felírás: a vegyes \(x_ix_j\) tag együtthatóját felezve írd az \((i,j)\) és \((j,i)\) helyre. Pl. \(x^2+y^2+z^2+2xz\Rightarrow A=\begin{bmatrix}1&0&1\\0&1&0\\1&0&1\end{bmatrix}\).</li>
+<li><b>Definitség:</b> pozitív definit ha \(q(x)&gt;0\) minden \(x\ne0\)-ra; pozitív szemidefinit \(\ge0\); negatív (szemi)definit; indefinit ha pozitív és negatív értéket is felvesz.</li>
+<li><b>Tehetetlenség (szignatúra):</b> \((n_+,n_-,n_0)\) = a pozitív, negatív, zérus sajátértékek (≡ egy kongruens diagonális mátrix főátlóbeli előjeleinek) száma.</li>
+<li>Főminor: azonos indexű sorok és oszlopok részdeterminánsa; vezető főminor: az első \(k\) sor/oszlop (sarokaldetermináns).</li>
+</ul>
+</div>
+<div class="box thm">
+<span class="t">Tételek</span>
+<ul>
+<li><b>Főtengelytétel:</b> \(A=Q\Lambda Q^T\) ⇒ az \(x=Qy\) helyettesítéssel \(x^TAx=\lambda_1y_1^2+\dots+\lambda_ny_n^2\) (csak négyzetes tagok; a \(Q\) oszlopai a keresett ONB).</li>
+<li><b>Sylvester tehetetlenségi tétele:</b> két valós szimmetrikus mátrix pontosan akkor kongruens, ha azonos a tehetetlenségük. A tehetetlenség a kongruenciára invariáns – és a hasonlóságra is (hasonló szimmetrikus mátrixoknak ugyanazok a sajátértékei).</li>
+<li><b>Definitség sajátértékekből:</b> pozitív definit ⇔ minden \(\lambda&gt;0\); PSD ⇔ \(\lambda\ge0\); negatív definit ⇔ \(\lambda&lt;0\); indefinit ⇔ van + és − is.</li>
+<li><b>Főminorokból:</b> pozitív definit ⇔ minden vezető főminor \(&gt;0\) ⇔ minden főminor \(&gt;0\); negatív definit ⇔ páratlan rendű vezető főminorok \(&lt;0\), párosak \(&gt;0\); pozitív szemidefinit ⇔ <b>minden</b> főminor \(\ge0\) (a vezetők nem elegek!). Indefinit mátrix 2-rendű sarokaldeterminánsa nem feltétlen negatív.</li>
+<li>\(A^TA\) mindig PSD, pozitív definit ⇔ \(A\) teljes oszloprangú. Független vektorrendszer Gram-mátrixa pozitív definit. Csupa pozitív elemű mátrix <b>nem</b> feltétlenül PSD (pl. \(\begin{bmatrix}1&2\\2&1\end{bmatrix}\)).</li>
+<li><b>PSD faktorizáció:</b> \(A\) PSD ⇔ \(\exists\) PSD \(B\): \(A=B^2\) (<b>egyértelmű</b>: \(B=Q\Lambda^{1/2}Q^T\)) ⇔ \(\exists C\): \(A=C^TC\). Pozitív definit ⇔ Cholesky \(A=R^TR\) létezik ⇔ LU-ban \(U\) főátlója pozitív.</li>
+</ul>
+</div>
+<div class="box algo">
+<span class="t">Algoritmus: főtengely-transzformáció (2024 PZH 5. típus)</span>
+<ol>
+<li>Írd fel \(A\)-t (szimmetrikusan). Sajátértékek, sajátvektorok.</li>
+<li>Normáld a sajátvektorokat (azonos sajátértéken belül ortogonalizálj) ⇒ ONB \(=Q\) oszlopai.</li>
+<li>Kanonikus alak: \(q=\lambda_1\xi^2+\lambda_2\eta^2+\lambda_3\zeta^2\) (az új koordináták az ONB-beliek).</li>
+</ol>
+</div>
+<div class="box ex">
+<span class="t">Példa (2024 PZH 5.)</span>
+<p>\(q(x,y,z)=x^2+y^2+z^2+2xz\): ONB, amelyben csak négyzetes tagok vannak, és kanonikus alak.</p>
+<details class="sol"><summary>Megoldás</summary>
+<p>\(A=\begin{bmatrix}1&0&1\\0&1&0\\1&0&1\end{bmatrix}\), \(\chi=(1-\lambda)[(1-\lambda)^2-1]=(-\lambda)(1-\lambda)(2-\lambda)\). \(\lambda=0\): \((-1,0,1)/\sqrt2\); \(\lambda=1\): \((0,1,0)\); \(\lambda=2\): \((1,0,1)/\sqrt2\). Ez az ONB; kanonikus alak \(q=0\cdot\xi^2+\eta^2+2\zeta^2=\eta^2+2\zeta^2\). (Pozitív szemidefinit, tehetetlenség \((2,0,1)\).)</p>
+</details>
+</div>
+<div class="box algo">
+<span class="t">Algoritmus: hasonló-e, kongruens-e két mátrix (2024-es kvíz d) pont)</span>
+<ol>
+<li><b>Hasonló?</b> Sajátértékek egyeznek multiplicitással, ÉS a geometriai multiplicitások is. Ha az egyik diagonális (diagonalizálható), a másik pontosan akkor hasonló hozzá, ha ugyanazok a sajátértékei és diagonalizálható. Háromszögmátrix sajátértékei a főátlón vannak; ismétlődő sajátértéknél nézd meg \(r(B-\lambda I)\)-t.</li>
+<li><b>Kongruens (kvadratikus alakként)?</b> Vedd a szimmetrikus részt \(\tfrac12(B+B^T)\) (ugyanazt a \(q\)-t adja), és hasonlítsd össze a tehetetlenségeket (sajátérték-előjelek vagy vezető főminorok).</li>
+<li>„Van olyan \(L\) lineáris leképezés és két bázis, hogy mátrixa \(A\), ill. \(B\)” ⇔ hasonlók. „Van olyan \(q\) kvadratikus alak és két bázis…” ⇔ kongruensek.</li>
+</ol>
+</div>
+<div class="box ex">
+<span class="t">Példa (2024 ZH / PZH / PPZH d) pontjai)</span>
+<details class="sol"><summary>Megoldások</summary>
+<ul>
+<li>\(A=\mathrm{diag}(1,2,3)\), \(B=\begin{bmatrix}3&1&1\\0&2&1\\0&0&1\end{bmatrix}\): \(B\) sajátértékei \(3,2,1\) különbözők ⇒ diagonalizálható ⇒ <b>hasonlók</b>. Szimmetrikus rész \(\begin{bmatrix}3&\tfrac12&\tfrac12\\ \tfrac12&2&\tfrac12\\ \tfrac12&\tfrac12&1\end{bmatrix}\): vezető főminorok \(3,\ 5{,}75,\ 4{,}75&gt;0\) ⇒ pozitív definit, tehetetlenség \((3,0,0)\) = \(A\)-é ⇒ <b>kongruensek</b>. Igaz: „van \(L\)…”, „van \(q\)…”, „kongruensek és hasonlóak”.</li>
+<li>\(A=\mathrm{diag}(1,2,2)\), \(B=\begin{bmatrix}2&1&1\\0&1&1\\0&0&1\end{bmatrix}\): \(B\) sajátértékei \(2,1,1\); \(B-I=\begin{bmatrix}1&1&1\\0&0&1\\0&0&0\end{bmatrix}\) rangja 2 ⇒ \(m_g(1)=1&lt;2\) ⇒ nem diagonalizálható ⇒ <b>nem hasonlók</b>. Szimmetrikus rész pozitív definit ⇒ <b>kongruensek</b>. Igaz: „nem hasonlóak, de kongruensek”, „van \(q\)…”.</li>
+<li>Szimmetrikus \(A\) sajátértékei \(-1,0,1,2\), \(B\)-é \(-1,0,1,1\): nem hasonlók (más sajátértékek), tehetetlenségük \((2,1,1)\) mindkettőnek ⇒ kongruensek. „Ha két valós szimmetrikus mátrix hasonló, akkor kongruens is” <span class="i">igaz</span>.</li>
+</ul>
+</details>
+</div>
+
+<h2 id="s9">9. Lineáris leképezés mátrixa, báziscsere <label class="chk"><input type="checkbox" data-k="s9">kész</label></h2>
+<div class="box def">
+<span class="t">Alapok</span>
+<ul>
+<li>\(L\) mátrixának \(j\)-edik oszlopa a \(j\)-edik bázisvektor képének koordinátás alakja. Standard bázisban: \(L=[Le_1\,|\,\dots\,|\,Le_n]\).</li>
+<li>Áttérés mátrixa: \(T_{E\leftarrow B}=[b_1\,\dots\,b_n]\) (\(B\)-koordinátákból standardba). \(T_{\hat B\leftarrow B}=T_{E\leftarrow\hat B}^{-1}T_{E\leftarrow B}\), \(v_{\hat B}=T_{\hat B\leftarrow B}v_B\).</li>
+<li>\(L\) mátrixa a \(B\) bázisban: \(L_B=T^{-1}LT\), \(T=T_{E\leftarrow B}\) (hasonló mátrix). Sajátfelbontásnál \(C\) épp a sajátvektor-bázisról a standardra való áttérés mátrixa.</li>
+<li>Kép- és magtér: \(\mathrm{Im}\,L=O(L)\), \(\mathrm{Ker}\,L=N(L)\), \(\dim\mathrm{Im}+\dim\mathrm{Ker}=n\).</li>
+</ul>
+</div>
+<div class="box algo">
+<span class="t">Algoritmus: geometriai leképezés mátrixa</span>
+<ol>
+<li>Válassz olyan bázist, amelyen tudod a leképezés hatását (pl. vetítésnél: az altér bázisa → önmaga, a „mentén” altér bázisa → 0; tükrözésnél → −1-szeres).</li>
+<li>\(L\,[u_1\dots u_n]=[Lu_1\dots Lu_n]\) ⇒ \(L=[Lu_1\dots Lu_n]\,[u_1\dots u_n]^{-1}\).</li>
+<li>Ebben a jó bázisban a mátrix diagonális (pl. \(\mathrm{diag}(1,1,0)\), \(\mathrm{diag}(1,1,-1)\)) – ezt kérdezik „egy lépésben fejben”.</li>
+</ol>
+</div>
+<div class="box ex">
+<span class="t">Példa (2024 PPZH 3.)</span>
+<p>(a) \(P\): az \(x-y+z=0\) sík mentén az \(x\)-tengelyre eső vetület 2-szerese. (b) \(P\) mátrixa a \(\{(1,2,1),(1,1,0),(1,0,0)\}\) bázisban.</p>
+<details class="sol"><summary>Megoldás</summary>
+<p>(a) A sík bázisa \((1,1,0),(0,1,1)\) → képük 0; \((1,0,0)\to(2,0,0)\). \(P=\begin{bmatrix}0&0&2\\0&0&0\\0&0&0\end{bmatrix}\begin{bmatrix}1&0&1\\1&1&0\\0&1&0\end{bmatrix}^{-1}=\begin{bmatrix}2&-2&2\\0&0&0\\0&0&0\end{bmatrix}\). Gyorsabb: a sík normálisa \(n=(1,-1,1)\), \(n\cdot e_1=1\), ezért \(P=2\,e_1n^T\) (egyenesre való vetítés \(n^\perp\) mentén: \(\dfrac{v\,n^T}{n^Tv}\)).</p>
+<p>(b) \((1,2,1)\) és \((1,1,0)\) a síkban vannak (képük 0), \((1,0,0)\mapsto2\cdot(1,0,0)\) ⇒ \(\mathrm{diag}(0,0,2)\).</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">Példa (2018): áttérés mátrixa</span>
+<p>\(B=\{(1,2,3),(0,1,2),(0,0,1)\}\to\hat B=\{(3,2,1),(2,1,0),(1,0,0)\}\): \(T_{\hat B\leftarrow B}=\begin{bmatrix}3&2&1\\2&1&0\\1&0&0\end{bmatrix}^{-1}\begin{bmatrix}1&0&0\\2&1&0\\3&2&1\end{bmatrix}\) (a bázisvektorok <b>oszlopokban</b>).</p>
+</div>
+
+<h2 id="s10">10. Kvízgyűjtemény: a régi ZH-k összes állítása <label class="chk"><input type="checkbox" data-k="s10">kész</label></h2>
+<p>Koppints az állításra a válaszért. <span class="i">I</span> = igaz, <span class="h">H</span> = hamis. A feladatlapon „X-elni” az igazakat kell.</p>
+
+<h4>Struktúrák</h4>
+<details class="q"><summary>\(\mathbb{Z}_7\) és \(\mathbb{Z}_8[x]\) egységelemes, kommutatív gyűrű.</summary><p><span class="i">I</span> – mindkettő az (a test is gyűrű).</p></details>
+<details class="q"><summary>\(\mathbb{Z}_7\) és \(\mathbb{Z}_8[x]\) nullosztómentes gyűrű.</summary><p><span class="h">H</span> – \(\mathbb{Z}_8[x]\)-ben \(2\cdot4=0\).</p></details>
+<details class="q"><summary>\(\mathbb{N}\), \(\mathbb{Z}\) és \(\mathbb{Z}_8\) gyűrű.</summary><p><span class="h">H</span> – \(\mathbb{N}\) nem gyűrű.</p></details>
+<details class="q"><summary>\(\mathbb{R}\), \(\mathbb{C}\) és \(\mathbb{F}_8\) test.</summary><p><span class="i">I</span> – \(\mathbb{F}_8=GF(2^3)\) test (nem azonos \(\mathbb{Z}_8\)-cal).</p></details>
+<details class="q"><summary>\(\mathbb{Z}\), \(\mathbb{Z}_5\) és \(\mathbb{Z}_6\) gyűrű.</summary><p><span class="i">I</span></p></details>
+<details class="q"><summary>\(\mathbb{Z}_5\) és \(\mathbb{Z}_6\) egységelemes, kommutatív, nullosztómentes gyűrű.</summary><p><span class="h">H</span> – \(\mathbb{Z}_6\) nem nullosztómentes (\(2\cdot3=0\)).</p></details>
+<details class="q"><summary>\(\mathbb{Q}\), \(\mathbb{C}\) és \(\mathbb{Z}_5\) test.</summary><p><span class="i">I</span></p></details>
+<details class="q"><summary>Melyek testek: \(\mathbb{R},\mathbb{Q},\mathbb{Z},\mathbb{Z}_7,\mathbb{Z}_8,\mathbb{N}\)?</summary><p>\(\mathbb{R},\mathbb{Q},\mathbb{Z}_7\).</p></details>
+<details class="q"><summary>Melyek nullosztómentes gyűrűk: \(\mathbb{Z},\mathbb{N},\mathbb{Z}_5,\mathbb{Z}_8,\mathbb{F}_8,\mathbb{C},\mathbb{R}^{n\times n}\)?</summary><p>\(\mathbb{Z},\mathbb{Z}_5,\mathbb{F}_8,\mathbb{C}\). (\(\mathbb{N}\) nem gyűrű; \(\mathbb{Z}_8\), \(\mathbb{R}^{n\times n}\) nullosztós.)</p></details>
+<details class="q"><summary>Ha az egészegyütthatós \(Ax=0\) konzisztens \(\mathbb{F}_7\) fölött, akkor \(\mathbb{Q}\) fölött is.</summary><p><span class="h">H</span> – (a homogén rendszer mindig konzisztens; a nemtriviális megoldás létezése függ a testtől). Két \(n\times n\)-es mátrix szorzásához nem szükséges \(n^3\) szorzás (Strassen) – <span class="h">H</span>.</p></details>
+
+<h4>Vektorterek, bázis</h4>
+<details class="q"><summary>Egyetlen vektorból álló vektorrendszer nem lehet lineárisan független, mert nincs mitől függetlennek lennie.</summary><p><span class="h">H</span> – \(\{v\}\) független, ha \(v\ne0\).</p></details>
+<details class="q"><summary>Az üres vektorhalmaz lineáris kombinációja a zérusvektor.</summary><p><span class="i">I</span></p></details>
+<details class="q"><summary>A zérustér bázisa az üreshalmaz.</summary><p><span class="i">I</span></p></details>
+<details class="q"><summary>A zérustér bázisa a zérusvektor, hisz az csak ezt az egyetlen vektort tartalmazza.</summary><p><span class="h">H</span> – a nullvektor lineárisan összefüggő.</p></details>
+<details class="q"><summary>Minden vektortérnek van bázisa, csak a zérustérnek nincs.</summary><p><span class="h">H</span> – a zérustérnek is van: az üreshalmaz.</p></details>
+<details class="q"><summary>Az egyetlen vektorból álló \(\{v\}\) pontosan akkor lineárisan összefüggő, ha \(v=0\).</summary><p><span class="i">I</span></p></details>
+<details class="q"><summary>A végtelen \(B=\{v_1,v_2,\dots\}\) függetlenségéhez elég, hogy minden véges részhalmaza független legyen.</summary><p><span class="i">I</span> – ez a definíció.</p></details>
+<details class="q"><summary>A zérustér bármely test felett vektortér, melynek bázisa \(\{0\}\).</summary><p><span class="h">H</span></p></details>
+<details class="q"><summary>Az összes valós sorozat vektorteret alkot \(\mathbb{R}\) fölött, bázisát az \(e_i\) alakú sorozatok alkotják.</summary><p><span class="h">H</span> – vektortér igen, de az \(e_i\)-k nem generálják (pl. \((1,1,1,\dots)\)).</p></details>
+<details class="q"><summary>Ha \(F\) test, \(F[x]\) vektortér \(F\) fölött, \(\{1,x,x^2,\dots\}\) egy bázisa.</summary><p><span class="i">I</span></p></details>
+<details class="q"><summary>A \(\sum a_nx^n\) hatványsorok vektorterének \(\{1,x,x^2,\dots\}\) egy bázisa.</summary><p><span class="h">H</span> – végtelen sok tag kellene.</p></details>
+<details class="q"><summary>A végtelen sorozatok terének bázisát adják azok a sorozatok, melyekben egyetlen 1-es van.</summary><p><span class="h">H</span></p></details>
+<details class="q"><summary>\(\mathbb{R}\) vektorteret alkot \(\mathbb{Q}\) fölött, de e tér végtelen dimenziós.</summary><p><span class="i">I</span></p></details>
+<details class="q"><summary>\(\mathbb{R}^n\) és a legföljebb \(n-1\)-edfokú valós polinomok tere izomorf.</summary><p><span class="i">I</span></p></details>
+<details class="q"><summary>Bármely két \(\mathbb{R}\) fölötti \(n\)-dimenziós euklideszi tér izomorf.</summary><p><span class="i">I</span></p></details>
+<details class="q"><summary>Az \(F^6\) tér két 4-dimenziós alterének metszete legalább hány dimenziós?</summary><p>2.</p></details>
+<details class="q"><summary>Azon \(x\) vektorok, melyek az \(Ax=b\) megoldásai, alteret alkotnak.</summary><p><span class="h">H</span> – csak ha \(b=0\).</p></details>
+<details class="q"><summary>Azon \(b\) vektorok, melyekre \(Ax=b\) konzisztens, alteret alkotnak.</summary><p><span class="i">I</span> – ez \(O(A)\).</p></details>
+<details class="q"><summary>A sík eltolása lineáris leképezés.</summary><p><span class="h">H</span> – a 0-t nem viszi 0-ba.</p></details>
+<details class="q"><summary>A lineáris \(V\to W\) leképezések vektorteret alkotnak (azonos \(F\) fölött).</summary><p><span class="i">I</span></p></details>
+<details class="q"><summary>Melyek alkotnak vektorteret: (1) konzisztens \(Ax=b\) megoldásai; (2) azok a \(b\)-k, melyekre \(Ax=b\) konzisztens; (3) egy sajátértékhez tartozó sajátvektorok a 0-val; (4) egy végtelen vektorhalmaz összes lineáris kombinációja?</summary><p>(2), (3), (4). Az (1) csak \(b=0\) esetén.</p></details>
+
+<h4>Kitüntetett alterek</h4>
+<details class="q"><summary>\(A\in\mathbb{R}^{m\times n}\): \(O(A^T)\oplus N(A)=\mathbb{R}^n\).</summary><p><span class="i">I</span> (\(O(A^T)=S(A)\)).</p></details>
+<details class="q"><summary>\(A\in\mathbb{R}^{m\times n}\): \(O(A^T)\oplus N(A)=\mathbb{R}^m\).</summary><p><span class="h">H</span> – \(\mathbb{R}^n\).</p></details>
+<details class="q"><summary>\(X\in\mathbb{C}^{m\times n}\): \(O(X)\oplus N(X^H)=\mathbb{C}^m\).</summary><p><span class="i">I</span></p></details>
+<details class="q"><summary>\(N(X^HX)=N(X)\).</summary><p><span class="i">I</span></p></details>
+<details class="q"><summary>\(S(A)\perp O(A)\).</summary><p><span class="h">H</span> – más terekben is vannak.</p></details>
+<details class="q"><summary>\(N(A)\perp O(A^T)\).</summary><p><span class="i">I</span></p></details>
+<details class="q"><summary>\(S(X)\perp N(X)\) komplex \(X\)-re.</summary><p><span class="h">H</span> – \(O(X^H)=S(\overline X)\perp N(X)\).</p></details>
+<details class="q"><summary>\(O(X)\perp N(X^H)\) komplex \(X\)-re.</summary><p><span class="i">I</span></p></details>
+<details class="q"><summary>\(S(A)\oplus N(A)=\mathbb{R}^n\); \(N(A^T)\oplus O(A^T)=\mathbb{R}^m\); \(S(X)\oplus N(X)=\mathbb{C}^n\); \(O(X)\oplus N(X^H)=\mathbb{C}^m\).</summary><p><span class="i">I</span>, <span class="h">H</span> (\(O(A^T)\le\mathbb{R}^n\)), <span class="h">H</span>, <span class="i">I</span>.</p></details>
+<details class="q"><summary>Egy \(A\in\mathbb{C}^{m\times n}\) nullterének merőlegese: \(N(A)^\perp=\) ?</summary><p>\(O(A^H)\).</p></details>
+<details class="q"><summary>\(A\in\mathbb{C}^{p\times q}\): \(\dim N(A)+\dim O(A^H)=\) ?, \(\dim N(A^H)+\dim O(A^H)=\) ?</summary><p>\(q\), ill. \(p\).</p></details>
+<details class="q"><summary>Az \(Ax=b\) pontosan akkor konzisztens, ha \(b\perp N(A^T)\).</summary><p><span class="i">I</span></p></details>
+<details class="q"><summary>Mátrix sorterének és nullterének dimenziója a hasonlóságra nézve invariáns.</summary><p><span class="i">I</span> (rang, nullitás).</p></details>
+
+<h4>Optimális megoldás, pszeudoinverz</h4>
+<details class="q"><summary>Az \(Ax=b\) összes optimális megoldása megkapható az \(Ax=\mathrm{proj}_{O(A)}b\) megoldásával.</summary><p><span class="i">I</span> – definíció.</p></details>
+<details class="q"><summary>… az \(A^TAx=A^Tb\) megoldásával.</summary><p><span class="i">I</span></p></details>
+<details class="q"><summary>… az \(A^+b\) kiszámításával.</summary><p><span class="h">H</span> – csak egy (a sortérbe eső) megoldást ad. Ha \(A\) teljes oszloprangú: <span class="i">I</span>.</p></details>
+<details class="q"><summary>… a normálegyenlet megoldásával, feltéve hogy \(Ax=b\) konzisztens.</summary><p><span class="h">H</span></p></details>
+<details class="q"><summary>\(B\) pontosan akkor pszeudoinverze \(A\)-nak, ha \(AB\), \(BA\) szimmetrikus, \(B=BAB\), \(A=ABA\).</summary><p><span class="i">I</span> (Moore–Penrose).</p></details>
+<details class="q"><summary>\(A^+A\) merőleges vetítés \(O(A^H)\)-ra; \(AA^+\) merőleges vetítés \(O(A)\)-ra.</summary><p><span class="i">I</span>, <span class="i">I</span>.</p></details>
+<details class="q"><summary>\(A^H\) és \(A^+\) is 0-ba képezi \(N(A^H)\) minden vektorát.</summary><p><span class="i">I</span></p></details>
+<details class="q"><summary>Az \(y\mapsto A^+y\) inverze az \(x\mapsto Ax\)-nek \(O(A)\) és \(O(A^H)\) között.</summary><p><span class="i">I</span></p></details>
+<details class="q"><summary>Ha \(A\) teljes oszloprangú, \(A=QR\), akkor \(AA^+=QQ^T\).</summary><p><span class="i">I</span> – \(AA^+=QR\,R^{-1}Q^T\).</p></details>
+
+<h4>Felbontások, vetítés</h4>
+<details class="q"><summary>Minden valós mátrix előáll egy teljes oszloprangú és egy teljes sorrangú mátrix szorzataként.</summary><p><span class="i">I</span> – bázisfelbontás \(A=BR\). Fordított sorrendben (sorrangú · oszloprangú): <span class="h">H</span>.</p></details>
+<details class="q"><summary>Minden valós \(A\) előáll \(A=QR\) alakban, \(Q\) szemiortogonális, \(R\) felső háromszög pozitív főátlóval.</summary><p><span class="h">H</span> – csak teljes oszloprangúra.</p></details>
+<details class="q"><summary>Minden négyzetes valós \(A\) egyértelműen előáll \(A=LU\) alakban.</summary><p><span class="h">H</span> – nem mindig létezik, és szingulárisra nem egyértelmű.</p></details>
+<details class="q"><summary>A négyzetes valós \(A\) merőleges vetítés mátrixa, ha \(A^2=A\).</summary><p><span class="h">H</span> – kell \(A=A^T\) is.</p></details>
+<details class="q"><summary>\(\mathbb{R}^3\)-ben egy egyenes mentén egy síkra való vetítés minden sajátértékének azonos az algebrai és geometriai multiplicitása.</summary><p><span class="i">I</span> – diagonalizálható: \(\mathrm{diag}(1,1,0)\).</p></details>
+<details class="q"><summary>Ha \(e\) egységvektor, az \(e\) egyenesére való merőleges vetítés mátrixa?</summary><p>\(ee^H\) (valósban \(ee^T\)).</p></details>
+<details class="q"><summary>Egy euklideszi térben a normával kifejezhető a skaláris szorzás; a hajlásszög \(\alpha=\arccos\frac{\langle u,v\rangle}{\sqrt{\langle u,u\rangle\langle v,v\rangle}}\).</summary><p><span class="i">I</span>, <span class="i">I</span>.</p></details>
+
+<h4>Sajátértékek, diagonalizálhatóság, definitség</h4>
+<details class="q"><summary>Diagonalizálhatóság szükséges és elégséges feltétele: (1) \(V\) minden vektora előáll sajátvektorok összegeként; (2) \(\sum\dim V_i=n\); (3) a sajátértékek páronként különbözők.</summary><p>(1) <span class="i">I</span>, (2) <span class="i">I</span>, (3) <span class="h">H</span> (csak elégséges).</p></details>
+<details class="q"><summary>Önadjungált / unitér / nilpotens / ortogonális / ferdén önadjungált mátrix minden sajátértéke…</summary><p>valós / 1 abszolút értékű / 0 / 1 abszolút értékű / imaginárius.</p></details>
+<details class="q"><summary>Ha \(M\) nilpotens \(n\times n\)-es, karakterisztikus polinomja?</summary><p>\(\chi_M(x)=x^n\).</p></details>
+<details class="q"><summary>Ha \(A\) valós, \(A^TA\) pozitív szemidefinit.</summary><p><span class="i">I</span></p></details>
+<details class="q"><summary>\(A\) pontosan akkor PSD, ha pontosan egy PSD \(B\) létezik, hogy \(A=B^2\).</summary><p><span class="i">I</span></p></details>
+<details class="q"><summary>Ha egy mátrix minden eleme pozitív, akkor pozitív szemidefinit.</summary><p><span class="h">H</span></p></details>
+<details class="q"><summary>Minden valós diagonalizálható \(A\) előáll \(\sum\lambda_ix_iy_i^T\) alakban (\(x_i\) sajátvektor, \(y_i\) bal sajátvektor).</summary><p><span class="i">I</span> (megfelelő normálással: \(y_i^Tx_i=1\)).</p></details>
+<details class="q"><summary>Az \(A=C\Lambda C^{-1}\) sajátfelbontás \(C\) mátrixa a sajátvektor-bázisról a standard bázisra való áttérés mátrixa.</summary><p><span class="i">I</span></p></details>
+<details class="q"><summary>\(A\) pontosan akkor diagonalizálható, ha van \(n\) független sajátvektora.</summary><p><span class="i">I</span></p></details>
+<details class="q"><summary>Ha \(A\) ortogonálisan diagonalizálható, akkor szimmetrikus.</summary><p><span class="i">I</span> (és fordítva is).</p></details>
+<details class="q"><summary>Ha \(A\) ferdén szimmetrikus, akkor unitéren hasonló egy tiszta imaginárius diagonális mátrixhoz.</summary><p><span class="i">I</span></p></details>
+<details class="q"><summary>Ha \(C\) önadjungált, unitéren hasonló egy valós diagonális mátrixhoz.</summary><p><span class="i">I</span></p></details>
+<details class="q"><summary>Ha \(C\) önadjungált, ortogonálisan hasonló egy valós diagonális mátrixhoz.</summary><p><span class="h">H</span> (ortogonális mátrix valós).</p></details>
+<details class="q"><summary>Ha \(C\) unitér, akkor nem biztos, hogy unitéren diagonalizálható.</summary><p><span class="h">H</span> – biztos (normális).</p></details>
+<details class="q"><summary>Ha \(C\) unitér, hasonló egy olyan diagonális mátrixhoz, amelyben az elemek abszolút értéke 1.</summary><p><span class="i">I</span></p></details>
+<details class="q"><summary>Ha \(A\) szimmetrikus, unitéren hasonló egy valós diagonális mátrixhoz.</summary><p><span class="i">I</span></p></details>
+<details class="q"><summary>\(A\) pontosan akkor normális, ha unitéren diagonalizálható; pontosan akkor szimmetrikus, ha ortogonálisan diagonalizálható.</summary><p><span class="i">I</span>, <span class="i">I</span>.</p></details>
+<details class="q"><summary>Minden ortogonális mátrix ortogonálisan diagonalizálható.</summary><p><span class="h">H</span></p></details>
+<details class="q"><summary>Minden ferdén szimmetrikus mátrix unitéren diagonalizálható.</summary><p><span class="i">I</span></p></details>
+<details class="q"><summary>A szimmetrikus mátrixok tehetetlensége kongruenciára és hasonlóságra nézve is invariáns.</summary><p><span class="i">I</span></p></details>
+<details class="q"><summary>Minden pozitív definit \(X\)-hez egyetlen pozitív definit \(Y\) létezik, hogy \(X=Y^2\).</summary><p><span class="i">I</span></p></details>
+<details class="q"><summary>Ha egy mátrix indefinit, akkor a másodrendű sarokaldeterminánsa negatív.</summary><p><span class="h">H</span> – pl. \(\mathrm{diag}(1,1,-1)\).</p></details>
+<details class="q"><summary>Egy független vektorrendszer Gram-mátrixa pozitív definit.</summary><p><span class="i">I</span></p></details>
+<details class="q"><summary>Ha egy mátrix definit (akár pozitív, akár negatív), akkor minden negyedrendű főminora pozitív.</summary><p><span class="i">I</span> (negatív definitnél páros rendű főminor pozitív).</p></details>
+<details class="q"><summary>Két szimmetrikus mátrix: \(A\) sajátértékei \(-1,0,1,2\), \(B\)-é \(-1,0,1,1\). Hasonlóak és kongruensek? Tehetetlenség? Van közös \(q\)? Ha két valós szimm. mátrix hasonló, kongruens is?</summary><p><span class="h">H</span> (nem hasonlók); mindkettő \((2,1,1)\) <span class="i">I</span>; <span class="i">I</span>; <span class="i">I</span>.</p></details>
+<details class="q"><summary>Ha \(A^2=O\), akkor \(A=O\). Ha \(A^TA=O\) (valós), akkor \(A=O\).</summary><p><span class="h">H</span>; <span class="i">I</span> (\(\|Ax\|^2=x^TA^TAx=0\)).</p></details>
+
+<div class="box warn" id="logwarn"><span class="t">Figyelem – 2026-ban a logika rész más</span><p>Az L0–L6 fejezetek a 2016–2022-es klasszikus logika-ZH-kra épülnek (Simon András, Sági Gábor). 2026-ban a logikát Molnár Zoltán Gábor tartja Coq/Rocq-alapú, konstruktív megközelítéssel, ezért ezek a részek csak az alapfogalmakhoz (formula, modell, következmény, normálformák) használhatók háttérként; a ZH-ra a Coq-alapú anyagból kell készülni, amelyhez külön fejezet készül.</p></div>
+<h2 id="l0">L0. Logika rész: mit kérnek <label class="chk"><input type="checkbox" data-k="l0">kész</label></h2>
+<div class="box">
+<span class="t">Két ismert formátum</span>
+<ul>
+<li><b>Simon András (2020–2022):</b> 4 feladat, mindegyik 4 db igaz/hamis döntés, ±pontozás. Típusok: (1) formulák <b>érvényessége</b>, (2) <b>lovag–lókötő</b> fejtörő, (3) formulahalmaz <b>konzisztens / teljes</b>, (4) <b>Σ ⊨ φ</b> következmény. Tisztán kijelentéslogika.</li>
+<li><b>Sági Gábor (2016–2019):</b> 4 kifejtős feladat: formalizálás (állítás- és elsőrendű nyelven), következmény ellenőrzése definíció alapján vagy <b>rezolúcióval</b>, <b>klóz-alak (CNF)</b>, <b>prenex</b> és <b>Skolem</b>-alak, negáció bevitele, modell megadása, Hilbert-levezetés.</li>
+</ul>
+<p>A közös mag (L1–L3) mindkettőhöz kell; L4–L5 a Sági-féle típusokhoz.</p>
+</div>
+
+<h2 id="l1">L1. Kijelentéslogika: szintaxis, szemantika, alapfogalmak <label class="chk"><input type="checkbox" data-k="l1">kész</label></h2>
+<div class="box def">
+<span class="t">Definíciók</span>
+<ul>
+<li>Atomi formulák \(p,q,r,\dots\); formulák \(\neg\varphi\), \(\varphi\wedge\psi\); származtatott: \(\varphi\vee\psi:=\neg(\neg\varphi\wedge\neg\psi)\), \(\varphi\to\psi:=\neg\varphi\vee\psi\), \(\varphi\leftrightarrow\psi:=(\varphi\to\psi)\wedge(\psi\to\varphi)\), \(\bot:=p\wedge\neg p\), \(\top:=\neg\bot\). Precedencia: \(\neg\) a legerősebb, \(\wedge,\vee\) erősebb, mint \(\to\): \(\varphi\wedge\psi\to\sigma\) = \((\varphi\wedge\psi)\to\sigma\).</li>
+<li><b>Modell:</b> \(M:\Pi\to\{0,1\}\) (igazságkiértékelés). \(M\models\varphi\): \(\varphi\) igaz \(M\)-ben. \(M\models\neg\varphi\) ⇔ \(M\not\models\varphi\); \(M\models\varphi\wedge\psi\) ⇔ mindkettő; \(M\models\varphi\to\psi\) ⇔ \(M\not\models\varphi\) vagy \(M\models\psi\) (<b>hamis csak akkor, ha \(\varphi\) igaz és \(\psi\) hamis</b>).</li>
+<li>\(\varphi\) <b>érvényes</b> (\(\models\varphi\), tautológia): minden modellben igaz. <b>Kielégíthető:</b> van modellje. <b>Kielégíthetetlen:</b> nincs. Érvényes ⇒ kielégíthető. \(\varphi\) érvényes ⇔ \(\neg\varphi\) kielégíthetetlen.</li>
+<li>\(\varphi\equiv\psi\) (ekvivalens): ugyanazok a modelljei ⇔ \(\models\varphi\leftrightarrow\psi\).</li>
+<li>\(\Sigma\models\varphi\) (<b>szemantikus következmény</b>): \(\Sigma\) minden modellje modellje \(\varphi\)-nek. Kulcs: \(\Sigma\models\varphi\) ⇔ \(\Sigma\cup\{\neg\varphi\}\) kielégíthetetlen. <b>Dedukciótétel:</b> \(\Sigma\cup\{\varphi\}\models\psi\) ⇔ \(\Sigma\models\varphi\to\psi\).</li>
+</ul>
+</div>
+<div class="box thm">
+<span class="t">Nevezetes azonosságok (ezeket használd átalakításnál)</span>
+<ul>
+<li>\(\neg\neg\varphi\equiv\varphi\); \(\varphi\to\bot\equiv\neg\varphi\); \(\varphi\to(\psi\to\chi)\equiv\varphi\wedge\psi\to\chi\) (currying)</li>
+<li>\(\varphi\to\psi\equiv\neg\psi\to\neg\varphi\) (kontrapozíció); \(\varphi\vee\psi\equiv\neg\varphi\to\psi\); \(\neg(\varphi\wedge\psi)\equiv\varphi\to\neg\psi\)</li>
+<li>De Morgan: \(\neg(\varphi\vee\psi)\equiv\neg\varphi\wedge\neg\psi\), \(\neg(\varphi\wedge\psi)\equiv\neg\varphi\vee\neg\psi\); disztributivitás mindkét irányban; abszorpció \((\varphi\vee\psi)\wedge\varphi\equiv\varphi\); idempotencia</li>
+<li>Tautológiák: \((\varphi\wedge(\varphi\to\psi))\to\psi\) (MP), \(\varphi\to\varphi\vee\psi\), \(\varphi\wedge\psi\to\varphi\), \(\varphi\vee\neg\varphi\)</li>
+<li><b>Nem</b> következmény: \(\{p\to q,\neg p\}\not\models\neg q\) (a modus ponens csak \(\{p\to q,p\}\models q\)).</li>
+</ul>
+</div>
+<div class="box warn">
+<span class="t">Gyakori tévedések (Simon jegyzetéből)</span>
+<ul>
+<li>Ha \(\models\varphi\vee\psi\), akkor \(\models\varphi\) vagy \(\models\psi\)? <span class="h">Nem</span> (\(p\vee\neg p\)). Fordítva igen.</li>
+<li>Ha \(\models\varphi\to\psi\) és \(\varphi\) kielégíthető, akkor \(\psi\) kielégíthető? <span class="i">Igen.</span> Ha csak \(\varphi\to\psi\) és \(\varphi\) kielégíthető? <span class="h">Nem</span> (\(\varphi=p\), \(\psi=\bot\)).</li>
+<li>Kételemű kielégíthetetlen halmaz, melynek minden valódi része kielégíthető: \(\{p,\neg p\}\); háromelemű: \(\{p\vee q,\neg p,\neg q\}\).</li>
+</ul>
+</div>
+
+<h2 id="l2">L2. A négy feleletválasztós típusfeladat <label class="chk"><input type="checkbox" data-k="l2">kész</label></h2>
+<div class="box algo">
+<span class="t">Az egyetlen technika, amire minden épül: modellek megkeresése „józan ésszel”</span>
+<ol>
+<li>Ne írj 8-soros igazságtáblát, hanem <b>következtess</b>: melyik változó értéke kényszerített? (Pl. \(\neg(q\vee r)\in\Sigma\) ⇒ \(q=r=0\); \(\neg(\alpha\to\beta)\) ⇒ \(\alpha=1,\beta=0\); \(p\leftrightarrow(\neg p\wedge\dots)\) ⇒ \(p\) csak hamis lehet, mert \(p=1\)-nél a jobb oldal hamis.)</li>
+<li>A már ismert értékeket helyettesítsd be a többi formulába, egyszerűsíts.</li>
+<li>Ha marad szabad változó, jegyezd fel: több modell van.</li>
+<li>Az eredmény: a modellek listája (0, 1 vagy több). Innen minden kérdés leolvasható.</li>
+</ol>
+</div>
+
+<h3>Típus 1: érvényes-e a formula?</h3>
+<div class="box algo">
+<span class="t">Algoritmus (indirekt)</span>
+<ol>
+<li>Tegyük fel, hogy \(M\not\models\varphi\). Ha \(\varphi=\alpha\to\beta\): akkor \(M\models\alpha\) és \(M\not\models\beta\). Bontsd tovább (\(\not\models\alpha\vee\beta\) ⇒ mindkettő hamis; \(\not\models\neg\alpha\) ⇒ \(\alpha\) igaz).</li>
+<li>Ha ellentmondásra jutsz ⇒ <b>érvényes</b>. Ha konkrét kiértékelést kapsz, amelyben \(\varphi\) hamis ⇒ <b>nem érvényes</b> (írd le az ellenpéldát: „hamis, ha \(p=1,q=1\)”).</li>
+<li>Kielégíthető-e: keress egy modellt, ahol igaz (implikációnál elég, ha az előtag hamis vagy az utótag igaz).</li>
+</ol>
+</div>
+<div class="box ex">
+<span class="t">Példa (2022 ZH 1.)</span>
+<details class="sol"><summary>Négy formula</summary>
+<ul>
+<li>\((\neg p\to(\neg q\vee p))\to\neg q\): <span class="h">nem érvényes</span> – \(p=q=1\)-nél az előtag igaz (\(\neg p\) hamis), \(\neg q\) hamis.</li>
+<li>\(\neg q\to(\neg p\to(\neg q\vee p))\): <span class="i">érvényes</span> – ha hamis lenne, \(q=0\) és \(\neg p\to(\neg q\vee p)\) hamis, de \(\neg q\vee p\) igaz \(q=0\) miatt. Ellentmondás.</li>
+<li>\((\neg q\to p)\to(\neg q\vee p)\): <span class="h">nem érvényes</span> – \(p=0,q=1\): előtag igaz (\(\neg q\) hamis), utótag hamis.</li>
+<li>\((\neg q\to p)\to(q\vee p)\): <span class="i">érvényes</span> – ha hamis: \(q\vee p\) hamis ⇒ \(p=q=0\), de akkor \(\neg q\to p\) hamis. Ellentmondás.</li>
+</ul>
+</details>
+</div>
+<div class="box ex">
+<span class="t">Példa (2022 PZH 1., 2021 PZH 1.)</span>
+<details class="sol"><summary>Megoldások</summary>
+<ul>
+<li>\(\neg q\to((p\to q)\to p)\): nem érvényes (\(p=q=0\)). \(\neg q\to(p\to(q\vee p))\): érvényes (\(p\to q\vee p\) tautológia). \((\neg q\to(p\to q))\to p\): nem érvényes (\(p=0\)). \(\neg(q\to(p\to q))\to p\): érvényes (\(q\to(p\to q)\) tautológia, így az előtag mindig hamis).</li>
+<li>\((q\wedge r)\to(p\vee\neg(r\to q))\): nem érvényes (\(p=0,q=r=1\)), de kielégíthető (bármely \(p=1\)). \(\neg(p\vee((q\to p)\to(p\to q)))\): kielégíthetetlen (a tagadása érvényes: ha \(p=0\), akkor \(p\to q\) igaz), így nem is érvényes.</li>
+</ul>
+</details>
+</div>
+
+<h3>Típus 2: lovag–lókötő</h3>
+<div class="box algo">
+<span class="t">Algoritmus</span>
+<ol>
+<li>Minden személyhez egy változó: \(A=1\) ⇔ A lovag. Aki mond valamit, az <b>ekvivalens</b> a mondottakkal: \(A\leftrightarrow(\text{A állítása})\). „X lókötő” = \(\neg X\).</li>
+<li>Egyszerűsíts a másik formulából (pl. \(B\leftrightarrow\neg C\) ⇒ minden \(\neg C\) helyére \(B\)).</li>
+<li>Keresd meg a modelleket. Tipikus: „senki nem mondhatja magáról, hogy lókötő” (\(A\leftrightarrow\neg A\) kielégíthetetlen).</li>
+<li>A kérdéseket a modell(ek)ből olvasd le. <b>Vigyázz:</b> „ha A lókötő, akkor B is az” hamis előtag esetén <b>igaz</b>! Ha több modell van, az „igaz”-hoz mindegyikben igaznak kell lennie.</li>
+</ol>
+</div>
+<div class="box ex">
+<span class="t">Példa (2022 ZH 2.)</span>
+<p>A: „Lókötő vagyok, vagy B lovag, vagy C lókötő.” B: „C lókötő.”</p>
+<details class="sol"><summary>Megoldás</summary>
+<p>\(A\leftrightarrow(\neg A\vee B\vee\neg C)\), \(B\leftrightarrow\neg C\). A másodikból \(\neg C\) helyébe \(B\): \(A\leftrightarrow(\neg A\vee B)\). Ha \(A=0\): jobb oldal igaz ⇒ ellentmondás. Tehát \(A=1\), ekkor \(B=1\) kell, \(C=0\). Egyetlen modell: A, B lovag, C lókötő. „B lovag és C lókötő” I; „A lovag és B lókötő” H; „legalább az egyikük lovag” I; „ha A lókötő, akkor B is” I (előtag hamis).</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">Példa (2022 PZH 2., 2021 PZH 2., Simon-jegyzet)</span>
+<details class="sol"><summary>Megoldások</summary>
+<ul>
+<li>A: „B lovag és C lókötő”, B: „A lókötő”. \(A\leftrightarrow(B\wedge\neg C)\), \(B\leftrightarrow\neg A\) ⇒ \(A\leftrightarrow(\neg A\wedge\neg C)\) ⇒ \(A=0\), \(C=1\), \(B=1\). A lókötő, B, C lovag.</li>
+<li>A: „B lovag és C lókötő”, B: „Ha C lovag, akkor A is”, C: „A lovag vagy B lókötő”. Egyetlen modell: \(A=B=0\), \(C=1\). (Elemien: ha A lovag, C lókötő, de C igazat mondana – ellentmondás; B nem lehet lovag, mert akkor C hazudna, tehát lókötő, tehát A igazat mond – tudjuk, nem; így C igazat mond.) „Hármuk közül legalább kettő lovag” H.</li>
+<li>A: „pontosan egyvalaki lovag közülünk”, B: „lovag vagyok”, C: „mindhárman lókötők vagyunk”. \(B\leftrightarrow B\) semmit sem mond; \(C\leftrightarrow(\neg A\wedge\neg B\wedge\neg C)\) ⇒ \(C=0\) ⇒ \(A\vee B\). Egyetlen modell: A lovag, B, C lókötő.</li>
+<li>Jegyzet: „B azt mondja, mindketten lókötők”: \(B\leftrightarrow(\neg A\wedge\neg B)\) ⇒ B lókötő, A lovag. „B: legalább egyikünk lókötő”: B lovag, A lókötő. „B: A azt mondja, hogy A lókötő”: \(B\leftrightarrow(A\leftrightarrow\neg A)\) ⇒ B lókötő, A bármi (két modell!).</li>
+</ul>
+</details>
+</div>
+
+<h3>Típus 3: konzisztens és teljes formulahalmazok</h3>
+<div class="box def">
+<span class="t">Definíciók + a döntő tétel</span>
+<ul>
+<li>\(\Sigma\) <b>konzisztens</b>, ha \(\Sigma\not\vdash\bot\). A <b>teljességi tétel</b> miatt: konzisztens ⇔ <b>kielégíthető</b> (van modellje). Inkonzisztens halmazból minden levezethető.</li>
+<li>\(\Sigma\) <b>teljes</b>, ha minden (a \(\Sigma\) változóiból épített) \(\varphi\)-re \(\Sigma\vdash\varphi\) vagy \(\Sigma\vdash\neg\varphi\). Tétel: teljes ⇔ <b>legfeljebb egy modellje van</b> (a saját változóin). Inkonzisztens halmaz automatikusan teljes.</li>
+</ul>
+</div>
+<div class="box algo">
+<span class="t">Algoritmus</span>
+<p>Számold meg a modelleket: <b>0 modell</b> ⇒ inkonzisztens, teljes. <b>1 modell</b> ⇒ konzisztens, teljes. <b>≥2 modell</b> ⇒ konzisztens, nem teljes.</p>
+</div>
+<div class="box ex">
+<span class="t">Példa (2022 ZH 3.)</span>
+<p>\(\Sigma=\{p\leftrightarrow(q\wedge\neg r),\ q\leftrightarrow\neg p\}\), \(\Gamma=\{p\leftrightarrow(\neg p\vee(q\wedge r)),\ q\to(\neg r\wedge\neg p)\}\).</p>
+<details class="sol"><summary>Megoldás</summary>
+<p>\(\Sigma\): \(q=\neg p\) miatt az első \(p\leftrightarrow(\neg p\wedge\neg r)\) ⇒ \(p=0\) (ha \(p=1\), jobb oldal hamis) ⇒ \(q=1\); és \(q\wedge\neg r\) hamis kell legyen ⇒ \(r=1\). Egy modell ⇒ konzisztens, teljes.</p>
+<p>\(\Gamma\): első: ha \(p=0\), a jobb oldal igaz lenne ⇒ \(p=1\); második: \(q=1\) esetén \(\neg p\) kellene ⇒ \(q=0\); de akkor \(\neg p\vee(q\wedge r)\) hamis, míg \(p\) igaz ⇒ első formula hamis. Nincs modell ⇒ inkonzisztens és teljes.</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">Példa (2022 PZH 3., 2021 PZH 4.)</span>
+<details class="sol"><summary>Megoldások</summary>
+<ul>
+<li>\(\Sigma=\{p\to(q\wedge r),\ q\to(\neg r\wedge\neg p),\ p\vee(q\wedge r)\}\): bármelyik ágon \(q=r=1\), de akkor a második formula hamis ⇒ 0 modell: inkonzisztens, teljes. \(\Gamma=\{p\to(q\wedge r),\ q\to(\neg r\wedge\neg p),\ \neg p\to(q\vee r)\}\): \(p=0\), \(q\ne r\) két modellt ad ⇒ konzisztens, nem teljes.</li>
+<li>\(\Gamma=\{\neg((q\vee\neg p)\to p),\ \neg(q\vee r),\ (\neg p\wedge\neg q)\vee r\}\): egyetlen modell (mind hamis) ⇒ kielégíthető, teljes. \(\Delta=\{\neg((q\vee\neg p)\to p),\ \neg(r\to p)\}\): \(r=1,p=0\), \(q\) szabad ⇒ két modell: kielégíthető, nem teljes.</li>
+</ul>
+</details>
+</div>
+
+<h3>Típus 4: \(\Sigma\models\varphi\)?</h3>
+<div class="box algo">
+<span class="t">Algoritmus</span>
+<ol>
+<li>Modellek megkeresése (mint fent). Ha <b>egy</b> modell van: \(\Sigma\models\varphi\) ⇔ \(\varphi\) igaz benne. Ha több: mindegyikben igaznak kell lennie. Ha nincs: minden következik.</li>
+<li>Átfogalmazások, amiket a feladat keverhet: \(\Sigma\models\varphi\) ⇔ \(\Sigma\cup\{\neg\varphi\}\) kielégíthetetlen ⇔ \(\Sigma\cup\{\neg\varphi\}\) <b>inkonzisztens</b>. Tehát „\(\Sigma\cup\{\psi\}\) inkonzisztens” ugyanaz a kérdés, mint „\(\Sigma\models\neg\psi\)”.</li>
+</ol>
+</div>
+<div class="box ex">
+<span class="t">Példa (2022 ZH 4.)</span>
+<p>\(\Sigma=\{p\leftrightarrow(q\wedge\neg r),\ q\leftrightarrow\neg p\}\) (egy modellje: \(p=0,q=1,r=1\)).</p>
+<details class="sol"><summary>Megoldás</summary>
+<p>\(p\to(\neg q\wedge r)\): \(p\) hamis ⇒ igaz ⇒ <span class="i">I</span>. \((\neg q\wedge r)\to p\): előtag hamis ⇒ <span class="i">I</span>. \(q\to p\): \(1\to0\) ⇒ <span class="h">H</span>. \((r\vee\neg q)\to\neg p\): \(1\to1\) ⇒ <span class="i">I</span>.</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">Példa (2021 PZH 3., 2022 PZH 4., jegyzet)</span>
+<details class="sol"><summary>Megoldások</summary>
+<ul>
+<li>\(\Sigma=\{\neg((q\vee\neg p)\to p),\ \neg(q\vee r)\}\): egyetlen modell (\(p=q=r=0\)). \(\Sigma\models(p\wedge q)\vee\neg r\) I; \(\Sigma\cup\{(\neg p\vee\neg q)\wedge r\}\) inkonzisztens I (ugyanaz a kérdés); \(\Sigma\models(r\to q)\vee\neg p\) I; \(\Sigma\cup\{p\wedge r\wedge\neg q\}\) inkonzisztens I.</li>
+<li>\(\Sigma=\{p\to\neg q,\ \neg p\to q,\ \neg(\neg p\vee q)\}\): a harmadikból \(p=1,q=0\) (a többi ezt megengedi), \(r\) szabad ⇒ két modell. \(\neg p\to r\) I (előtag hamis); \(p\vee r\) I; \(q\to(p\wedge r)\) I (előtag hamis); \(p\wedge q\) H.</li>
+<li>\(\Sigma=\{\neg p,q\}\): \(r\to(p\vee\neg q)\) nem (ha \(r=1\)); \(p\vee q\) igen; \((p\vee\neg q)\to r\) igen (előtag hamis); \(\neg p\to(q\to\neg p)\) igen (tautológia).</li>
+</ul>
+</details>
+</div>
+
+<h2 id="l3">L3. Normálformák, rezolúció, Hilbert-kalkulus <label class="chk"><input type="checkbox" data-k="l3">kész</label></h2>
+<div class="box def">
+<span class="t">Definíciók</span>
+<ul>
+<li><b>Literál:</b> atom vagy negáltja. <b>DNF:</b> literálok konjunkcióinak diszjunkciója. <b>CNF (klózalak):</b> literálok diszjunkcióinak konjunkciója. Minden formulának van vele ekvivalens CNF-je és DNF-je.</li>
+<li><b>Klóz:</b> literálok véges halmaza (= egy diszjunkció); üres klóz \(\square\) = hamis. A CNF klózhalmaza: \(\{\{l_{11},\dots\},\{l_{21},\dots\},\dots\}\).</li>
+<li><b>Horn-formula:</b> CNF, amelyben minden klózban legfeljebb egy pozitív literál van; kielégíthetősége lineáris időben eldönthető (jelölő algoritmus).</li>
+</ul>
+</div>
+<div class="box algo">
+<span class="t">Algoritmus: CNF-re hozás (szintaktikus)</span>
+<ol>
+<li>\(\leftrightarrow\), \(\to\) kiküszöbölése: \(\varphi\to\psi\Rightarrow\neg\varphi\vee\psi\).</li>
+<li>Negációk bevitele az atomokig: De Morgan, \(\neg\neg\) törlése.</li>
+<li>Disztributivitás: \(\psi\vee(\chi_1\wedge\chi_2)\Rightarrow(\psi\vee\chi_1)\wedge(\psi\vee\chi_2)\).</li>
+<li>Egyszerűsítés (idempotencia, kommutativitás). DNF-hez a 3. lépésben a másik disztributivitás.</li>
+<li>Igazságtáblából: CNF = a <b>hamis</b> sorokhoz egy-egy klóz, amelyben a sorbeli igaz változó negálva, a hamis negálatlanul szerepel; DNF = az igaz sorokhoz konjunkció.</li>
+</ol>
+</div>
+<div class="box ex">
+<span class="t">Példák</span>
+<details class="sol"><summary>Megoldások</summary>
+<ul>
+<li>\((A\to B)\to C\) klózalakja (2019 Zh1): \(\neg(\neg A\vee B)\vee C\equiv(A\wedge\neg B)\vee C\equiv(A\vee C)\wedge(\neg B\vee C)\).</li>
+<li>\((p\to q)\leftrightarrow(\neg p\to\neg q)\): CNF \((p\vee\neg q)\wedge(\neg p\vee q)\), DNF \((\neg p\wedge\neg q)\vee(p\wedge q)\).</li>
+<li>\(\neg(p\wedge((q\wedge r)\to s))\equiv(\neg p\vee q)\wedge(\neg p\vee r)\wedge(\neg p\vee\neg s)\).</li>
+<li>\(p\to(q\wedge r)\equiv(\neg p\vee q)\wedge(\neg p\vee r)\) – <b>\(\neg p\vee(q\wedge r)\) még nem klóz!</b></li>
+</ul>
+</details>
+</div>
+<div class="box def">
+<span class="t">Rezolúció</span>
+<ul>
+<li>Ha \(p\in C\), \(\neg p\in D\), a \(p\) szerinti <b>rezolvens</b> \((C\setminus\{p\})\cup(D\setminus\{\neg p\})\). Egyszerre <b>csak egy</b> változó szerint rezolválunk! (\(\{p,q\},\{\neg p,\neg q\}\)-ból nem jön \(\square\).)</li>
+<li>Helyesség: \(\{C,D\}\models E\). <b>Cáfolat-teljesség:</b> \(\Sigma\) kielégíthetetlen ⇔ \(\Sigma\vdash_r\square\). Ezért: \(\Sigma\models\varphi\) ⇔ \(\Sigma\cup\{\neg\varphi\}\) klózhalmazából levezethető \(\square\). (A rezolúció nem teljes: \(\{p,\neg p\}\) klóz nem vezethető le a semmiből.)</li>
+<li>Véges klózhalmazra \(Res^*(\Sigma)\) véges ⇒ a kielégíthetőség eldönthető rezolúcióval. Kompaktság: \(\Sigma\) kielégíthető ⇔ minden véges része az.</li>
+</ul>
+</div>
+<div class="box algo">
+<span class="t">Algoritmus: következmény igazolása rezolúcióval</span>
+<ol>
+<li>Premisszákat CNF-re, klózhalmazba. <b>A konklúziót negáld</b>, azt is klózokra.</li>
+<li>Rezolválj páronként, amíg \(\square\) elő nem áll. Írd le fa vagy lista alakban (melyik kettőből, mi szerint).</li>
+<li>Ha \(\square\) levezethető: a következmény helyes. Ha \(Res\) stabilizálódik \(\square\) nélkül: nem helyes (és a klózokból ellenpélda olvasható).</li>
+</ol>
+</div>
+<div class="box ex">
+<span class="t">Példa (2019 Zh2 2.)</span>
+<p>\(\{P\to Q\wedge S,\ \neg R\to\neg Q,\ R\to\neg S\}\models S\to\neg P\)?</p>
+<details class="sol"><summary>Megoldás</summary>
+<p>Klózok: \(\{\neg P,Q\},\{\neg P,S\},\{R,\neg Q\},\{\neg R,\neg S\}\); a konklúzió negáltja \(\neg(S\to\neg P)\equiv S\wedge P\): \(\{S\},\{P\}\). Levezetés: \(\{P\}+\{\neg P,Q\}\Rightarrow\{Q\}\); \(\{Q\}+\{R,\neg Q\}\Rightarrow\{R\}\); \(\{R\}+\{\neg R,\neg S\}\Rightarrow\{\neg S\}\); \(\{\neg S\}+\{S\}\Rightarrow\square\). Helyes.</p>
+<p>Jegyzet-példa: \(\models((p\to r)\wedge(q\to\neg r))\to(p\to\neg q)\): klózok \(\{\neg p,r\},\{\neg q,\neg r\},\{p\},\{q\}\) ⇒ \(\{r\}\), \(\{\neg q\}\), \(\square\).</p>
+</details>
+</div>
+<div class="box ex">
+<span class="t">Példa: következmény definíció alapján (2019 Zh1 2.)</span>
+<p>\(\{P\to Q,\ \neg R\to\neg Q,\ R\to\neg S\}\models S\to P\)?</p>
+<details class="sol"><summary>Megoldás</summary>
+<p>Ellenpéldát keresünk: a konklúzió hamis ⇒ \(S=1,P=0\). \(P=0\) ⇒ első premissza igaz. Második: \(Q=0\)-val igaz. Harmadik: \(R=0\)-val igaz (\(\neg R\to\neg Q\): \(1\to1\) ✓). Találtunk modellt a premisszákra, amelyben a konklúzió hamis ⇒ <b>nem</b> következmény.</p>
+</details>
+</div>
+<div class="box def">
+<span class="t">Hilbert-kalkulus (ha „a teljességi tétel nélkül igazoljuk, hogy … ⊢ …”)</span>
+<ul>
+<li>Axiómák: (A1) \(\varphi\to(\psi\to\varphi)\); (A2) \([\varphi\to(\psi\to\chi)]\to[(\varphi\to\psi)\to(\varphi\to\chi)]\); (A3) \((\neg\varphi\to\neg\psi)\to[(\neg\varphi\to\psi)\to\varphi]\). Egyetlen szabály: modus ponens (MP).</li>
+<li>\(\Sigma\vdash\varphi\): van levezetés (axiómák, \(\Sigma\) elemei, MP). Helyesség: \(\Sigma\vdash\varphi\Rightarrow\Sigma\models\varphi\); teljesség: fordítva. Dedukciótétel \(\vdash\)-re is: \(\Sigma\cup\{\varphi\}\vdash\psi\) ⇔ \(\Sigma\vdash\varphi\to\psi\). \(\Sigma\vdash\varphi\) ⇔ \(\Sigma\cup\{\neg\varphi\}\) inkonzisztens.</li>
+<li>Hasznos levezetett tételek: \(\vdash\varphi\to\varphi\); \(\{\varphi,\neg\varphi\}\vdash\bot\) (mindent); \(\{\varphi\to\psi,\psi\to\chi\}\vdash\varphi\to\chi\); \(\vdash\neg\neg\varphi\to\varphi\).</li>
+</ul>
+</div>
+<div class="box ex">
+<span class="t">Példa (2017 ZH 7.): \(\{A\to\neg C,\ C\}\vdash A\to B\)</span>
+<details class="sol"><summary>Megoldás</summary>
+<p>Dedukciótétel: elég \(\{A\to\neg C,C,A\}\vdash B\). 1. \(A\); 2. \(A\to\neg C\); 3. \(\neg C\) (MP 1,2); 4. \(\neg C\to(\neg B\to\neg C)\) (A1); 5. \(\neg B\to\neg C\) (MP 3,4); 6. \(C\); 7. \(C\to(\neg B\to C)\) (A1); 8. \(\neg B\to C\) (MP); 9. \((\neg B\to\neg C)\to[(\neg B\to C)\to B]\) (A3); 10. \((\neg B\to C)\to B\) (MP 5,9); 11. \(B\) (MP 8,10).</p>
+<p>Minta \(\vdash\varphi\to\varphi\): (A1) \(\varphi\to((\varphi\to\varphi)\to\varphi)\); (A2) \([\varphi\to((\varphi\to\varphi)\to\varphi)]\to[(\varphi\to(\varphi\to\varphi))\to(\varphi\to\varphi)]\); MP; (A1) \(\varphi\to(\varphi\to\varphi)\); MP.</p>
+</details>
+</div>
+
+<h2 id="l4">L4. Elsőrendű logika: formalizálás <label class="chk"><input type="checkbox" data-k="l4">kész</label></h2>
+<div class="box def">
+<span class="t">Alapok</span>
+<ul>
+<li>Nyelv: változók, relációjelek (\(P,R,S\)), függvényjelek, konstansok, \(=\); kvantorok \(\forall\), \(\exists x\varphi:=\neg\forall x\neg\varphi\). Term: változó, konstans, \(f(t_1,\dots)\). Atomi formula: \(R(t_1,\dots)\), \(t_1=t_2\).</li>
+<li>Modell (struktúra) \(\mathcal M\): nemüres univerzum + minden relációjelhez egy reláció, függvényjelhez függvény, konstanshoz elem. Kiértékelés: a szabad változóknak elem. \(\mathcal M\models\forall x\varphi\) ⇔ minden elemre igaz.</li>
+<li>Kötött/szabad változó; zárt formula (mondat). Egy nem zárt formula akkor igaz egy modellben, ha az univerzális lezártja az.</li>
+</ul>
+</div>
+<div class="box algo">
+<span class="t">Formalizálási minták (ezek a ZH-mondatok)</span>
+<ul>
+<li>„Minden \(A\) \(B\)”: \(\forall x(A(x)\to B(x))\). „Van olyan \(A\), ami \(B\)”: \(\exists x(A(x)\wedge B(x))\). <b>Soha:</b> \(\forall x(A\wedge B)\), \(\exists x(A\to B)\).</li>
+<li>„Egyetlen \(A\) sem \(B\)” / „nincs olyan \(A\), ami \(B\)”: \(\neg\exists x(A(x)\wedge B(x))\equiv\forall x(A(x)\to\neg B(x))\).</li>
+<li>„Mindenki szeret valakit”: \(\forall x\exists yS(x,y)\); „mindenkit szeret valaki”: \(\forall x\exists yS(y,x)\); „valaki mindenkit szeret”: \(\exists x\forall yS(x,y)\); „valakit mindenki szeret”: \(\exists y\forall xS(x,y)\). A kvantorok sorrendje számít!</li>
+<li>„Mindenki szeret valakit, aki szereti őt”: \(\forall x\exists y(S(x,y)\wedge S(y,x))\) (nem \(\to\)!). „Mindenki szereti azokat, akik szeretik őt”: \(\forall x\forall y(S(y,x)\to S(x,y))\).</li>
+<li>„Van olyan roller, amely minden biciklinél drágább”: \(\exists x(R(x)\wedge\forall y(B(y)\to D(x,y)))\). „Az összes kék bicikli drágább az összes kék rollernél”: \(\forall x\forall y(B(x)\wedge K(x)\wedge R(y)\wedge K(y)\to D(x,y))\).</li>
+<li>„Csak”: „van olyan lány, aki csak fiúkat szeret”: \(\exists x(L(x)\wedge\forall y(S(x,y)\to F(y)))\). „Más”: \(x\ne y\).</li>
+<li>„Egyetlen hallgató sem veszi ki az összes könyvtári könyvet”: \(\neg\exists x(H(x)\wedge\forall y(K(y)\to V(x,y)))\).</li>
+<li>Állításlogikai formalizálás (2019 Zh1): „Alex akkor megy moziba, ha Barbi is”: \(B\to A\); „csak akkor, ha”: \(A\to B\); „mindig egyszerre”: \(A\leftrightarrow B\); „vagy A, vagy B” (kizáró): \((A\wedge\neg B)\vee(B\wedge\neg A)\). Állításlogikában <b>tilos</b> kvantort/változót használni.</li>
+</ul>
+</div>
+<div class="box warn">
+<span class="t">Ekvivalencia-buktatók</span>
+<ul>
+<li>\(\forall xP(x)\vee\forall xQ(x)\not\equiv\forall x(P(x)\vee Q(x))\) (jobbról balra nem igaz). \(\forall\) az \(\wedge\)-szel, \(\exists\) a \(\vee\)-val cserélhető.</li>
+<li>\(\exists x(\alpha\leftrightarrow\beta)\not\equiv\exists x\alpha\leftrightarrow\exists x\beta\). \((\alpha\to\beta)\to\gamma\not\equiv\alpha\wedge\beta\to\gamma\) (az utóbbi \(\alpha\to(\beta\to\gamma)\)-val ekvivalens).</li>
+<li>\(\forall x\exists y\varphi\) nem következik-e \(\exists y\forall x\varphi\)-ből? Fordítva igen: \(\exists y\forall x\varphi\models\forall x\exists y\varphi\).</li>
+<li>Formula-e? \(\forall y\forall x\forall yPxy\) igen (üres kvantálás megengedett); \(\forall y(P\to\forall yQxy)\) csak ha \(P\) 0-argumentumú; zárójelek nélküli \(\forall x(Qx)(Px\to Lx)\) nem formula.</li>
+</ul>
+</div>
+<div class="box ex">
+<span class="t">Példa: modell megadása (2017 ZH 6.)</span>
+<p>Adjunk modellt: \((\exists x\exists y\exists z\neg P(x,y,z))\wedge(\forall x\forall y\forall z(P(x,y,z)\to P(y,z,x)))\).</p>
+<details class="sol"><summary>Megoldás</summary>
+<p>Kell egy háromváltozós reláció, amely ciklikus permutációra zárt, de nem teljes. Pl. univerzum \(\{0,1\}\), \(P=\{(0,0,0)\}\): az egyetlen elem ciklikus képe önmaga ✓, és \((1,1,1)\notin P\) ✓. (Még egyszerűbb: \(P=\emptyset\) – az implikáció üresen igaz.)</p>
+<p>2017 PZH 7.: \(\Sigma=\{\exists x\forall y(g(y)=f(x,y))\}\), \(\varphi=\forall x\forall y(f(x,y)=f(y,x))\). Függetlenség: adj modellt, ahol \(\Sigma\) igaz és \(\varphi\) igaz (pl. \(f\equiv g\equiv0\)), és egyet, ahol \(\Sigma\) igaz, \(\varphi\) hamis (pl. \(\{0,1\}\)-en \(f(x,y)=y\), \(g(y)=y\): \(x=0\)-ra \(f(0,y)=y=g(y)\) ✓, de \(f(0,1)\ne f(1,0)\)).</p>
+</details>
+</div>
+
+<h2 id="l5">L5. Prenex alak, Skolem-alak, negáció bevitele <label class="chk"><input type="checkbox" data-k="l5">kész</label></h2>
+<div class="box algo">
+<span class="t">Algoritmus: prenex alak (minden kvantor elöl)</span>
+<ol>
+<li>\(\to\), \(\leftrightarrow\) kiküszöbölése.</li>
+<li>Negációk bevitele: \(\neg\forall x\varphi\equiv\exists x\neg\varphi\), \(\neg\exists x\varphi\equiv\forall x\neg\varphi\), De Morgan, \(\neg\neg\) törlés. (Ez önmagában a „negáció csak atomi formula előtt” típusfeladat.)</li>
+<li>Kötött változók <b>átnevezése</b>, hogy minden kvantor más változót kössön, és ne ütközzön szabad változóval.</li>
+<li>Kvantorok kiemelése: \((Qx\varphi)\circ\psi\equiv Qx(\varphi\circ\psi)\), ha \(x\) nem szabad \(\psi\)-ben (\(\circ\in\{\wedge,\vee\}\)). A sorrend tetszőleges a kiemelés sorrendje szerint – de a már kiemeltek egymáshoz képesti sorrendje kötött.</li>
+</ol>
+</div>
+<div class="box ex">
+<span class="t">Példák (2019 Zh1 4., 2017 ZH 8.)</span>
+<details class="sol"><summary>Megoldások</summary>
+<ul>
+<li>\(\forall xPx\vee\forall xQx\): átnevezés \(\forall yPy\vee\forall xQx\equiv\forall y\forall x(Py\vee Qx)\).</li>
+<li>\(\forall xPx\to\forall xQx\equiv\neg\forall xPx\vee\forall xQx\equiv\exists x\neg Px\vee\forall yQy\equiv\exists x\forall y(\neg Px\vee Qy)\).</li>
+<li>\((\forall x\exists y(R(x,y)\wedge P(y)))\to\forall x R(x,f(x))\): \(\neg\forall x\exists y(\dots)\vee\forall zR(z,f(z))\equiv\exists x\forall y\neg(R(x,y)\wedge P(y))\vee\forall zR(z,f(z))\equiv\exists x\forall y\forall z\big((\neg R(x,y)\vee\neg P(y))\vee R(z,f(z))\big)\).</li>
+<li>Negáció bevitele (2019 Zh2 4.): \(\neg\forall\varepsilon(\varepsilon&gt;0\to\exists\delta\forall x(|x-a|&lt;\delta\to|fx-fa|&lt;\varepsilon))\equiv\exists\varepsilon(\varepsilon&gt;0\wedge\forall\delta\exists x(|x-a|&lt;\delta\wedge\neg(|fx-fa|&lt;\varepsilon)))\).</li>
+</ul>
+</details>
+</div>
+<div class="box algo">
+<span class="t">Algoritmus: Skolem-alak</span>
+<ol>
+<li>Prenex alak (zárt formulára).</li>
+<li>Balról jobbra minden \(\exists u\)-t törölj, és \(u\) helyére írj egy <b>új</b> függvényjelet, amelynek argumentumai az \(\exists u\)-t <b>megelőző</b> univerzálisan kvantált változók (ha nincs ilyen: új konstans).</li>
+<li>Az eredmény csak \(\forall\)-okat tartalmaz; a nyelv <b>Skolem-bővítése</b> az új függvény-/konstansjelek felsorolása aritással. A Skolem-alak kielégíthetőség szempontjából ekvivalens az eredetivel (nem logikailag ekvivalens).</li>
+</ol>
+</div>
+<div class="box ex">
+<span class="t">Példa (2019 Zh2 3.)</span>
+<p>Skolemizáljuk: \(\exists x\forall y\forall z\exists u\forall v\exists s\,P(x,y,z,u,v,s)\).</p>
+<details class="sol"><summary>Megoldás</summary>
+<p>\(\forall y\forall z\forall v\,P(X,y,z,U(y,z),v,S(y,z,v))\). Skolem-bővítés: \(X\) konstans, \(U\) kétváltozós, \(S\) háromváltozós függvényjel.</p>
+<p>Régi ZH: \(\forall x(\forall xRxy\to\forall y(Qxy\to Lxy))\) – először átnevezés (a belső \(\forall x\), \(\forall y\) más változóra, a szabad \(y\) marad), aztán prenex, majd Skolem.</p>
+</details>
+</div>
+
+<h2 id="lq">L6. Logika-kvíz (gyors önellenőrzés) <label class="chk"><input type="checkbox" data-k="lq">kész</label></h2>
+<details class="q"><summary>\(\{p\to q,\neg p\}\models\neg q\)?</summary><p><span class="h">Nem</span> – \(p=0,q=1\) ellenpélda.</p></details>
+<details class="q"><summary>Ha \(\Sigma\) inkonzisztens, akkor teljes?</summary><p><span class="i">Igen</span> – mindent bizonyít.</p></details>
+<details class="q"><summary>\(\{p,q\}\) teljes?</summary><p><span class="i">Igen</span> – egyetlen modellje van.</p></details>
+<details class="q"><summary>\(\{\neg p\vee q\}\) (\(p,q\) változókkal) teljes?</summary><p><span class="h">Nem</span> – 3 modellje van.</p></details>
+<details class="q"><summary>\(\varphi\) kielégíthető ⇔ ?</summary><p>\(\neg\varphi\) nem érvényes.</p></details>
+<details class="q"><summary>\(\Sigma\models\varphi\) ⇔ ?</summary><p>\(\Sigma\cup\{\neg\varphi\}\) kielégíthetetlen (⇔ inkonzisztens ⇔ rezolúcióval \(\square\) levezethető).</p></details>
+<details class="q"><summary>A rezolúció teljes?</summary><p><span class="h">Nem</span>, de cáfolat-teljes: kielégíthetetlen klózhalmazból \(\square\) levezethető.</p></details>
+<details class="q"><summary>\(\{p,q\}\) és \(\{\neg p,\neg q\}\) rezolvense az üres klóz?</summary><p><span class="h">Nem</span> – egyszerre egy változó szerint; a rezolvens \(\{q,\neg q\}\) vagy \(\{p,\neg p\}\).</p></details>
+<details class="q"><summary>Horn-formula-e \((p\vee\neg q)\wedge(\neg r\vee\neg p\vee s)\wedge s\wedge\neg t\)?</summary><p><span class="i">Igen</span> – minden klózban ≤1 pozitív literál.</p></details>
+<details class="q"><summary>Melyik modellben hamis \(\neg((p\wedge q)\vee r)\)?</summary><p>Ahol \(r=1\) vagy \(p=q=1\).</p></details>
+<details class="q"><summary>Kompaktsági tétel (nemtriviális irány)?</summary><p>Ha \(\Sigma\) minden véges része kielégíthető, akkor \(\Sigma\) is.</p></details>
+<details class="q"><summary>Dedukciótétel?</summary><p>\(\Sigma\cup\{\varphi\}\models\psi\) ⇔ \(\Sigma\models\varphi\to\psi\) (és ugyanez \(\vdash\)-rel).</p></details>
+<details class="q"><summary>\(\forall x(P(x)\vee(P(x)\to Q(x)))\) érvényes?</summary><p><span class="i">Igen</span> – ha \(P(a)\) hamis, \(P(a)\to Q(a)\) igaz.</p></details>
+<details class="q"><summary>\(\forall x\exists yS(x,y)\to\exists y\forall xS(x,y)\) érvényes?</summary><p><span class="h">Nem</span> (kételemű modell, \(S\) = egyenlőség); kielégíthető igen (egyelemű modell).</p></details>
+
+<h2 id="fin">Puska: amit fejből tudni kell a ZH-n</h2>
+<div class="grid2">
+<div class="box">
+<span class="t">Algebra képletek</span>
+<ul>
+<li>\(S(A)^\perp=N(A)\), \(O(A)^\perp=N(A^T)\); komplex: \(O(A^H)^\perp=N(A)\)</li>
+<li>Optimális mo.: \(A^TAx=A^Tb\); min. absz.: \(\hat x=A^Tc\), \(AA^Tc=b\)</li>
+<li>Vetítés: \(Gc=b\) vagy \(P=A(A^TA)^{-1}A^T\); \(P=P^T=P^2\)</li>
+<li>\(A^+=(A^TA)^{-1}A^T\) / \(A^T(AA^T)^{-1}\) / \(C^+B^+\) / \(R^{-1}Q^T\)</li>
+<li>GS: \(b_k=a_k-\sum\frac{\langle b_i,a_k\rangle}{\|b_i\|^2}b_i\); \(R=Q^TA\)</li>
+<li>LU: \(l_{ij}=a_{ij}/a_{jj}\); Cholesky \(R=D^{1/2}L^T\)</li>
+<li>\(\chi(\lambda)=\det(A-\lambda I)\); \(1\le m_g\le m_a\); diag ⇔ \(\sum m_g=n\)</li>
+<li>szimm ⇔ ort. diag; normális ⇔ unitér diag; \(\sqrt A=Q\Lambda^{1/2}Q^T\)</li>
+<li>\(q=x^TAx\) → \(\sum\lambda_iy_i^2\); definit: sajátértékek / vezető főminorok; kongruens ⇔ tehetetlenség</li>
+<li>\(\int_0^1x^k=\frac1{k+1}\); Givens \(\begin{bmatrix}a/r&b/r\\-b/r&a/r\end{bmatrix}\); Householder \(I-\frac{2nn^T}{n^Tn}\)</li>
+</ul>
+</div>
+<div class="box">
+<span class="t">Logika</span>
+<ul>
+<li>\(\varphi\to\psi\) hamis csak \(1\to0\)-nál; \(\varphi\to\psi\equiv\neg\varphi\vee\psi\)</li>
+<li>érvényes ⇔ \(\neg\varphi\) kielégíthetetlen; \(\Sigma\models\varphi\) ⇔ \(\Sigma\cup\{\neg\varphi\}\) inkonzisztens</li>
+<li>konzisztens ⇔ van modell; teljes ⇔ ≤1 modell; 0 modell ⇒ mindkettő</li>
+<li>lovag: \(X\leftrightarrow(\text{állítás})\); „X lókötő” = \(\neg X\)</li>
+<li>CNF: \(\to\) ki, \(\neg\) be, disztribúció; rezolúció: negált konklúzió + \(\square\)</li>
+<li>A1 \(\varphi\to(\psi\to\varphi)\), A2, A3 \((\neg\varphi\to\neg\psi)\to[(\neg\varphi\to\psi)\to\varphi]\), MP</li>
+<li>\(\forall(A\to B)\), \(\exists(A\wedge B)\); \(\neg\forall=\exists\neg\); prenex: átnevez, kiemel; Skolem: \(\exists u\mapsto f(\text{előző }\forall\text{-ok})\)</li>
+<li>Negatív pontozás: bizonytalan válasz = üres.</li>
+</ul>
+</div>
+</div>
+
+<hr>
+<p class="foot">Források: <code>anyagok/vikwiki/Alkalg zh 2024-11-12.pdf</code>, <code>Alkalg pzh 2024-11-26.pdf</code>, <code>Alkalg ppzh 202411209.pdf</code>, <code>Alkalg zh 2023-11.pdf</code>, <code>Alglog.zip</code> (2022 ZH/PZH algebra+logika), <code>Zh1/Zhm1 2021 fm.pdf</code>, <code>2021-pzh*.pdf</code>, <code>alkalg 20181106/20181122 *.pdf</code>, <code>Alglog 2017 osz ZH.pdf</code>, 2016/2019 ZH-képek; <code>anyagok/raktar/AlkAlgPrezentációk/handout_i01–i05</code> (Wettl), <code>of_20fm.pdf</code>, <code>alkalg_ZH_21/22.pdf</code>, <code>Logika/Zh1Megold, Zh2Megold, regizh.pdf</code>, <code>matlog/loginfo.pdf</code> (Simon András), <code>matlog/zh.pdf</code>; hallgatói: <code>Algebra kidolgozás kézzel.pdf</code>, <code>Okos ötletek 2020.pdf</code>, <code>Elmeleti_kerdesek_Algebra_final.pdf</code>. Az idei követelmény (ZH időpontja, pontos anyaghatár, logika-előadó) felülírhatja – az első előadás után frissítendő.</p>
+</main>
+
+<script>
+(function(){
+  var toc=document.getElementById('toc');
+  document.querySelectorAll('main h2[id], main h3[id]').forEach(function(h){
+    var a=document.createElement('a');a.href='#'+h.id;
+    a.textContent=h.childNodes[0].textContent.trim();
+    if(h.tagName==='H3')a.className='sub';
+    a.onclick=function(){toc.classList.remove('open')};
+    toc.appendChild(a);
+  });
+  var KEY='alkalg_zh_done';
+  var st={};try{st=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+  document.querySelectorAll('input[data-k]').forEach(function(cb){
+    cb.checked=!!st[cb.dataset.k];
+    cb.addEventListener('change',function(){st[cb.dataset.k]=cb.checked;try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}});
+  });
+})();
+</script>
+
+</body>
+</html>
