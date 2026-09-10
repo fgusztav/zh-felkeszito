@@ -123,7 +123,7 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']],pack
 <tr><td>6</td><td>5-4 Bilineáris (31 p), 5-5 Kvadratikus alakok (25 p)</td><td>i05 második fele</td><td>9.1–9.8 főtengelytétel, definitség; 9.15 Cholesky (9.9–9.14, 9.16–17 SVD/Schur: vizsga)</td></tr>
 <tr><td>7+</td><td>—</td><td>—</td><td>ez az oldal + a 2021–2024-es ZH-k kézzel végigszámolva</td></tr>
 </table></div>
-<p><b>Logika:</b> először <code>matlog/loginfo.pdf</code> (Simon András, 23 oldal – a ZH-tananyag gerince, tipikus ZH-kérdésekkel), mellé az <code>mlhu1–mlhu4</code> videók (kijelentéslogika, normálformák, rezolúció, Hilbert-kalkulus; egyenként ~1 óra), majd <code>mlhu5–6</code> (elsőrendű logika) csak ha a Sági-féle formátum jönne. Gyakorlás: Sági gyakorlófeladatok 1–2, a 2019-es Zh1/Zh2 megoldások, a 2022-es logika-ZH. A videók témabeosztását az első percek címéből ellenőrizd. A hallgatói összefoglalók (Algebra kidolgozás kézzel, matlog peabe) az alapozás <i>után</i> jók gyors ismétlésre.</p>
+<p><b>Logika (2026, Coq-alapú – lásd a C. fejezetet):</b> a tárgy GitHubjának heti <code>.v</code> fájljait gépen, CoqIDE-ben lépésenként végigjátszani (1. hét <code>ternary_examples.v</code>, 2. hét <code>BoolAlg.v</code>, <code>SetBoole.v</code>, 3–4. hét <code>matlog_3/4.v</code>, <code>Tree_2.v</code>, <code>TreeApp.v</code>, 6–7. hét <code>prop_1.v</code>, <code>neg_1.v</code>, <code>kvant_1.v</code>) + <code>PropTac.md</code>; a Moodle-beadandókat hetente. A régi anyaghoz: először <code>matlog/loginfo.pdf</code> (Simon András, 23 oldal – a ZH-tananyag gerince, tipikus ZH-kérdésekkel), mellé az <code>mlhu1–mlhu4</code> videók (kijelentéslogika, normálformák, rezolúció, Hilbert-kalkulus; egyenként ~1 óra), majd <code>mlhu5–6</code> (elsőrendű logika) csak ha a Sági-féle formátum jönne. Gyakorlás: Sági gyakorlófeladatok 1–2, a 2019-es Zh1/Zh2 megoldások, a 2022-es logika-ZH. A videók témabeosztását az első percek címéből ellenőrizd. A hallgatói összefoglalók (Algebra kidolgozás kézzel, matlog peabe) az alapozás <i>után</i> jók gyors ismétlésre.</p>
 </details>
 
 <div class="box ex" id="anyagok"><span class="t">Letölthető alapozó anyagok (PDF)</span><p>A tanulási tervben hivatkozott diák, jegyzetek és régi ZH-k összefűzve. Csak saját tanulásra; a szerzői jog az előadóké.</p><ul><li><a href="pdf/alkalg_handout_01-05_Wettl.pdf">alkalg_handout_01-05_Wettl.pdf</a> — Wettl előadás-handoutok 01–05 (a ZH algebra-anyaga; 06–08 vizsgás, kihagyva) <span class="tag">315 oldal · 1460 KB</span></li><li><a href="pdf/alkalg_feladatgyujtemeny_Neptun.pdf">alkalg_feladatgyujtemeny_Neptun.pdf</a> — Gyakorlati feladatgyűjtemény (Neptun) – a terv 2–9. fejezeteire hivatkozik <span class="tag">127 oldal · 5397 KB</span></li><li><a href="pdf/alkalg_regi_ZH-k_2018-2024.pdf">alkalg_regi_ZH-k_2018-2024.pdf</a> — Régi algebra+logika ZH-k és megoldások 2018–2024 (vikwiki + hallgatói) <span class="tag">20 oldal · 3576 KB</span></li><li><a href="pdf/logika_kurzusinfo_Simon_2020.pdf">logika_kurzusinfo_Simon_2020.pdf</a> — Matematikai logika – Simon András jegyzete/kurzusinfója (a logika-ZH gerince) <span class="tag">23 oldal · 390 KB</span></li><li><a href="pdf/logika_gyakorlofeladatok_Sagi.pdf">logika_gyakorlofeladatok_Sagi.pdf</a> — Sági-féle logika gyakorlófeladatok 1–2, régi ZH 2008, minta-ZH-k <span class="tag">9 oldal · 205 KB</span></li><li><a href="pdf/logika_ZH-k_es_megoldasok.pdf">logika_ZH-k_es_megoldasok.pdf</a> — Logika ZH-k: 2019 Zh1/Zh2 megoldások, régi ZH, 2022 ZH, 2023 vizsga-ZH, próbavizsga, konzultációk <span class="tag">13 oldal · 594 KB</span></li></ul></div>
@@ -819,6 +819,205 @@ A keresett polinom \(-\tfrac15+\tfrac45x\). (2×2-es inverz: \(\det=\tfrac13-\tf
 <details class="q"><summary>Ha egy mátrix definit (akár pozitív, akár negatív), akkor minden negyedrendű főminora pozitív.</summary><p><span class="i">I</span> (negatív definitnél páros rendű főminor pozitív).</p></details>
 <details class="q"><summary>Két szimmetrikus mátrix: \(A\) sajátértékei \(-1,0,1,2\), \(B\)-é \(-1,0,1,1\). Hasonlóak és kongruensek? Tehetetlenség? Van közös \(q\)? Ha két valós szimm. mátrix hasonló, kongruens is?</summary><p><span class="h">H</span> (nem hasonlók); mindkettő \((2,1,1)\) <span class="i">I</span>; <span class="i">I</span>; <span class="i">I</span>.</p></details>
 <details class="q"><summary>Ha \(A^2=O\), akkor \(A=O\). Ha \(A^TA=O\) (valós), akkor \(A=O\).</summary><p><span class="h">H</span>; <span class="i">I</span> (\(\|Ax\|^2=x^TA^TAx=0\)).</p></details>
+
+<h2 id="c0">C. Konstruktív logika Coq-ban – a 2026-os logika-rész (Molnár Zoltán Gábor) <label class="chk"><input type="checkbox" data-k="c0">kész</label></h2>
+<div class="box">
+<span class="t">Mit kérnek és miből (2026)</span>
+<ul>
+<li><b>Logika-ZH: 45 perc, 20 pont, aláíráshoz min. 8.</b> Plusz <b>10 Moodle-beadandó, összesen 20 pont</b> (nincs minimum, de a jegybe számít), logika-vizsga 45 perc, 10 pont (min. 4). Formátum: a 2024–25-ös anyag alapján Coq-bizonyítások (taktikasor vagy bizonyítási term), levezetési fák, term-kiértékelés; papír vagy Moodle – az első ZH-információ után frissítendő.</li>
+<li><b>Anyag:</b> a tárgy GitHubja (<code>anyagok/targyhonlap/logika_github/</code>, heti <code>.v</code> Coq-fájlok + PDF-ek: <code>1/ternary.pdf</code>, <code>2/BooleAlgebra.pdf</code>, <code>4/Trees.pdf</code>, <code>PropTac.md</code> taktika-jegyzet, kézírásos órai jegyzetek a 6., 8., 9. mappában), a Teams (<code>t07g4m1</code>) heti diái. Előadás csütörtök 16:15, Teamsen közvetítve és felvéve.</li>
+<li><b>Eszköz:</b> Coq Platform (winget: <code>Coq.CoqPlatform</code>) + CoqIDE, vagy VS Code + VsCoq bővítmény. A beadandókhoz kell: minden példát a gépen lépésenként végigjátszani (a taktika után <i>látni</i> a goal változását) sokkal többet ér, mint olvasni.</li>
+</ul>
+</div>
+<div class="box algo">
+<span class="t">Tanulási sorrend (kb. 6 óra a ZH-ig)</span>
+<ol>
+<li>C1–C2: a Coq-nyelv 8 kulcsszava és a <b>taktika-táblázat</b> – ezt fejből (1,5 óra a <code>ternary_examples.v</code>-vel a gépen).</li>
+<li>C3: természetes levezetés ↔ taktikák ↔ bizonyítási termek (Curry–Howard); a <code>PropTac.md</code> és a <code>3/matlog_3.v</code>, <code>4/matlog_4.v</code>, <code>6/prop_1.v</code>, <code>7/neg_1.v</code> feladatait gépen (2 óra).</li>
+<li>C4–C5: a ternáris nyelv és a Boole-algebra/halmazok (1 óra).</li>
+<li>C6: szintaxisfák és strukturális indukció (1 óra).</li>
+<li>C7: negáció, klasszikus vs. konstruktív, kvantorok, prenex (1 óra), majd a C9 önellenőrzés.</li>
+</ol>
+</div>
+
+<h3 id="c1">C1. A Coq-nyelv, amit olvasni és írni kell tudni</h3>
+<div class="box def"><span class="t">Nyolc kulcsszó</span>
+<dl>
+<dt><code>Inductive</code></dt><dd>induktív típus konstruktorokkal: <code>Inductive Term : Set := | tt : Term | ff : Term | if_then_else : Term -&gt; Term -&gt; Term -&gt; Term.</code> Minden érték a konstruktorokból épül, ezért lehet rajta <b>strukturális indukció</b> és <code>match</code>.</dd>
+<dt><code>Definition</code></dt><dd>nem rekurzív függvény/rövidítés: <code>Definition OR (x y : Term) := if_then_else x tt y.</code></dd>
+<dt><code>Fixpoint</code> + <code>match … with … end</code></dt><dd>strukturálisan rekurzív függvény (a rekurzív hívás csak részkifejezésre mehet, ezért biztosan terminál): <code>Fixpoint depth (t : Term) : nat := match t with | tt =&gt; 0 | ff =&gt; 0 | if_then_else p q r =&gt; S (max (depth p) (max (depth q) (depth r))) end.</code></dd>
+<dt><code>Lemma / Theorem / Example</code> … <code>Proof. … Qed.</code></dt><dd>állítás + bizonyítás taktikákkal. <code>Defined.</code> ugyanaz, de a bizonyítás később kiszámítható marad (program); <code>Admitted.</code> = elhagyott bizonyítás (a beadandóban ez 0 pont); <code>Abort.</code> = feladom.</dd>
+<dt><code>Compute</code> / <code>Eval simpl in</code></dt><dd>kifejezés kiértékelése: <code>Compute beta_reduce (if_then_else ff (if_then_else ff ff tt) tt).</code> → <code>= tt : Term</code>.</dd>
+<dt><code>Print</code> / <code>Check</code> / <code>Search</code> / <code>Show Proof</code></dt><dd>definíció megmutatása / típus lekérdezése / lemmák keresése / a félkész bizonyítási term kiírása.</dd>
+<dt><code>Parameter</code> / <code>Axiom</code></dt><dd>feltételezett objektum ill. bizonyítás nélkül elfogadott állítás (pl. <code>Axiom setequality_eq</code>).</dd>
+<dt><code>Structure</code> / <code>Notation</code></dt><dd>rekord-típus (pl. <code>BooleanAlgebra</code> az axiómáival mint mezők) ill. jelölés (<code>Notation "x ∈ A" := (isin x A)</code>).</dd>
+</dl></div>
+<div class="box def"><span class="t">Univerzumok: Prop, Set, Type</span>
+<p><b><code>Prop</code></b> = az állítások típusa; egy <code>A : Prop</code> „lakói” a bizonyításai. <b><code>Set</code></b> = az adattípusok (programok) univerzuma (<code>nat</code>, <code>bool</code>, <code>Term</code>, <code>binTree</code>). <b><code>Type</code></b> = mindkettő fölött. A kapcsolat (Curry–Howard): egy állítás egy típus, a bizonyítása egy term/program; <code>A -&gt; B</code> egyszerre implikáció és függvénytípus, <code>A /\ B</code> párosítás (<code>conj</code>), <code>A \/ B</code> összeg (<code>or_introl</code>/<code>or_intror</code>), <code>~ A</code> definíció szerint <code>A -&gt; False</code>, <code>exists x, P x</code> pár <code>ex_intro</code>, <code>forall x, P x</code> függő függvény.</p></div>
+<div class="box ex"><span class="t">Példa: a fájl olvasása felülről lefelé</span>
+<pre><code>Inductive Boole : Set := | igaz : Boole | hamis : Boole.
+Definition és_2 (b1 b2 : Boole) := match b1 with | igaz =&gt; b2 | hamis =&gt; hamis end.
+Lemma és_2_1 : forall c, (és_2 c hamis) = hamis.
+Proof. induction c. all: simpl. all: auto. Qed.</code></pre>
+<p>Olvasat: kételemű típus; „és” a bal argumentum szerinti esetszétválasztással; a lemma minden c-re igaz; bizonyítás: esetszétválasztás c-re (két goal), mindkettőt kiszámítjuk (<code>simpl</code>), a maradék <code>hamis = hamis</code>-t az <code>auto</code> lezárja. <code>all:</code> = minden nyitott goalra.</p></div>
+
+<h3 id="c2">C2. Taktika-táblázat: a goal alakja dönti el, mit írsz</h3>
+<div class="box algo"><span class="t">Ez a fejezet lényege – a ZH-n ebből él az ember</span>
+<div class="scroll"><table>
+<tr><th>Ha a <b>cél (goal)</b> …</th><th>taktika</th><th>mit csinál</th></tr>
+<tr><td><code>forall x, …</code> vagy <code>A -&gt; B</code></td><td><code>intros</code> / <code>intros x H</code> / <code>intro</code></td><td>a kvantált változót ill. a premisszát a hipotézisek közé teszi (dedukciótétel; ∀-bevezetés)</td></tr>
+<tr><td><code>A /\ B</code></td><td><code>split</code></td><td>két goal: A és B (∧-bevezetés = <code>apply conj</code>)</td></tr>
+<tr><td><code>A \/ B</code></td><td><code>left</code> / <code>right</code></td><td>választasz, melyik tagot bizonyítod (∨-bevezetés)</td></tr>
+<tr><td><code>~ A</code></td><td><code>intro H</code> (előtte esetleg <code>unfold not</code>)</td><td>mert <code>~A = A -&gt; False</code>: felteszed A-t, cél <code>False</code></td></tr>
+<tr><td><code>exists x, P x</code></td><td><code>exists t</code></td><td>megadod a tanút; cél <code>P t</code> (∃-bevezetés)</td></tr>
+<tr><td><code>t = t</code></td><td><code>reflexivity</code></td><td>azonosság</td></tr>
+<tr><td>kiszámítható kifejezés (<code>f (konstruktor …) = …</code>)</td><td><code>simpl</code> / <code>compute</code> / <code>unfold f</code></td><td>lefuttatja a definíciót; <code>unfold</code> kell, ha egy <code>Definition</code> neve takarja</td></tr>
+<tr><td>pontosan egy hipotézis</td><td><code>assumption</code> / <code>exact H</code></td><td>kész</td></tr>
+<tr><td>egy hipotézis/lemma <b>konklúziója</b></td><td><code>apply H</code></td><td>visszafelé: a cél helyébe H premisszái kerülnek (→-kiküszöbölés, modus ponens)</td></tr>
+<tr><td><code>False</code></td><td><code>contradiction</code> / <code>exfalso</code> / <code>apply H</code> ha <code>H : ~A</code></td><td>ellentmondó hipotézisekből; <code>False_ind</code> = ex falso</td></tr>
+<tr><td>egyenlőség, ahol egy hipotézis <code>H : a = b</code></td><td><code>rewrite H</code> / <code>rewrite &lt;- H</code></td><td>a-t b-re (ill. visszafelé) cseréli a célban</td></tr>
+<tr><td>állítás egy induktív típus minden elemére</td><td><code>induction t</code></td><td>egy goal konstruktoronként, a rekurzív esetekben <b>indukciós hipotézis</b> (IHt1, IHt2…)</td></tr>
+<tr><td>aritmetika (<code>nat</code>, +, max, ≤)</td><td><code>lia</code></td><td>lineáris aritmetikai döntő (<code>Require Import Lia</code>)</td></tr>
+<tr><td>„nyilvánvaló” propozicionális/elsőrendű lépés</td><td><code>auto</code> / <code>intuition</code> / <code>firstorder</code></td><td>automatikus keresés; a ZH-n csak akkor, ha engedik – a kézi lépéseket kell tudni</td></tr>
+</table></div>
+<div class="scroll"><table>
+<tr><th>Ha egy <b>hipotézis</b> …</th><th>taktika</th><th>mit csinál</th></tr>
+<tr><td><code>H : A /\ B</code></td><td><code>destruct H as [H1 H2]</code></td><td>két hipotézis lesz (∧-kiküszöbölés; = első/második komponens)</td></tr>
+<tr><td><code>H : A \/ B</code></td><td><code>destruct H as [H1 | H2]</code></td><td><b>esetszétválasztás</b>: két goal, egyikben A, másikban B (∨-kiküszöbölés)</td></tr>
+<tr><td><code>H : exists x, P x</code></td><td><code>destruct H as [x Hx]</code></td><td>tanú + tulajdonsága (∃-kiküszöbölés); az <code>elim H. intros.</code> ugyanez</td></tr>
+<tr><td><code>H : forall x, P x</code></td><td><code>apply H</code> / <code>specialize (H t)</code> / <code>apply H with (x := t)</code></td><td>∀-kiküszöbölés: behelyettesítés</td></tr>
+<tr><td><code>H : A -&gt; B</code> és <code>K : A</code></td><td><code>apply H in K</code></td><td>előrefelé: K-ból <code>B</code> lesz</td></tr>
+<tr><td><code>H : ~ A</code> és <code>K : A</code></td><td><code>contradiction</code> vagy <code>apply H. exact K.</code></td><td>False a célból</td></tr>
+<tr><td><code>H : konstruktor1 … = konstruktor2 …</code></td><td><code>discriminate H</code></td><td>különböző konstruktorok nem egyenlők → a goal kész</td></tr>
+<tr><td><code>H : node t1 t2 = node a b</code></td><td><code>inversion H</code> (majd <code>subst</code>)</td><td>konstruktor-injektivitás: <code>t1 = a</code>, <code>t2 = b</code> hipotéziseket ad</td></tr>
+<tr><td>közbülső állítás kell</td><td><code>assert (K : P)</code> / <code>enough (K : P)</code></td><td>új részcél (előbb K-t bizonyítod / K-t később bizonyítod)</td></tr>
+<tr><td>esetszétválasztás egy értékre</td><td><code>destruct (f x) eqn:H</code></td><td>konstruktoronként goal, H-ban megmarad az egyenlőség</td></tr>
+</table></div>
+<p><b>Szerkezet:</b> a goalok ágait <code>-</code>, <code>+</code>, <code>*</code> „golyókkal” (bullet) jelöljük; <code>all: taktika</code> minden goalra; <code>;</code> = az első taktika minden kimeneti goalján a második. Egy bizonyítás akkor kész, ha nincs több goal, és <code>Qed.</code> elfogadja.</p></div>
+
+<h3 id="c3">C3. Természetes levezetés ↔ taktikák ↔ bizonyítási termek (Curry–Howard)</h3>
+<div class="box thm"><span class="t">A szabályok, két olvasatban (ez volt az órai tábla)</span>
+<div class="scroll"><table>
+<tr><th>Konnektívum</th><th>Bevezetés (hogyan bizonyítjuk)</th><th>Kiküszöbölés (hogyan használjuk)</th><th>Term / taktika</th></tr>
+<tr><td>→ (ha…akkor)</td><td><i>x:A ⊢ t:B</i> ⟹ <i>fun x:A ⇒ t : A→B</i> (dedukciótétel, absztrakció)</td><td><i>f:A→B, a:A</i> ⟹ <i>f a : B</i> (modus ponens, alkalmazás)</td><td><code>intros</code> / <code>apply</code>, <code>exact (f a)</code></td></tr>
+<tr><td>∧ (és)</td><td><i>a:A, b:B</i> ⟹ <i>conj a b : A∧B</i></td><td><i>t:A∧B</i> ⟹ <i>first t : A</i>, <i>second t : B</i>; általánosan <code>and_ind : (A→B→P) → A∧B → P</code></td><td><code>split</code> / <code>destruct H as [a b]</code></td></tr>
+<tr><td>∨ (vagy)</td><td><i>a:A</i> ⟹ <i>or_introl a : A∨B</i>; <i>b:B</i> ⟹ <i>or_intror b</i></td><td><b>esetszétválasztás:</b> <i>t:A∨B, x:A ⊢ p₁:C, y:B ⊢ p₂:C</i> ⟹ <i>C</i> (<code>or_ind</code>)</td><td><code>left</code>/<code>right</code> / <code>destruct H as [a|b]</code></td></tr>
+<tr><td>¬ (nem)</td><td><i>¬A := A → False</i>; bevezetés: A-ból False</td><td><i>¬A, A</i> ⟹ <i>False</i>; <i>False</i> ⟹ bármi (<code>False_ind</code>, ex falso)</td><td><code>intro</code> / <code>contradiction</code>, <code>exfalso</code></td></tr>
+<tr><td>∀</td><td><i>[x] ⊢ A(x)</i> ⟹ <i>∀x A(x)</i> (x nem szabad a feltételekben)</td><td><i>∀x A(x)</i> ⟹ <i>A[x/t]</i> tetszőleges t termre</td><td><code>intros x</code> / <code>apply H</code>, <code>specialize</code></td></tr>
+<tr><td>∃</td><td><i>A[x/t]</i> ⟹ <i>∃x A(x)</i> (tanú: <code>ex_intro</code>)</td><td><i>∃x A(x)</i>, <i>[x, A(x)] ⊢ C</i> ⟹ <i>C</i></td><td><code>exists t</code> / <code>destruct H as [x Hx]</code></td></tr>
+</table></div>
+<p>A <code>Show Proof.</code> kiírja a taktikák által épített termet, pl. az <i>(A→B)→(B→C)→A→C</i> bizonyítása: <code>fun (A B C : Prop) (H : A -&gt; B) (H0 : B -&gt; C) (H1 : A) =&gt; H0 (H H1)</code> – függvénykompozíció. A disztributivitás <i>A∧(B∨C) → (A∧B)∨(A∧C)</i> terme: <code>match H with conj x x0 =&gt; match x0 with or_introl k =&gt; or_introl (conj x k) | or_intror l =&gt; or_intror (conj x l) end end</code>. <b>Bizonyítás = program:</b> a <code>match</code> a destruct, a <code>fun</code> az intros, az alkalmazás az apply.</p></div>
+<div class="box ex"><span class="t">Mintabizonyítások a 3–4. hét fájljaiból (ezeket gépen újra kell tudni írni)</span>
+<pre><code>Example problem_2 : forall A B C : Prop, ((A /\ B) -&gt; C) -&gt; (A -&gt; (B -&gt; C)).   (* currying *)
+Proof. intros. apply H. split. - exact H0. - exact H1. Qed.
+
+Example problem_3 : forall A B C : Prop, ((A -&gt; C) /\ (B -&gt; C)) -&gt; ((A \/ B) -&gt; C).
+Proof. intros. destruct H0.
+ - destruct H as [K1 K2]. apply K1. exact H0.
+ - destruct H as [K1 K2]. apply K2. exact H0. Qed.
+
+Lemma problem_1 : forall A B : Prop, ((~ A) \/ B) -&gt; (A -&gt; B).
+Proof. intros A B H. intros K. destruct H as [H1 | H2]. - contradiction. - exact H2. Qed.
+
+Lemma problem_3 : forall A B : Prop, (A -&gt; B) -&gt; ((~ B) -&gt; (~ A)).      (* kontrapozíció *)
+Proof. intros. unfold not. intros. unfold not in H0. apply H0. apply H. apply H1. Qed.
+
+Lemma pr_3 : forall A B C : Prop, (A /\ (B \/ C)) -&gt; ((A /\ B) \/ (A /\ C)).
+Proof. intros. destruct H as [H1 H2]. destruct H2 as [K|L]. - left. auto. - right. auto. Qed.</code></pre>
+<p>Házi feladatként hagyott (a ZH-n kérhető) irányok: <i>(A→B→C) → (A∧B→C)</i> (intros, destruct H0, apply H), <i>(A∨B→C) → (A→C)∧(B→C)</i> (split; intros; apply H; left/right), <i>(A∧B)∨(A∧C) → A∧(B∨C)</i> (destruct, split, left/right), <i>¬(A∨B) → ¬A∧¬B</i> (split; intro; apply H; left/right – <b>konstruktívan is megy</b>), <i>¬(A∧B) → ¬A∨¬B</i> (<b>konstruktívan nem megy</b>, kell a kizárt harmadik: <code>(A \/ ~A) -&gt;</code> feltétellel destruct H, majd left/right).</p></div>
+
+<h3 id="c4">C4. 1. hét: a ternáris kondicionális nyelv – szintaxis, tipizálás, szemantika</h3>
+<div class="box def"><span class="t">A nyelv</span>
+<p>BNF: <code>t ::= tt | ff | if t then t else t</code>. Coq: <code>Inductive Term : Set := tt | ff | if_then_else : Term -&gt; Term -&gt; Term -&gt; Term</code>. <b>Tipizálás:</b> <code>has_type : Term -&gt; Prop</code> induktív predikátum három szabállyal (<code>T_True</code>, <code>T_False</code>, <code>T_If</code>: ha p, q, r jól tipizált, akkor <code>if p q r</code> is); jelölés ⊢ t [:] bool. Tétel: <b>minden term jól tipizált</b> (<code>induction t</code>; a három ágban <code>apply T_True/T_False/T_If</code> + indukciós hipotézisek).</p></div>
+<div class="box def"><span class="t">Operacionális szemantika = hogyan fut a program</span>
+<ul>
+<li><b>Nagy lépéses (big-step) kiértékelés</b> <code>beta_reduce</code>: <code>tt ↦ tt</code>, <code>ff ↦ ff</code>, <code>if p q r</code>: előbb p-t értékeljük; ha <code>tt</code>, akkor q-t, ha <code>ff</code>, akkor r-t (a harmadik <code>p'</code> ág jól tipizált termre sosem kell). Példa: <code>if ff (if ff ff tt) tt</code> ⟹ <code>tt</code>.</li>
+<li><b>Kis lépéses (small-step)</b> <code>beta_reduce_small_step</code>: egyetlen redukció; ha a feltétel már <code>tt</code>/<code>ff</code>, kiválasztja az ágat, különben a feltételben lép egyet. Példa: <code>if (if ff ff tt) ff tt</code> → <code>if tt ff tt</code> → <code>ff</code>.</li>
+<li><b>Mélység</b> <code>depth</code> (0 a konstansokra, 1 + a három rész maximuma), <b>motor</b> <code>engine n t</code> = n kis lépés, <code>full_reduce t := engine (depth t) t</code> – ennyi lépés mindig elég.</li>
+<li><b>Normálforma:</b> <code>is_normal t := t = tt \/ t = ff</code>. <b>Gyenge normalizáció tétel:</b> <code>forall t, is_normal (beta_reduce t)</code>. Bizonyítás: <code>induction t</code>; a konstans ágakban <code>unfold is_normal; left/right; reflexivity</code>; az if-ágban <code>simpl</code>, majd az IHt1 (<code>beta_reduce t1</code> normál) két esete <code>destruct IHt1 as [H|H]</code>; <code>rewrite H</code>; <code>exact IHt2</code> ill. <code>exact IHt3</code>. Erős normalizáció: bármilyen redukciós sorrendben véges lépésben ugyanahhoz a normálformához jutunk.</li>
+<li><b>Programok a nyelven:</b> <code>OR x y := if x tt y</code>; lemmák: <code>beta_reduce (OR tt y) = tt</code> (<code>reflexivity</code>), <code>beta_reduce (OR ff y) = beta_reduce y</code> (<code>simpl; reflexivity</code>). Az <code>ite.v</code>-ben ugyanez <code>Boole</code>/<code>Tru</code>/<code>Fal</code>/<code>Ite</code> névvel, plusz <code>Neg A := Ite A Fal Tru</code>, <code>And2 A B := Ite A B Fal</code>.</li>
+</ul></div>
+<div class="box thm"><span class="t">Denotációs szemantika és a kommutáló négyzet</span>
+<p><code>denote : Boole -&gt; bool</code> a Coq beépített <code>bool</code>-jára képez (<code>Ite A B C ↦ if denote A then denote B else denote C</code>). Tétel: <b><code>denote (beta_reduce A) = denote A</code></b> – a béta-redukció nem változtatja meg a jelentést (a négyzet: A → beta_reduce A, mindkettő denote-ja ugyanaz a bool). Bizonyítás: <code>induction A</code>; az Ite-ágban <code>destruct (beta_reduce A1) eqn:H</code> három esettel, <code>simpl in IHA1; rewrite &lt;- IHA1; simpl; exact IHA2/IHA3</code>. Az elvárt lemma <code>denote (And2 A B) = andb (denote A) (denote B)</code> szintén indukcióval/esetszétválasztással.</p>
+<p>Kitekintés (<code>ite.v</code> vége): <code>Prg : list Boole -&gt; Boole -&gt; Type</code> a nyelv <b>levezetési rendszere</b> kontextussal (<code>vz</code> hipotézis, <code>vs</code> gyengítés, <code>tt</code>, <code>abs</code> ex falso, <code>iteI</code>/<code>iteTru</code>/<code>iteFal</code>/<code>iteSame</code> az if bevezetése és kiküszöbölései); belőle <code>weakening</code>, <code>contradictionI</code>, <code>andI</code> származtatható.</p></div>
+
+<h3 id="c5">C5. 2. hét: Boole-típus, Boole-algebra, halmazok mint predikátumok</h3>
+<div class="box def"><span class="t">Boole-algebra: B = (B, ⊤, ⊥, ∧, ∨, ¬) és a 10 axióma</span>
+<p>Asszociativitás (∧, ∨) · kommutativitás (∧, ∨) · disztributivitás (∧ a ∨-ra és ∨ az ∧-re) · identitás (<i>x∧⊤ = x</i>, <i>x∨⊥ = x</i>) · komplementer (<i>x∧¬x = ⊥</i>, <i>x∨¬x = ⊤</i>). <b>A <code>bool</code> típus Boole-algebra</b> a <code>true, false, andb, orb, negb</code> szereposztásban; Coq-ban ezt a <code>Structure BooleanAlgebra</code> rekord (mezők: B, Tru, Fal, And, Or, Neg + a 10 axióma) egy példánya mondja ki: <code>bool_BooleanAlgebra</code>, ahol az axiómák bizonyításai a könyvtári lemmák (<code>andb_assoc, orb_comm, andb_orb_distrib_r, andb_true_r, orb_negb_r</code>…).</p>
+<p><b>Saját kételemű típussal:</b> <code>Inductive Boole := igaz | hamis</code>; <code>és</code>, <code>vagy</code> <code>match</code>-csel; <b>tétel véges esetszétválasztással:</b> <code>Theorem dist_1 : forall b1 b2 b3, és b1 (vagy b2 b3) = vagy (és b1 b2) (és b1 b3).</code> Bizonyítás: <code>intros. induction b1, b2, b3. all: compute. all: reflexivity.</code> (8 eset, mind kiszámítható) – ez a ZH-tipikus „igazságtábla Coq-ban”.</p></div>
+<div class="box def"><span class="t">Halmazok a típuselméletben (SetBoole.v)</span>
+<p><code>SetU U := U -&gt; Prop</code>: egy halmaz = predikátum. <code>x ∈ A := A x</code>; <code>A ∪ B := fun x =&gt; A x \/ B x</code>; <code>A ∩ B := fun x =&gt; A x /\ B x</code>; <code>∁ A := fun x =&gt; ~ A x</code>; <code>∅ := fun _ =&gt; False</code>; <code>full := fun _ =&gt; True</code>; <code>A ⊆ B := forall x, x ∈ A -&gt; x ∈ B</code>; <code>A ≡ B := A ⊆ B /\ B ⊆ A</code>. Bizonyított: <code>≡</code> reflexív, szimmetrikus, tranzitív (ezért <code>Add Parametric Relation</code>: setoid); <code>A ∩ B ≡ B ∩ A</code>, <code>A ∪ B ≡ B ∪ A</code> (<code>unfold seteq, isin, intersection; split; intros; destruct H; auto</code>).</p>
+<p><b>Két csavar, amit kérdezhetnek:</b> (1) az elemenkénti egyenlőség <code>≡</code> nem a Coq <code>=</code>-je (két különböző függvény ugyanazt a halmazt adhatja: <i>x&gt;0</i> és <i>x≥1</i>), ezért kell az <code>Axiom setequality_eq : A ≡ B -&gt; A = B</code>, hogy a <code>SetU U</code> Boole-algebra-példány legyen; (2) konstruktív logikában a <code>Prop</code>-értékű halmazok <b>Heyting-algebrát</b> adnak, nem Boole-t (a komplementer nem involúció: <i>¬¬A ≠ A</i>); <code>bool</code>-értékű halmazokkal valódi Boole-halmazalgebra lenne.</p></div>
+
+<h3 id="c6">C6. 3–4. hét: szintaxisfák, strukturális indukció, denotáció és fordítás</h3>
+<div class="box def"><span class="t">Bináris fa és a rajta bizonyított lemmák (Trees.pdf, Tree_2.v)</span>
+<ul>
+<li><code>Inductive binTree := leaf | node : binTree -&gt; binTree -&gt; binTree</code>. <code>leafLength</code> (levél 1, csomópont az alfák összege), <code>revertBinTree</code> (alfák cseréje). <b>Tétel:</b> <code>revertBinTree (revertBinTree t) = t</code> – <code>induction t; simpl; rewrite IHt2; rewrite IHt1; auto</code>.</li>
+<li><code>mostRightAppend t s</code>: s-t a jobb szélső levél helyére fűzi. Helyességi specifikáció <code>mostRightAppend_correct</code> (∀ t1 t2, t = node t1 t2 → eredmény = node t1 (…)); bizonyításban a <code>leaf</code>-ágban <code>discriminate H</code> (leaf ≠ node), a <code>node</code>-ágban <code>inversion H</code>. Lemma: <code>leafLength (mostRightAppend t s) + 1 = leafLength t + leafLength s</code> – indukció + <code>lia</code> / asszociativitás átírása.</li>
+<li><b>Függő típus:</b> <code>HTree : nat -&gt; Set</code>, <code>Hleaf : HTree 0</code>, <code>Hnode n m : HTree n -&gt; HTree m -&gt; HTree (S (max n m))</code> – a magasság a típusban; <code>Height_lemma : Height n t = n</code>. „Transport hell”: a típusindexek miatt a fordítás bizonyítása nehéz.</li>
+</ul></div>
+<div class="box def"><span class="t">Kifejezésfa ↔ absztrakt szintaxisfa (AST) és a helyességi tétel</span>
+<p><code>Exp := AT nat | NOT Exp | AND Exp Exp | OR Exp Exp</code>; <code>AST := leaf nat | node1 UnOp AST | node2 BinOp AST AST</code> (<code>UnOp = NOT_c</code>, <code>BinOp = AND_c | OR_c</code>). <b>Denotáció</b> egy <code>v : nat -&gt; bool</code> változó-kiértékelés mellett: <code>ExpDenote</code>, <code>ASTDenote</code> (<code>negb/andb/orb</code>). <b>Fordítók:</b> <code>Translater1 : Exp -&gt; AST</code>, <code>Translater2 : AST -&gt; Exp</code>. <b>Soundness1:</b> <code>ASTDenote t v = ExpDenote (Translater2 t) v</code> – <code>induction t</code>: levél <code>compute; auto</code>; node1 <code>simpl; rewrite IHt; auto</code>; node2 <code>induction b; all: simpl; rewrite IHt1; rewrite IHt2; auto</code>. A <code>Soundness2</code> (a másik irány) házi/ZH-feladat, ugyanígy megy.</p>
+<p><b>Séma minden „a függvény helyes” tételre:</b> indukció a fa/term szerkezete szerint → konstruktoronként <code>simpl</code> → az indukciós hipotézisek <code>rewrite</code>-olása → <code>reflexivity/auto/lia</code>.</p></div>
+
+<h3 id="c7">C7. 5–9. hét: Prop-bizonyítások, negáció és klasszikus logika, kvantorok, prenex</h3>
+<div class="box thm"><span class="t">Konstruktív vs. klasszikus – amit tudni kell</span>
+<ul>
+<li>Konstruktívan <b>nem</b> bizonyítható: kizárt harmadik <i>A ∨ ¬A</i> (LEM), kettős tagadás törlése <i>¬¬A → A</i>, Peirce-szabály <i>((A→B)→A)→A</i>, <i>¬(A∧B) → ¬A∨¬B</i>, <i>(¬B→¬A) → (A→B)</i>. Mindegyik megy, ha a lemma feltételként megkapja a LEM egy esetét (<code>(A \/ ~A) -&gt; …</code>), akkor <code>destruct H</code> két ágán.</li>
+<li>Konstruktívan <b>igen</b>: <i>A → ¬¬A</i>; <i>¬¬(A ∨ ¬A)</i> (LEM kettős tagadása – tábla: <code>intro H; apply H; right; intro a; apply H; left; exact a</code>); kontrapozíció <i>(A→B) → (¬B→¬A)</i>; De Morgan <i>¬A∨¬B → ¬(A∧B)</i> és <i>¬(A∨B) ↔ ¬A∧¬B</i>; <i>(¬A∨B) → (A→B)</i>.</li>
+<li>Jellegzetesség: ha egy klasszikusan igaz A nem vezethető le konstruktívan, a <i>¬¬A</i> igen (Glivenko a kijelentéslogikára).</li>
+</ul></div>
+<div class="box ex"><span class="t">Kvantoros minták (kvant_1.v, rago.v) – tanú és esetszétválasztás</span>
+<pre><code>Lemma problem_1 (U : Type) (A : U -&gt; U -&gt; Prop) :
+  (exists x, forall y, A x y) -&gt; (forall y, exists x, A x y).
+Proof. intros. destruct H. exists x. apply H. Qed.       (* ∃∀ → ∀∃ igen; ∀∃ → ∃∀ NEM *)
+
+Lemma problem_2 (U : Type) (P Q : U -&gt; Prop) :
+  (forall x, P x /\ Q x) -&gt; (forall x, P x) /\ (forall x, Q x).
+Proof. intros. split. - intros. assert (K : P x /\ Q x). apply H. destruct K. exact H0. - intros. firstorder. Qed.
+
+Lemma problem_3_0 (U : Type) (F : U -&gt; Prop) : ~ (exists x, F x) -&gt; (forall x, ~ F x).
+Proof. intros H x Hx. apply H. exists x. exact Hx. Qed.</code></pre>
+<p>Formalizálás: „Bárki felszólal, valaki megsértődik” = <i>(∃x F x) → ∃y M y</i>; „mindenkire igaz, hogy ha ő felszólal, valaki megsértődik” = <i>∀x (F x → ∃y M y)</i>; a két alak ekvivalens (<code>problem_3</code>: kell hozzá a LEM esete). <b>Prenex normálforma:</b> a kvantorok kihozása az elejére: <i>∀x(F x → ∃y M y) ≡ ∀x∃y(F x → M y)</i>; szabályok: <i>(∃x A → B) ≡ ∀x(A → B)</i>, <i>(∃x A → ∀y B) ≡ ∀y∀x(A→B)</i> (x nem szabad B-ben); a <code>8–9/MonFOLweakSOGAT.v</code> ezt egy monadikus elsőrendű levezetési rendszerben (<code>Fm</code>, <code>Tm</code>, <code>Pf</code> a szabályokkal: <code>lam/app</code> →, <code>exii/exie</code> ∃, <code>unii/unie</code> ∀, helyettesítési szabályok) bizonyítja: <code>prenex_1 : ((Exi A) ⊃ (Exi B)) ⊃ Uni (A ⊃ Exi B)</code>.</p></div>
+<div class="box def"><span class="t">Kvantorszabályok (tábla, 9. hét)</span>
+<p>∀-bev: [x] ⊢ A(x) ⟹ ∀x A(x) (x friss, „sajátváltozó”); ∀-kik: ∀x A(x) ⟹ A[x/t]; ∃-bev: A[x/t] ⟹ ∃x A(x); ∃-kik: ∃x A(x) és [x, A(x)] ⊢ C ⟹ C (x nem szabad C-ben). Levezetésfa <i>∃x∀y A(x,y) ⊢ ∀y∃x A(x,y)</i>: ∃-kik x-re, ∀-kik y-ra, ∃-bev x tanúval, ∀-bev y-ra.</p></div>
+
+<h3 id="c8">C8. Beadandó- és ZH-túlélő: hibák, amiket a Coq dob, és mit jelentenek</h3>
+<ul>
+<li><i>Unable to unify</i> az <code>apply</code>-nál: a hipotézis konklúziója nem egyezik a céllal – nézd meg, nincs-e <code>unfold</code>-ra váró definíció, vagy előbb <code>simpl</code>.</li>
+<li><i>No product even after head-reduction</i> az <code>intros</code>-nál: a cél nem →/∀ alakú (pl. <code>~A</code> előtt <code>unfold not</code>).</li>
+<li><i>Not an inductive product</i> a <code>split</code>/<code>destruct</code>-nál: rossz alakú cél/hipotézis (pl. <code>≡</code> előbb <code>unfold seteq</code>).</li>
+<li><i>Attempt to save an incomplete proof</i>: maradt goal – <code>Qed</code> előtt minden ágat le kell zárni; ellenőrzés: <code>Show.</code></li>
+<li>A <code>Fixpoint</code>-nál <i>Cannot guess decreasing argument</i>: a rekurzió nem strukturális; adj <code>{struct t}</code>-t vagy írd át részkifejezésre.</li>
+<li><code>Admitted</code> a beadandóban = nincs pont; <code>auto/firstorder</code> sokat megold, de a ZH-n a kézi taktikasort vagy a levezetésfát kérhetik.</li>
+</ul>
+
+<h3 id="c9">C9. Önellenőrzés a Coq-logikából</h3>
+<details class="q"><summary>Cél: <code>A /\ B</code>; hipotézis: <code>H : B /\ A</code>. Taktikasor?</summary><p><code>destruct H as [Hb Ha]. split. - exact Ha. - exact Hb.</code> Term: <code>fun H =&gt; match H with conj b a =&gt; conj a b end</code>.</p></details>
+<details class="q"><summary>Cél: <code>A \/ B -&gt; B \/ A</code>.</summary><p><code>intros H. destruct H as [a | b]. - right. exact a. - left. exact b.</code></p></details>
+<details class="q"><summary>Mi a különbség <code>apply H</code> és <code>apply H in K</code> között?</summary><p>Az első visszafelé dolgozik a célon (a cél helyébe H premisszái), a második előre: K-t átalakítja H konklúziójává.</p></details>
+<details class="q"><summary>Mit jelent a <code>~ A</code>, és mivel kezded a bizonyítását?</summary><p><code>A -&gt; False</code>; <code>intro H</code> (esetleg előtte <code>unfold not</code>), a cél <code>False</code>.</p></details>
+<details class="q"><summary>Melyik igaz konstruktívan: <i>¬(A∨B)→¬A∧¬B</i> vagy <i>¬(A∧B)→¬A∨¬B</i>? Bizonyítsd az igazat.</summary><p>Az első. <code>intros H. split. - intro a. apply H. left. exact a. - intro b. apply H. right. exact b.</code> A második LEM-et igényel.</p></details>
+<details class="q"><summary>Bizonyítsd: <i>A → ¬¬A</i>.</summary><p><code>intros a H. apply H. exact a.</code> (¬¬A = (A→False)→False.)</p></details>
+<details class="q"><summary>Bizonyítsd Peirce szabályát a <code>(A \/ ~A)</code> feltétellel.</summary><p><code>intros L H. destruct L as [a | na]. - exact a. - apply H. intro a. contradiction.</code></p></details>
+<details class="q"><summary>Mi a különbség <code>Qed</code>, <code>Defined</code>, <code>Admitted</code> között?</summary><p>Qed: lezár, a term átlátszatlan; Defined: lezár, a term kiszámítható (program); Admitted: elfogadja bizonyítás nélkül (axióma).</p></details>
+<details class="q"><summary>Írd fel a <code>beta_reduce</code> definícióját és értékeld ki: <code>if (if tt ff tt) tt (if ff tt ff)</code>.</summary><p>Feltétel: <code>if tt ff tt</code> ⟹ <code>ff</code>; tehát az else-ág: <code>if ff tt ff</code> ⟹ <code>ff</code>. Eredmény <code>ff</code>. Kis lépésekben: → <code>if ff tt (if ff tt ff)</code> → <code>if ff tt ff</code> → <code>ff</code> (3 lépés; depth = 2, de a full_reduce a mélységgel korlátoz – itt is elég).</p></details>
+<details class="q"><summary>Mondd ki és vázold a gyenge normalizációs tételt.</summary><p>Minden termre <code>beta_reduce t</code> normálformájú (tt vagy ff). Indukció t szerint; konstansok triviálisak; if-ágban IHt1 két esete szerint rewrite, majd IHt2/IHt3.</p></details>
+<details class="q"><summary>Mit mond a <code>denote_beta</code> tétel és miért fontos?</summary><p><code>denote (beta_reduce A) = denote A</code>: az operacionális és a denotációs szemantika összhangban van (a futtatás nem változtat jelentést).</p></details>
+<details class="q"><summary>Sorold fel a Boole-algebra 10 axiómáját párokban.</summary><p>Assz. ∧/∨, komm. ∧/∨, diszt. ∧ over ∨ és ∨ over ∧, identitás x∧⊤=x, x∨⊥=x, komplementer x∧¬x=⊥, x∨¬x=⊤.</p></details>
+<details class="q"><summary>Hogyan bizonyítasz egy Boole-azonosságot saját kételemű típuson Coq-ban?</summary><p><code>intros. induction b1, b2, b3. all: compute. all: reflexivity.</code> – teljes esetszétválasztás (igazságtábla).</p></details>
+<details class="q"><summary>Definiáld a halmazokat típuselméletben és az ∪, ∩, ⊆, ≡ műveleteket.</summary><p><code>SetU U := U -&gt; Prop</code>; ∪: <code>fun x =&gt; A x \/ B x</code>; ∩: <code>/\</code>; ⊆: <code>forall x, A x -&gt; B x</code>; ≡: mindkét irányú ⊆.</p></details>
+<details class="q"><summary>Miért kell a <code>setequality_eq</code> axióma?</summary><p>Mert az elemenkénti egyenlőség (≡) nem azonos a Coq <code>=</code>-jével (extenzionalitás hiánya); nélküle a SetU nem Boole-algebra-példány.</p></details>
+<details class="q"><summary>Miért csak Heyting-algebra a Prop-értékű halmazoké?</summary><p>Konstruktív negációnál ¬¬A nem következik A-ra, a komplementer nem involúció, x∨¬x nem ⊤.</p></details>
+<details class="q"><summary>Bizonyítsd: <code>revertBinTree (revertBinTree t) = t</code>.</summary><p><code>induction t. - reflexivity. - simpl. rewrite IHt2. rewrite IHt1. reflexivity.</code></p></details>
+<details class="q"><summary>Mire való a <code>discriminate</code> és az <code>inversion</code>?</summary><p>discriminate: különböző konstruktorok egyenlőségéből (leaf = node …) ellentmondás; inversion: azonos konstruktorból az argumentumok egyenlősége.</p></details>
+<details class="q"><summary>Mi az <code>HTree n</code> és mit mond a <code>Height_lemma</code>?</summary><p>Magassággal indexelt fa (függő típus): Hleaf : HTree 0, Hnode : HTree n → HTree m → HTree (S (max n m)); Height n t = n.</p></details>
+<details class="q"><summary>Írd le a <code>Soundness1</code> tételt és a bizonyítás vázát.</summary><p><code>ASTDenote t v = ExpDenote (Translater2 t) v</code>; induction t; leaf: compute; node1: simpl, rewrite IH; node2: induction b (AND_c/OR_c), simpl, rewrite IHt1 IHt2.</p></details>
+<details class="q"><summary>Bizonyítsd: <i>(∃x∀y A x y) → ∀y∃x A x y</i>. Miért nem fordítva?</summary><p><code>intros H y. destruct H as [x Hx]. exists x. apply Hx.</code> Fordítva a tanú y-tól függhet, nem választható egyetlen x.</p></details>
+<details class="q"><summary>Prenex alak: <i>∀x(F x → ∃y M y)</i>.</summary><p><i>∀x∃y(F x → M y)</i> (y nem szabad F x-ben).</p></details>
+<details class="q"><summary>Írd fel <i>(∃x A) → B ≡ ∀x(A → B)</i> feltételét.</summary><p>x nem fordul elő szabadon B-ben.</p></details>
+<details class="q"><summary>Mit ír ki a <code>Show Proof</code> az <code>intros. apply H0. apply H. exact H1.</code> után az <i>(A→B)→(B→C)→A→C</i> lemmánál?</summary><p><code>fun A B C H H0 H1 =&gt; H0 (H H1)</code>.</p></details>
+<details class="q"><summary>Mi a Curry–Howard-megfeleltetés három sora?</summary><p>állítás ↔ típus; bizonyítás ↔ program (term); → ↔ függvénytípus, ∧ ↔ pár, ∨ ↔ összeg, ∀ ↔ függő függvény, ∃ ↔ függő pár.</p></details>
 
 <div class="box warn" id="logwarn"><span class="t">Figyelem – 2026-ban a logika rész más</span><p>Az L0–L6 fejezetek a 2016–2022-es klasszikus logika-ZH-kra épülnek (Simon András, Sági Gábor). 2026-ban a logikát Molnár Zoltán Gábor tartja Coq/Rocq-alapú, konstruktív megközelítéssel, ezért ezek a részek csak az alapfogalmakhoz (formula, modell, következmény, normálformák) használhatók háttérként; a ZH-ra a Coq-alapú anyagból kell készülni, amelyhez külön fejezet készül.</p></div>
 <h2 id="l0">L0. Logika rész: mit kérnek <label class="chk"><input type="checkbox" data-k="l0">kész</label></h2>
